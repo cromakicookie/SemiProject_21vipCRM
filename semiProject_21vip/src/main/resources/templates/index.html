@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/style.css}" type="text/css"/>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div th:include="~{/header :: head1}"></div>
+	<div class="main">
+		<img th:src="@{/img/dep_001.jpg}" class="img-fluid" alt="...">
+		<h1>메인페이지 입니다</h1>
+	</div>
+	
+	<script th:src="@{/bootstrap.bundle.js}"></script>
+</body>
+</html>
