@@ -1,0 +1,29 @@
+
+<header th:fragment="head1">
+	<div class="header">
+		<ul class="nav">
+		  <li class="flex-grow-1">
+		    <a class="header_icon" th:href="@{/}"><h1>21VIP SYSTEM</h1></a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" th:href="@{/employee}">사원관리</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">예약관리</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">일정관리</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" th:href="@{/login}">로그인</a>
+<!--	    <a th:if="${member.userId == null}" class="nav-link" th:href="@{/login}">로그인</a>
+		    <a th:if="${member.userId != null}" class="nav-link" th:href="@{/logout}">로그아웃</a>
+-->
+		  </li>
+		  <li class="mypageIcon">
+		    <a class="nav-link" th:href="@{/mypage}"><img th:src="@{/img/user_icon.png}"></a>
+		  </li>
+		</ul>
+	</div>
+	<div class="head_bottom"></div>
+</header>
