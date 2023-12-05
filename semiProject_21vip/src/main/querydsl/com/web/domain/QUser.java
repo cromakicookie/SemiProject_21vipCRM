@@ -19,7 +19,21 @@ public class QUser extends EntityPathBase<User> {
 
     public static final QUser user = new QUser("user");
 
-    public final DateTimePath<java.util.Date> userBirth = createDateTime("userBirth", java.util.Date.class);
+    public final QBaseEntity _super = new QBaseEntity(this);
+
+    //inherited
+    public final StringPath createBy = _super.createBy;
+
+    //inherited
+    public final DateTimePath<java.util.Date> createDate = _super.createDate;
+
+    //inherited
+    public final StringPath modifyBy = _super.modifyBy;
+
+    //inherited
+    public final DateTimePath<java.util.Date> modifyDate = _super.modifyDate;
+
+    public final StringPath userBirth = createString("userBirth");
 
     public final StringPath userDept = createString("userDept");
 
@@ -31,15 +45,7 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath userPw = createString("userPw");
 
-    public final DateTimePath<java.util.Date> userRegisterDate = createDateTime("userRegisterDate", java.util.Date.class);
-
-    public final StringPath userRegisterId = createString("userRegisterId");
-
-    public final StringPath userRole = createString("userRole");
-
-    public final DateTimePath<java.util.Date> userUpdateDate = createDateTime("userUpdateDate", java.util.Date.class);
-
-    public final StringPath userUpdateId = createString("userUpdateId");
+    public final EnumPath<Role> userRole = createEnum("userRole", Role.class);
 
     public QUser(String variable) {
         super(User.class, forVariable(variable));
