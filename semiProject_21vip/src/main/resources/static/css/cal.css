@@ -30,7 +30,7 @@ table, tr, td{
 }
 
 
-ul {
+.card-body > ul {
     list-style-type: none;
     list-style: none;
     line-height: 1.7rem;
@@ -90,4 +90,8 @@ input {
 .card-body > img {
     width: 100%;
     height: 10%;
+}
+
+.fc-scrollgrid {
+	margin-left: 0;
 }
