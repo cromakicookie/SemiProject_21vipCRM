@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/css/customerPage_style.css}" type="text/css"/>
   </head>
-    <title>CustomerPage</title>
+    <title>CustomerMain</title>
   </head>
   <body >
 	<!-- JS -->
@@ -34,31 +34,6 @@
           	<i class='bx bx-search' onclick="searchCustomerNum()"></i>
           </form>
         </nav>
-        
-        
-
-<!-- $(document).ready(function() {
-    // AJAX 요청
-    $.ajax({
-        url: '',
-        method: 'GET',
-        success: function(data) {
-            // 데이터가 있을 때
-            if (data.length > 0) {
-                // 테이블 보이기
-                $('.customer_info').show();
-                // TODO: 데이터를 테이블에 추가하는 로직 작성
-            } else {
-                // 데이터가 없을 때
-                // 테이블 숨기기
-                $('.customer_info').hide();
-            }
-        },
-        error: function(error) {
-            console.error('AJAX 요청 에러:', error);
-        }
-    });
-}); -->
 
         <table class="customer_info" >
           <caption>고객 기본정보</caption>
@@ -87,11 +62,6 @@
             <td>1992.01.18</td>
           </tr>
         </table>
-        
-                
-        <a th:href="@{/insertCustomer}">고객 등록</a>
-
-
       </aside>
         
 

@@ -29,9 +29,13 @@
 
       <aside>
         <nav>
-          <input type="text" name="customer_number" placeholder="  검색..." />
-          <i class='bx bx-search' onclick="SearchCustomerNum()" ></i>
+		  <form action="searchCustomer" id="searchCustomerNum" method="post"> 
+          	<input type="text" name="customer_number" placeholder="  검색..." />
+          	<i class='bx bx-search' onclick="searchCustomerNum()"></i>
+          </form>
         </nav>
+        
+        
 
 <!-- $(document).ready(function() {
     // AJAX 요청
@@ -83,6 +87,9 @@
             <td>1992.01.18</td>
           </tr>
         </table>
+        
+                
+        <a th:href="@{/insertCustomer}">고객 등록</a>
 
 
       </aside>
