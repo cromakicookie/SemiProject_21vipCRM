@@ -1,5 +1,9 @@
 package com.web.persistence;
 
-public class MainRepository {
+import org.springframework.data.repository.CrudRepository;
+
+import com.web.domain.User;
+
+public interface MainRepository extends CrudRepository<User, String>{
 
 }

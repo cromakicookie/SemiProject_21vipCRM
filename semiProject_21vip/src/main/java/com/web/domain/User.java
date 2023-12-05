@@ -14,13 +14,21 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name="USER")
+@Table(name="COM_USER")
 public class User {
 
 	@Id
 	private String userId;
+	private String userPw;
 	private String userName;
 	private Date userBirth;
-	
+	private String userDept;
+	private String userRole;
+	private String userFile;
+	private String userRegisterId;
+	private Date userRegisterDate;
+	private String userUpdateId;
+	private Date userUpdateDate;
+
 	
 }
