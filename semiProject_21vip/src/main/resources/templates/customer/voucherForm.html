@@ -6,19 +6,19 @@
     <title>VoucherInsert</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet"/>
     <!-- css 연결 -->
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/css/voucherForm.css}" type="text/css"/>
   </head>
   <body>
-    <script type="text/javascript" src="js/voucherForm.js"></script>
-
-    <section>
+	<!--JS-->
+    <script th:src="@{/js/voucherForm.js}" type="text/javascript"></script>
+   
+    <section class="voucherForm">
       <p class="sectionHeader">바우처 등록</p>
 
-      <form action="voucherInsert" id="voucherForm">
+	  <form th:action="@{/voucherInsert}" method="post">
         <table>
           <tr>
             <th>순번</th>
