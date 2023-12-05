@@ -1,0 +1,85 @@
+.row.row-cols-1.row-cols-md-2{ 
+    border-radius: 10px;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.col.col-1{
+    width: 30%;
+}
+
+.col.col-2 {
+    width: 68%;
+}
+
+.card {
+    background-color: #f9f9f9; 
+}
+
+body{
+    background-color: #d9d9d9;
+}
+
+table, tr, td{
+    text-align: left;
+}
+
+.img-right, .img-bottom {
+    list-style: none;
+    line-height: 2.5rem;
+    margin-top: 5px;
+    padding-left:0; 
+    margin-left:1rem;
+}
+.img-bottom {
+    margin-top: 1rem;
+}
+
+.img {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.img > img {
+    margin-left: 1rem;
+    border-radius: 70%
+}
+
+.card-title {
+    font-size: 23px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.card-title > span {
+    font-size: 15px;
+    float: right;
+}
+
+.card-title > span > input {
+    border: none;
+    background-color: #f9f9f9;
+}
+
+input {
+    height: 24px;
+}
+.col.col-1 > .card {
+    height: 380px;
+}
+
+.fc .fc-daygrid-day-top {
+    display: flex;
+    flex-direction: row;
+}
+
+.fc .fc-daygrid-day-top > a {
+    text-decoration: none;
+    color: black;
+}
+
+.fc-scrollgrid-sync-inner > a {
+    text-decoration: none;
+    color: black;
+}
