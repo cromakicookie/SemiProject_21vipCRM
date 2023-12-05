@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/Reservestyle.css}" type="text/css"/>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+
+  <script src="../js/Reservation.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약 추가 페이지</title>
+</head>
+<body>
+
+    <div th:include="main/header :: head1"></div>
+    
+        <main>
+          <aside>
+            <div class="search">
+           <input type="text" name="customer_number" placeholder="  고객번호 검색..."/>
+            <i class='bx bx-search' onclick="SearchCustomerNum()" ></i>
+           <!-- <button type="button" class="btn btn-dark" onclick="SearchCustomerNum()">조회</button> -->
+           <br/>
+           </div>
+           <div class="sidebar">정렬
+              <ul>
+                <li><a href="#">고객번호</a></li>  
+                <li><a href="#">예약일자</a></li> 
+                <li><a href="#">브랜드명</a></li>
+              </ul>
+           </div>
+          </aside>
+
+        <section class="servicePage">
+          <p class="sectionHeader">명품관 서비스 예약 등록</p>
+          <hr>
+          <table class="listTable">
+            <form th:action="@{/reservationResult}" name="ReservationForm" method="post">    
+             
+                <tr>
+                  <td>
+                   <label for="customerNum">고객번호</label>
+                   <input type="text" id="customerNum" name="customerNum"><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                  <label for="luxuryBrandName">브랜드명</label>
+                  <select id="luxuryBrandName" name="luxuryBrandName">
+                      <option value="none">브랜드를 선택해주세요</option>
+                      <option value="Hermes">Hermes</option>
+                      <option value="Prada">Prada</option>
+                      <option value="Gucci">Gucci</option>
+                      <option value="Burberry">Burberry</option>
+                      <option value="Louis Vuitton">Louis Vuitton</option>
+                  </select>
+                </td>
+                </tr>
+                  <br>
+                <tr>
+                  <td>
+                  <label for="luxuryDate">예약일자</label>
+                  <input type="date" id="luxuryDate" name="luxuryDate"><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                  <label for="luxuryTime">예약시간</label>
+                  <input type="time" id="luxuryTime" name="luxuryTime"><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                  <label for="luxuryName">고객명</label>
+                  <input type="text" id="luxuryName" name="luxuryName"><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                  <label for="luxuryHeadCount">참여인원</label>
+                  <input type="number" id="luxuryHeadCount" name="luxuryHeadCount" min="1"><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                  <label for="luxuryPhone">휴대폰번호<i class='bx bxs-phone' ></i></label>
+                  <input type="text" id="luxuryPhone" name="luxuryPhone" oninput="oninputPhone(this)" maxlength="14" placeholder="전화번호를 입력해주세요"><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                  <input type="button" value="예약 완료" onclick="insertMessage()">
+                  </td>
+                </tr>
+            </form>
+          </table>
+        </section>
+    </main>
+
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
