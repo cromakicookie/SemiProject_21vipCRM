@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VoucherInsert</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <!-- css 연결 -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css"/>
+    <link rel="stylesheet" href="css/voucherForm.css" />
+  </head>
+  <body>
+    <script type="text/javascript" src="js/voucherUpdateForm.js"></script>
+
+    <section>
+      <p class="sectionHeader">바우처 정보 수정</p>
+
+      <form action="voucherInsert" id="voucherForm">
+        <table>
+          <tr>
+            <th>순번</th>
+            <th>타입</th>
+            <th>테마명</th>
+            <th>서비스명</th>
+            <th id="num">일련번호</th>
+            <th>사용기한</th>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" id="rowNum" name="rownum" value="1" readonly />
+            </td>
+
+            <td>
+              <select id="type" name="type" required>
+                <option value="option1">S</option>
+                <option value="option2">A</option>
+                <option value="option2">B</option>
+                <option value="option2">G</option>
+              </select>
+            </td>
+
+            <td>
+              <select id="service" name="service" required>
+                <option value="service1">서비스 1</option>
+                <option value="service2">서비스 2</option>
+                <!-- 추가적인 옵션들을 필요에 따라 추가 -->
+              </select>
+            </td>
+            <td>
+              <select id="theme" name="theme" required>
+                <option value="theme1">테마 1</option>
+                <option value="theme2">테마 2</option>
+                <!-- 추가적인 옵션들을 필요에 따라 추가 -->
+              </select>
+            </td>
+            <td id="num">
+              <input
+                type="text"
+                name="serialNumber1"
+                size="4"
+                maxlength="4"
+                required
+              />
+              -
+              <input
+                type="text"
+                name="serialNumber2"
+                size="4"
+                maxlength="4"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                id="expirationDate"
+                name="expirationDate"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="6" id="btn_insert">
+              <button type="button" onclick="voucherUpdate()">수정</button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </section>
+  </body>
+</html>
