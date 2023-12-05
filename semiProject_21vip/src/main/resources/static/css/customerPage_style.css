@@ -12,54 +12,6 @@ body {
   background-color: #d9d9d9;
 }
 
-/* 아현헤더 */
-
-.header {
-  width: 100%;
-  height: 80px;
-  background-color: #5b5b5b;
-  overflow: hidden;
-}
-
-.head_bottom {
-  width: 100%;
-  height: 13px;
-  background-color: #b592ff;
-}
-
-.header_icon {
-  color: aliceblue;
-}
-
-.header_icon:hover {
-  text-decoration: none;
-  color: aliceblue;
-}
-
-.header_icon h1 {
-  margin: 13px;
-}
-
-.nav-item {
-  text-align: right;
-  padding: 19px;
-  font-size: 20px;
-}
-
-.nav-item:hover {
-  background-color: #b592ff;
-}
-
-.nav-link {
-  color: #d9d9d9;
-}
-
-.nav-link:hover,
-.nav-link:active {
-  color: #d9d9d9;
-}
-
-/* 헤더끝 */
 
 main {
   display: flex;
