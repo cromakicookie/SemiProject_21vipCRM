@@ -1,13 +1,20 @@
-function insertVoucher() {
-  // 새 창 열기
-  window.open("/voucherForm.html", "_blank", "width=800,height=400");
+//고객번호로 검색
+function searchCustomerNum(){
+	document.getElementById('searchCustomerNum').submit();
 }
 
+//바우처 등록
+function insertVoucher() {
+  window.open("voucherForm", "_blank", "width=800,height=400");
+}
+
+//바우처 수정
 function updateVoucher() {
   // 폼 제출 로직 추가
-  window.open("../voucherUpdateForm.html", "_blank", "width=800,height=400");
+  window.open("voucherUpdateForm", "_blank", "width=800,height=400");
 }
 
+//바우처 삭제
 function deleteVoucher() {
   // 폼 제출 로직 추가
   var result = confirm("정말 삭제하시겠습니까?");
