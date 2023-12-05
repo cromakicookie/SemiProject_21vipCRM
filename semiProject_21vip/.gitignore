@@ -122,5 +122,11 @@ $RECYCLE.BIN/
 ### VS Code ###
 .vscode/
 
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+pom.properties
+application.properties
+
+
 # End of https://www.toptal.com/developers/gitignore/api/java,windows,eclipse
 

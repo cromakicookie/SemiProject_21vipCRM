@@ -1,0 +1,260 @@
+@charset "UTF-8";
+
+*{
+	padding: 0;
+	margin: 0;
+	font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+body{
+	display: flex;
+	align-items: stretch;
+	flex-direction: column;
+	height: 100vh;
+	margin: 0;
+	background-color: #d9d9d9;
+}
+	
+
+.header{
+	width: 100%;
+	height: 80px;
+	background-color: #5b5b5b;
+	overflow: hidden;
+}
+
+.head_bottom{
+	width: 100%;
+	height: 13px;
+	background-color: #b592ff;
+}
+
+.header img{
+	width: 30px;
+}
+
+
+.header_icon{
+	color:aliceblue;
+	text-decoration: none;
+	font-weight: 900;
+}
+
+.header_icon:hover{
+	text-decoration: none;
+	color:aliceblue;
+	font-weight: bold;
+}
+
+.header_icon h1{
+	margin: 13px;
+}
+
+.nav-item{
+	text-align: right;
+	padding: 19px;
+	font-size: 20px;
+}
+
+.nav-item a {
+          text-decoration: none;
+          font-weight: bold;
+        }
+
+.nav-item:hover{
+	background-color: #b592ff;
+}
+
+.mypageIcon{
+	margin: 20px 30px;
+}
+
+.nav-link{
+	color: #d9d9d9;
+}
+
+.nav-link:hover, .nav-link:active{
+	color: #d9d9d9;
+}
+
+.main{
+	margin: 30px;
+	height: 700px;
+	text-align: center;
+	border-radius: 10px;
+	background-color: #fcfcfc;
+}
+
+.carousel-inner{
+	margin: 80px auto 30px;
+	width: 850px;
+	height: 430px;
+}
+
+
+.loginForm{
+	width: 550px;
+	height: 300px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	border-radius: 10px;
+	background-color: #fcfcfc;
+}
+
+.loginForm th{
+	font-size: 20px;
+	text-align: center;
+}
+
+.loginForm th, .loginForm td{
+	padding: 12px;
+}
+
+.loginForm input{
+	background-color: #ededed;
+	border: none;
+  	width: 100%;
+  	padding: 9px;
+}
+
+.login_submit{
+	background-color: #b592ff;
+}
+
+.loginForm a{
+	color: rgb(164, 164, 164);
+	text-decoration: none;
+}
+
+
+.logout{
+	width: 1000px;
+	height: 300px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	border-radius: 10px;
+	background-color: #fcfcfc;
+}
+
+.findIdPw{
+	margin: 30px auto;
+	width: 500px;
+	height: 700px;
+	text-align: center;
+	border-radius: 10px;
+	background-color: #fcfcfc;
+}
+
+.findIdPw table{
+	margin: 40px 80px;
+	text-align: center;
+}
+
+.findIdPw p{
+	margin: 15px;
+	text-align: left;
+	font-size: 23px;
+	font-weight: bold;
+}
+
+.findIdPw th{
+	font-size: 20px;
+	text-align: center;
+}
+
+.findIdPw th, .findIdPw td{
+	padding: 12px;
+}
+
+.findIdPw input{
+	background-color: #ededed;
+	border: none;
+  	width: 100%;
+  	padding: 9px;
+}
+
+.findIdPw .submit{
+	border-radius: 15px;
+	width: 100px;
+}
+
+.register{
+	margin: 30px auto;
+	width: 700px;
+	height: 700px;
+	text-align: center;
+	border-radius: 10px;
+	background-color: #fcfcfc;
+}
+
+.register table{
+	margin: 40px auto;
+	text-align: center;
+}
+
+.register p{
+	margin: 15px;
+	text-align: left;
+	font-size: 23px;
+	font-weight: bold;
+}
+
+.register th{
+	font-size: 20px;
+}
+
+.register th, .register td{
+	padding: 12px;
+}
+
+.register input, .register select{
+	background-color: #fcfcfc;
+	border-color: #d9d9d9;
+	border-left:0;
+	border-right:0;
+	border-top: 0;
+	border-bottom: 1;
+  	width: 100%;
+  	padding: 9px;
+}
+
+
+.register input:focus{
+	border-color: #d9d9d9;
+	outline: none;
+}
+
+.idCheck{
+	color: rgb(164, 164, 164);
+	text-decoration: none;
+	width: 50px;
+}
+
+.register .submit{
+	background-color: #ededed;
+	border: none;
+	border-radius: 15px;
+	width: 100px;
+}
+
+.employeeManage{
+	margin: 30px auto;
+	width: 900px;
+	height: 700px;
+	text-align: center;
+	border-radius: 10px;
+	background-color: #fcfcfc;
+}
+
+.employee{
+	margin: 30px auto;
+	border: 1px solid #ddd;
+	width: 500px;
+}
+
