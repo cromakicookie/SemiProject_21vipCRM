@@ -27,7 +27,7 @@ public class ReserveSortController {
 	private LuxuryPageRepository luxuryPageRepo;
 	
 	@GetMapping("/reservation")
-	public String reservation(Model model, @PageableDefault(page = 0, size = 5, sort = "luxurySeq", direction = Direction.ASC)
+	public String reservation(Model model, @PageableDefault(page = 0, size = 2, sort = "luxurySeq", direction = Direction.ASC)
 								Pageable pageable, String searchKeyword) {
 		Page<Luxury> list;
 		if(searchKeyword != null) {

@@ -32,6 +32,17 @@ public class LuxuryServiceImpl implements LuxuryService {
 	public Page<Luxury> PageList(Pageable pageable) {
 		return luxuryPageRepo.findAll(pageable);
 	}
+
+	@Override
+	public Luxury luxuryView(long luxurySeq) {
+		return luxuryRepo.findById(luxurySeq).get();
+	}
+
+	@Override
+	public void luxuryDelete(long luxurySeq) {
+		luxuryRepo.deleteById(luxurySeq);
+	}
+
 	
 	
 

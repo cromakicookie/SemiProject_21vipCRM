@@ -4,14 +4,8 @@ function deleteReservation() {
     // 실제로 삭제하는 코드 또는 삭제 요청을 서버로 보내는 코드 등을 추가해야 합니다.
 }
 // Reservation
-function confirmDeleteReservation() {
-    // confirm 메서드를 사용하여 사용자에게 확인을 받는 알림창을 띄웁니다.
-    var isConfirmed = confirm("예약을 삭제하시겠습니까?");
-
-    // 사용자가 확인을 눌렀을 때만 삭제 함수를 호출합니다.
-    if (isConfirmed) {
-        deleteReservation();
-    }
+function luxurydelete() {
+	alert("삭제되었습니다.");
 }
 // Reservation
 function refreshPage() {
@@ -25,7 +19,7 @@ function SearchCustomerNum() {
 }
 
 
-// ReservationInsert 등록 폼 유효성검사
+// 등록 폼 유효성검사
 function insertMessage() {
 	if(document.ReservationForm.customerNum.value == "") {
 		alert("고객번호를 입력해주세요.");
@@ -54,6 +48,39 @@ function insertMessage() {
 	}
     
 }
+
+// 수정폼 유효성 검사
+function UpdateMessage() {
+	if(document.ReservationUpdateForm.customerNum.value == "") {
+		alert("고객번호를 입력해주세요.");
+		document.ReservationUpdateForm.customerNum.focus();
+	} else if(document.ReservationUpdateForm.luxuryBrandName.value == "none") {
+		alert("브랜드를 선택해주세요.");
+		document.ReservationUpdateForm.luxuryBrandName.focus();
+	} else if(document.ReservationUpdateForm.luxuryDate.value == "") {
+		alert("예약일자를 입력해주세요.");
+		document.ReservationUpdateForm.luxuryDate.focus();
+	} else if(document.ReservationUpdateForm.luxuryTime.value == "") {
+		alert("예약시간을 입력해주세요.");
+		document.ReservationUpdateForm.luxuryTime.focus();
+	} else if(document.ReservationUpdateForm.luxuryName.value == "") {
+		alert("고객명을 입력해주세요.");
+		document.ReservationUpdateForm.luxuryName.focus();
+	} else if(document.ReservationUpdateForm.luxuryHeadCount.value == "") {
+		alert("참여인원을 입력해주세요.");
+		document.ReservationUpdateForm.luxuryHeadCount.focus();
+	} else if(document.ReservationUpdateForm.luxuryPhone.value == "") {
+		alert("전화번호를 입력해주세요.");
+		document.ReservationUpdateForm.luxuryPhone.focus();
+	} else {
+		alert("에약등록이 완료되었습니다.")
+    	document.ReservationUpdateForm.submit();
+	}
+}
+
+
+
+
 
 function oninputPhone(target) {
     target.value = target.value.replace(/[^0-9]/g, '')
