@@ -39,7 +39,8 @@
 		<div class="customer_info"> 
 		    <table class="customer_info_table">
 	         <caption>고객 기본정보</caption>
-	          <tr>
+	         <tbody th:if="${check==1}" >
+			  <tr>
 	            <td>- 고객번호</td>
 	            <td th:text="${customer.customerNum}"></td>
 	          </tr>
@@ -59,7 +60,20 @@
 	            <td>- 생일</td>
 	            <td th:text="${customer.customerBirth}"></td>
 	          </tr>
+	          <p th:text="${customer}"></p>
+	          
+			 </tbody>
+      
+     		<tbody th:if="${customer==null}">
+			  <tr>
+                <td colspan="2">
+                    <p>고객 정보가 없습니다.</p>
+                </td>
+            	</tr>	   
+		   	</tbody>
+	          
 	        </table>
+    		
 		</div>
                 
         <a th:href="@{/insertCustomer}">고객 등록</a>
@@ -193,10 +207,12 @@
       <section class="customer_memo">
         <p class="sectionHeader">특이사항 입력</h2>
         <hr>
-        <form action="memoInsert" method="post">
-          <textarea rows="7" cols="37"></textarea>
+        <form th:action="@{memoInsert}" method="post">
+		<!--고객번호 정보-->
+		  <input type="text" th:name="customerNum" th:value="${customer.customerNum}"/>		
+          <textarea name="memoContent" id="memoContent" rows="7" cols="37"></textarea>
           <br/>
-          <div class="btn_memo"><input type="button" value="저 장"></div>
+          <input type="submit" value="저 장">
         </form>
         <br/><br/>
       
@@ -219,12 +235,6 @@
                 <input class="check_important" type="checkbox" value="important" id="checkImportant">
               </td>
               <td class="col_content">00</td>
-            </tr>
-            <tr>
-              <td class="col_important">
-                <input class="check_important" type="checkbox" value="important" id="checkImportant">
-              </td>
-              <td class="col_content">ssssssss</td>
             </tr>
           </tbody>
         </table>
