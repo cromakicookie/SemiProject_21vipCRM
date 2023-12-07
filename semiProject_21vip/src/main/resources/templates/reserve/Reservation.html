@@ -11,35 +11,15 @@
 </head>
 <body>
 
- <!-- <header th:fragment="head1">
-    <div class="header">
-      <ul class="nav">
-        <li class="flex-grow-1">
-          <a class="header_icon" th:href="@{/}"><h1>21VIP SYSTEM</h1></a>
-        </li>
-        <li class="nav-item1">
-          <a class="nav-link1 active" aria-current="page" href="#">예약관리</a>
-        </li>
-        <li class="nav-item1">
-          <a class="nav-link1" href="#">일정관리</a>
-        </li>
-        <li class="nav-item1">
-          <a class="nav-link1" th:href="@{/login}">로그인</a>
-        </li>
-        <li class="nav-item1">
-          <a class="nav-link1" th:href="@{/logout}">로그아웃</a>
-        </li>
-      </ul>
-    </div>
-    <div class="head_bottom"></div>
-  </header>-->
+
 	<div th:include="main/header :: head1"></div>
     <main>
         <aside>
+			<form name="searchForm" method="get" th:action="reservation">
             <div class="search">
-           <input type="text" name="customer_number" placeholder="  고객번호 검색..."/>
+           <input type="text" name="searchKeyword" placeholder="  고객번호 검색..."/>
             <i class='bx bx-search' onclick="SearchCustomerNum()" ></i>
-           <!-- <button type="button" class="btn btn-dark" onclick="SearchCustomerNum()">조회</button> -->
+            </form>
            <br/>
            <div class="sidebar">정렬
               <ul>
@@ -53,12 +33,14 @@
         <section class="servicePage">
           <p class="sectionHeader">명품관 서비스 예약 리스트</p>
            <hr>
+           <div th:if="${not list.empty}">총 예약목록 수 : <span th:text="${list.totalElements}"></span></div>
+           <div th:if="${list.empty}">총 예약목록 수 : 없음<span></span></div>
           <ul class="nav justify-content-end">
             <li class="nav-item">
               <a class="nav-link reslist" aria-current="page" th:href="@{/ReservationInsert}">예약 추가</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link reslist" href="" onclick="refreshPage()">새로고침</a>
+              <a class="nav-link reslist" th:href="@{/reservation}">새로고침</a>
             </li>
           </ul>
             <table class="table align-middle table-bordered text-center table-striped table-hover table caption-top">
@@ -79,40 +61,32 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td scope="row">1</td>
-                <td>0001</td>
-                <td>샤넬</td>
-                <td>2023.12.20</td>
-                <td>14:00</td>
-                <td>김지혜</td>
-                <td>3</td>
-                <td>010-3688-2027</td>
-                <td>머나</td>
-                <td>머시기</td>
+              <tr th:each="list : ${list}">
+                <td th:text="${list.luxurySeq}"></td>
+                <td th:text="${list.customerNum}"></td>
+                <td th:text="${list.luxuryBrandName}"></td>
+                <td th:text="${list.luxuryDate}"></td>
+                <td th:text="${list.luxuryTime}"></td>
+                <td th:text="${list.luxuryName}"></td>
+                <td th:text="${list.luxuryHeadCount}"></td>
+                <td th:text="${list.luxuryPhone}"></td>
+                <td th:text="${list.createBy}"></td>
+                <td th:text="${list.createDate}"></td>
                 <td>
-                  <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='./Reservationupdate.html'">수정</button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmDeleteReservation()">삭제</button>
-                </td>
-              </tr>
-              <tr>
-                <td scope="row">2</td>
-                <td>0001</td>
-                <td>샤넬</td>
-                <td>2023.12.20</td>
-                <td>14:00</td>
-                <td>김지혜</td>
-                <td>3</td>
-                <td>010-3688-2027</td>
-                <td>머나</td>
-                <td>머시기</td>
-                <td>
-                  <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='./Reservationupdate.html'">수정</button>
+                  <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='Reservationupdate.html'">수정
+					  <input type="hidden" value="${list.luxurySeq}">
+				  </button>
                   <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmDeleteReservation()">삭제</button>
                 </td>
               </tr>
             </tbody>
+            
           </table>
+          <th:block th:if="${not list.empty}" th:each="page : ${#numbers.sequence(startPage, endPage)}">
+			  <a th:if="${page != nowPage}" th:href="@{/reservation(page=${page-1},searchKeyword=${param.searchKeyword})}" th:text="${page}" style="text-decoration: none;"></a>
+			  <strong th:if="${page == nowPage}" th:text="${page}" style="color: red;"></strong>
+			  
+		  </th:block>
         </section>
 
     </main>

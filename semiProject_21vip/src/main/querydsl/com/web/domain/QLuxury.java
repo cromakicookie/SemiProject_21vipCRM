@@ -27,7 +27,7 @@ public class QLuxury extends EntityPathBase<Luxury> {
     //inherited
     public final DateTimePath<java.util.Date> createDate = _super.createDate;
 
-    public final NumberPath<Long> customerNum = createNumber("customerNum", Long.class);
+    public final StringPath customerNum = createString("customerNum");
 
     public final StringPath luxuryBrandName = createString("luxuryBrandName");
 
