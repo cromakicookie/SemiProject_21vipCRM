@@ -29,39 +29,15 @@
 
       <aside>
         <nav>
-		  <form action="searchCustomer" id="searchCustomerNum" method="post"> 
-          	<input type="text" name="customer_number" placeholder="  검색..." />
-          	<i class='bx bx-search' onclick="searchCustomerNum()"></i>
+		   <form th:action="@{/searchCustomer}" id="searchCustomerNum" method="post">
+          	<input type="text" id="customerNum" name="customerNum" placeholder="  검색..." />
+          	<input type="button" onclick="searchCustomerNum()" value="검색"/>
+          <!--	<i class='bx bx-search' onclick="searchCustomerNum()"></i>-->
           </form>
         </nav>
-
-        <table class="customer_info" >
-          <caption>고객 기본정보</caption>
-          <tr>
-            <td>- 고객번호</td>
-            <td>12345</td>
-          </tr>
-
-          <tr>
-            <td>- 성명</td>
-            <td>백주승</td>
-          </tr>
-    
-          <tr>
-            <td>- 등급</td>
-            <td>BK</td>
-          </tr>
-    
-          <tr>
-            <td>- 주 이용점</td>
-            <td>판교점</td>
-          </tr>
-    
-          <tr>
-            <td>- 생일</td>
-            <td>1992.01.18</td>
-          </tr>
-        </table>
+      
+      <a th:href="@{/insertCustomer}">고객 등록</a>
+      
       </aside>
         
 
