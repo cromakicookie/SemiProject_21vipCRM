@@ -27,7 +27,7 @@ import lombok.ToString;
 public class File extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FILE_SEQ_GENERATOR")
-	private String fileNumber;
+	private Long fileNumber;
 	private String fileName;
 	private String fileRoot;
 }
