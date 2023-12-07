@@ -20,12 +20,12 @@ $(document).ready(function() {
 		selectMirror: true,
 		eventStartEditable: true,
 		eventDurationEditable: true,
-		eventDataTransform: function(data){
-			
+		eventDataTransform: function(data) {
+
 		},
 		select: function(arg) {
-			$("#start").val(arg.start);
-			$("#end").val(arg.end);
+			$("#start").val(moment(arg.start).format('YYYY-MM-DD'));
+			$("#end").val(moment(arg.end).format('YYYY-MM-DD'));
 			$("#myModal").modal('show');
 			calendar.unselect()
 		},
@@ -33,7 +33,27 @@ $(document).ready(function() {
 			console.log(arg.event.id);
 			$.ajax({
 				type: "GET",
-				url: "/calendar/event/" + arg.event.id
+				url: "/calendar/event/" + arg.event.id,
+				success: function(data) {
+					console.log(data);
+					let str = "";
+					str += "<ul>";
+					str += "<li>제목 : " + data.title + "</li>";
+					str += "<li>번호 : " + data.id + "</li>";
+					str += "<li>일시 : " + data.start + " ~ " + data.end + "</li>";
+					str += "<li>타입 : " + data.eventType + "</li>";
+					str += "<li>내용 : " + "</li>";
+					str += "<li>" + data.eventContent + "</li>";
+					str += "</ul>"
+					if(data.file != null){
+						str+="<img src='"+data.file.fileRoot+"' >";
+					}
+
+					$("#card-text").html(str);
+				},
+				error: function(error) {
+					console.error('Error:', error);
+				}
 			})
 		}
 	});
@@ -45,11 +65,4 @@ function submitForm() {
 	$("#modalForm").submit();
 }
 
-// 서버에서 받은 데이터를 JavaScript 변수로 가져오기
-    var calendarData = /*[(${selectCal})]*/ null;
 
-    // 데이터를 이용하여 필요한 작업 수행
-    if (calendarData !== null) {
-        // 예제: 콘솔에 데이터 출력
-        console.log('Received data:', calendarData);
-    }
