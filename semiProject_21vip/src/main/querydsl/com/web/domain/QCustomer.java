@@ -24,17 +24,20 @@ public class QCustomer extends EntityPathBase<Customer> {
     //inherited
     public final StringPath createBy = _super.createBy;
 
-    public final DateTimePath<java.util.Date> createDate = createDateTime("createDate", java.util.Date.class);
+    //inherited
+    public final DateTimePath<java.util.Date> createDate = _super.createDate;
 
-    public final DateTimePath<java.util.Date> customerBirth = createDateTime("customerBirth", java.util.Date.class);
+    public final StringPath customerBirth = createString("customerBirth");
 
     public final StringPath customerGender = createString("customerGender");
 
     public final StringPath customerGrade = createString("customerGrade");
 
+    public final StringPath customerHP = createString("customerHP");
+
     public final StringPath customerName = createString("customerName");
 
-    public final NumberPath<Long> customerNum = createNumber("customerNum", Long.class);
+    public final StringPath customerNum = createString("customerNum");
 
     public final StringPath favoriteStore = createString("favoriteStore");
 

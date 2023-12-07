@@ -34,21 +34,14 @@
             </td>
 
             <td>
-              <select id="type" name="type" required>
-                <option value="option1">S</option>
-                <option value="option2">A</option>
-                <option value="option2">B</option>
-                <option value="option2">G</option>
-              </select>
+           	<select id="type" name="type" onchange="updateServiceOptions()" required>
+			    <option value="S">S</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="G">G</option>
+			</select>
             </td>
-
-            <td>
-              <select id="service" name="service" required>
-                <option value="service1">서비스 1</option>
-                <option value="service2">서비스 2</option>
-                <!-- 추가적인 옵션들을 필요에 따라 추가 -->
-              </select>
-            </td>
+                    
             <td>
               <select id="theme" name="theme" required>
                 <option value="theme1">테마 1</option>
@@ -56,6 +49,13 @@
                 <!-- 추가적인 옵션들을 필요에 따라 추가 -->
               </select>
             </td>
+
+            <td>
+              <select id="service" name="service" required>
+                <!-- 추가적인 옵션들을 필요에 따라 추가 -->
+              </select>
+            </td>
+   
             <td id="num">
               <input
                 type="text"

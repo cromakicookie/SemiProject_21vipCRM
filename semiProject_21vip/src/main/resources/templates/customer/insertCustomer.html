@@ -10,10 +10,11 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<style>
 		
-		section {
+		.register_customer {
 		  width: 700px;
 		  height: 700px;
-		  padding: 20px 30px;
+		  padding: 50px 30px;
+		  margin: 30px auto;
 		  border: 1px solid #ddd;
 		  border-radius: 10px;
 		  background-color: #f9f9f9;
@@ -30,29 +31,42 @@
 		}
 		
 		.customerInsertTable {
-		  margin-top: 20px;
+		  margin-top: 30px;
 		  border-collapse: collapse;
+		  align-items: center;
+		  justify-content: center;
+		  display: flex;
+		  
 		}
 		
 		.customerInsertTable td,
-		.customerInsertTable th {
+		.customerInsertTable tr {
 		  border: 1px solid #d9d9d9;
 		  padding: 13px 5px;
+		  width: 250px;
+		}
+		
+		.customerInsertTable td:first-child{
+			font-size: 20px
+		}
+		
+		.customerInsertTable td:last-child{
+			text-align: center;
 		}
 		
 		#btn_insert {
 		  border: none;
 		}
 		
-		input {
-		  width: 100px;
+		.customerInsertTable input [type="text"] {
+		  width: 150px;
 		  height: 30px;
 		  padding: 8px;
 		  box-sizing: border-box;
 		}
 		
 		select {
-		  width: 110px;
+		  width: 100px;
 		  height: 30px;
 		}
 
@@ -73,17 +87,16 @@
 		  background-color: #b592ff;
 		}
 
-		
 	</style>
 
 </head>
 <body>
-	
 	<!--JS-->
+    <script th:src="@{/js/insertCustomer.js}" type="text/javascript"></script>
+   
     <!--헤더-->
 	<div th:include="main/header :: head1"></div>
-	
-     <section>
+     <section class="register_customer">
 		 <p class="sectionHeader">고객 등록</p>
 	     <hr/>		
 		 <form th:action="@{/customerInsert}" id="customerForm" method="post">
@@ -91,49 +104,63 @@
 				<tr>
 					<td>고객 번호</td>
 					<td>
-						<input type="text" id="customerNum" name="customerName" required>
+						<input type="text" id="customer_num" name="customerNum" required>
+						<div id="customer_num_msg"></div>
 					</td>
 				</tr>
-	        <br>
+
 				<tr>
 					<td>고객 명</td>
 					<td>
-						<input type="text" id="customerName" name="customerName" required>
+						<input type="text" id="customer_name" name="customerName" required>
 					</td>				
 				</tr>
-	        <br>
 	        	<tr>
 					<td>고객 등급</td>
 					<td>
-						<input type="text" id="customerGrade" name="customerGrade">
+						<select id="customerGrade" name="customerGrade" required>
+			                <option value="BK">BK</option>
+			                <option value="BL">BL</option>
+			                <option value="J">J</option>
+			             </select>
 					</td>
 				</tr>
-	        <br>
+				<tr>
+					<td>휴대 전화</td>
+					<td>
+						<input type="text" id="customerHP" name="customerHP" required>
+					</td>				
+				</tr>
 				<tr>
 					<td>성 별</td>
 					<td>
-						<input type="checkbox" id="customerGender" name="customerGender">
+						<input type="radio" id="male" name="customerGender" value="m" />
+				        <label for="male"> 남성 </label> &nbsp;&nbsp;&nbsp;&nbsp;				      
+				        <input type="radio" id="female" name="customerGender" value="f" />
+				        <label for="female"> 여성 </label>
 					</td>				
 				</tr>
-			<br>
+
 	     	   	<tr>
-					<td>생년 월일</td>
+					<td>생년월일</td>
 					<td>
-						<input type="date" id="customerBirth" name="customerBirth">	
+						<input type="date" id="customerBirth" name="customerBirth" required pattern="\d{4}-\d{2}-\d{2}">	
 					</td>
 				</tr>
-	        <br>
-	
+
 	        	<tr>
 					<td>주이용점</td>
 					<td>
-						<input type="text" id="favoriteStore" name="favoriteStore">
+						<select id="favoriteStore" name="favoriteStore" required>
+			                <option value="본점">본점</option>
+			                <option value="무역점">무역점</option>
+			                <option value="판교점">판교점</option>
+			            </select>
 					</td>
 				</tr>
-	        <br>
 	        	<tr>
-					<td colspan="2">
-						 <button type="button" onclick="submitCustomerForm()">등록</button>
+					<td colspan="2" id="btn_insert">
+						 <input type="submit" value="등록" >
 					</td>
 				</tr>      
 	        </table>
