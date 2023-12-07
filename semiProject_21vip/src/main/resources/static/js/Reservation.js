@@ -16,13 +16,12 @@ function confirmDeleteReservation() {
 // Reservation
 function refreshPage() {
     // location 객체의 reload 메서드를 사용하여 현재 페이지를 다시 로드합니다.
-    location.reload();
+    location.href="reservation.html";
 }
 
 // Reservation
 function SearchCustomerNum() {
-    alert("검색 성공")
-    // 고객번호와 일치하는 데이터가 나오게 코드 구현
+    document.searchForm.submit();
 }
 
 
