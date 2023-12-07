@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"></html>
   <head>
@@ -23,71 +24,43 @@
     
     <!-- 헤더 -->
  	<div th:include="main/header :: head1"></div>
-
+	
     <!-- 본문 내용 -->
     <main>
 
       <aside>
-        <nav>
-		  <form action="searchCustomer" id="searchCustomerNum" method="post"> 
-          	<input type="text" name="customer_number" placeholder="  검색..." />
+       <nav>
+		  <form th:action="@{searchCustomer}" id="searchCustomerNum" method="post">
+          	<input type="text" id="customerNum" name="customerNum" placeholder=" 검색..." size="5"/>
           	<i class='bx bx-search' onclick="searchCustomerNum()"></i>
           </form>
         </nav>
         
-        
-
-<!-- $(document).ready(function() {
-    // AJAX 요청
-    $.ajax({
-        url: '',
-        method: 'GET',
-        success: function(data) {
-            // 데이터가 있을 때
-            if (data.length > 0) {
-                // 테이블 보이기
-                $('.customer_info').show();
-                // TODO: 데이터를 테이블에 추가하는 로직 작성
-            } else {
-                // 데이터가 없을 때
-                // 테이블 숨기기
-                $('.customer_info').hide();
-            }
-        },
-        error: function(error) {
-            console.error('AJAX 요청 에러:', error);
-        }
-    });
-}); -->
-
-        <table class="customer_info" >
-          <caption>고객 기본정보</caption>
-          <tr>
-            <td>- 고객번호</td>
-            <td>12345</td>
-          </tr>
-
-          <tr>
-            <td>- 성명</td>
-            <td>백주승</td>
-          </tr>
-    
-          <tr>
-            <td>- 등급</td>
-            <td>BK</td>
-          </tr>
-    
-          <tr>
-            <td>- 주 이용점</td>
-            <td>판교점</td>
-          </tr>
-    
-          <tr>
-            <td>- 생일</td>
-            <td>1992.01.18</td>
-          </tr>
-        </table>
-        
+		<div class="customer_info"> 
+		    <table class="customer_info_table">
+	         <caption>고객 기본정보</caption>
+	          <tr>
+	            <td>- 고객번호</td>
+	            <td th:text="${customer.customerNum}"></td>
+	          </tr>
+	          <tr>
+	            <td>- 성명</td>
+	            <td th:text="${customer.customerName}"></td>
+	          </tr>
+	          <tr>
+	            <td>- 등급</td>
+	            <td th:text="${customer.customerGrade}"></td>
+	          </tr>
+	          <tr>
+	            <td>- 주 이용점</td>
+	            <td th:text="${customer.favoriteStore}"></td>
+	          </tr>
+	          <tr>
+	            <td>- 생일</td>
+	            <td th:text="${customer.customerBirth}"></td>
+	          </tr>
+	        </table>
+		</div>
                 
         <a th:href="@{/insertCustomer}">고객 등록</a>
 
@@ -258,7 +231,4 @@
         
       </section>
     </main>
-
-
   </body>
-</html>
