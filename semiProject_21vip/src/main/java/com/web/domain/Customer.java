@@ -2,11 +2,16 @@ package com.web.domain;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,5 +36,10 @@ public class Customer extends BaseEntity {
 	private String favoriteStore;	//주이용점
 	private String customerHP;	//핸드폰번호
 	
+	// 다대일(N:1) 관계 설정
+    @OneToMany(mappedBy = "customer", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<CustomerMemo> customerMemo = new ArrayList<>();
+	
+    //고객번호로 메모테이블의 일치하는 행 리스트를 뽑을 수 있음.
 	
 }
