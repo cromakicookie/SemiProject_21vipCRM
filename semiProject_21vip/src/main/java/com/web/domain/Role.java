@@ -2,6 +2,6 @@ package com.web.domain;
 
 public enum Role {
 	
-	ROLE_ADMIN, ROLE_MANAGER, ROLE_MEMBER
+	ROLE_MEMBER, ROLE_MANAGER, ROLE_ADMIN
 
 }

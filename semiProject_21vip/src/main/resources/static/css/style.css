@@ -232,7 +232,7 @@ body{
 
 .idCheck{
 	color: rgb(164, 164, 164);
-	text-decoration: none;
+	background-color: #ededed;
 	width: 50px;
 }
 
