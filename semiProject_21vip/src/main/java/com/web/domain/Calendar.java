@@ -31,14 +31,15 @@ import lombok.ToString;
 public class Calendar extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CALENDAR_SEQ_GENERATOR")
-	private Long eventNumber;
+	@Column(name="EVENT_NUMBER")
+	private Long id;
 	
 	@Column(name="EVENT_TITLE")
 	private String title;
 	@Column(name="EVENT_START_DATE")
-    private Date start;
+    private String start;
 	@Column(name="EVENT_END_DATE")
-    private Date end;
+    private String end;
 
 	private String eventContent;
 	private String eventType;

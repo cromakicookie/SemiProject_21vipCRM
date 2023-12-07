@@ -23,8 +23,6 @@ public class CalendarTest {
 		Calendar cal = new Calendar();
 		cal.setEventType("창립기념");
 		cal.setTitle("행사날");
-		cal.setStart(new Date());
-		cal.setEnd(new Date());
 		cal.setEventContent("블라블라");
 		cr.save(cal);
 		System.out.println(cal.toString());
