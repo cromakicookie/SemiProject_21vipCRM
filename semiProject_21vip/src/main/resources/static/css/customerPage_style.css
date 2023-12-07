@@ -91,7 +91,7 @@ aside {
   float: left;
 }
 
-.customer_info {
+.customer_info_table {
   width: 200px;
   margin-left: 10px;
   color: aliceblue;
@@ -100,25 +100,25 @@ aside {
   /* border: 1px solid #d9d9d9; */
 }
 
-.customer_info caption {
+.customer_info_table caption {
   font-size: 20px;
   caption-side: top;
   color: aliceblue;
   font-weight: bold;
 }
 
-.customer_info tr,
-.customer_info td {
+.customer_info_table tr,
+.customer_info_table td {
   height: 30px;
 }
 
-.customer_info td:first-child {
+.customer_info_table td:first-child {
   text-align: left;
   width: 80px;
   /* border: 1px solid #d9d9d9; */
 }
 
-.customer_info td:last-child {
+.customer_info_table td:last-child {
   text-align: left;
   padding-left: 20px;
 }

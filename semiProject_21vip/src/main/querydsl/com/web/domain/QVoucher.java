@@ -19,15 +19,17 @@ public class QVoucher extends EntityPathBase<Voucher> {
 
     public static final QVoucher voucher = new QVoucher("voucher");
 
-    public final NumberPath<Long> voucherCode = createNumber("voucherCode", Long.class);
+    public final NumberPath<Integer> status = createNumber("status", Integer.class);
 
     public final DateTimePath<java.util.Date> voucherExdate = createDateTime("voucherExdate", java.util.Date.class);
 
-    public final DateTimePath<java.util.Date> voucherIssueDate = createDateTime("voucherIssueDate", java.util.Date.class);
+    public final NumberPath<Long> voucherSeq = createNumber("voucherSeq", Long.class);
 
     public final StringPath voucherService = createString("voucherService");
 
     public final StringPath voucherServiceName = createString("voucherServiceName");
+
+    public final DateTimePath<java.util.Date> voucherStartDate = createDateTime("voucherStartDate", java.util.Date.class);
 
     public final StringPath voucherType = createString("voucherType");
 
