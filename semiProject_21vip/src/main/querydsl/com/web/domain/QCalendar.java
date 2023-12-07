@@ -30,15 +30,15 @@ public class QCalendar extends EntityPathBase<Calendar> {
     //inherited
     public final DateTimePath<java.util.Date> createDate = _super.createDate;
 
-    public final DateTimePath<java.util.Date> end = createDateTime("end", java.util.Date.class);
+    public final StringPath end = createString("end");
 
     public final StringPath eventContent = createString("eventContent");
-
-    public final NumberPath<Long> eventNumber = createNumber("eventNumber", Long.class);
 
     public final StringPath eventType = createString("eventType");
 
     public final QFile file;
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
     public final StringPath modifyBy = _super.modifyBy;
@@ -46,7 +46,7 @@ public class QCalendar extends EntityPathBase<Calendar> {
     //inherited
     public final DateTimePath<java.util.Date> modifyDate = _super.modifyDate;
 
-    public final DateTimePath<java.util.Date> start = createDateTime("start", java.util.Date.class);
+    public final StringPath start = createString("start");
 
     public final StringPath title = createString("title");
 
