@@ -82,20 +82,9 @@
 			<div class="card-body" th:attr="data-calendar='${selectCal}'">
 				<h5 class="card-title">일정 관리</h5>
 				<hr>
-				<img th:if="${cal != null}" src="http://placehold.it/350x250" alt="">
-				<p class="card-text">
-					<ul th:if="${cal != null}">
-						<li>제목 : <p th:text="${cal?.title}"></p></li>
-						<li>번호 : <p th:text="${cal?.eventNumber}"></p></li>
-						<li>일시 : <p th:text="${cal?.start}+' ~ '+${cal?.end}"></p></li>
-						<li>타입 : <p th:text="${cal?.eventType}"></p> </li>
-						<li>내용 : </li>
-						<li th:text="${cal?.eventContent}"></li>
-					</ul>
-				</p>
-				<p class="card-text" th:if="${cal == null}">
+				<div class="card-text" id="card-text">
 					지정된 데이터가 없습니다.
-				</p>
+				</div>
 				<hr>
 			</div>
 		</div>
