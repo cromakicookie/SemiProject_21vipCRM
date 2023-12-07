@@ -14,10 +14,10 @@ public class ReserveController {
 	@Autowired
 	private LuxuryService luxuryService;
 	
-	@GetMapping("/reservation")
-	public String Reservation() {
-	return "reserve/Reservation";
-	}
+//	@GetMapping("/reservation")
+//	public String Reservation() {
+//	return "reserve/Reservation";
+//	}
 	
 	@GetMapping("/ReservationInsert")
 	public String ReservationInsert() {
@@ -32,7 +32,7 @@ public class ReserveController {
 	@PostMapping("/reservationResult")
 	public String reservationResult(Luxury luxury) {
 		luxuryService.insertLuxury(luxury);
-		return "reserve/Reservation";
+		return "redirect:/reservation";
 	}
 	
 	
