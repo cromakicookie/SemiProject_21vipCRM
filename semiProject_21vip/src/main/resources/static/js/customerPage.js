@@ -1,7 +1,40 @@
 //고객번호로 검색
 function searchCustomerNum(){
-	document.getElementById('searchCustomerNum').submit();
+	var inputNumber = document.getElementById('customerNum');
+	
+	if(!inputNumber.value.trim()){
+		alert("고객번호를 입력해 주세요");
+		inputNumber.focus();
+	}else{
+		document.getElementById('searchCustomerNum').submit();
+	}
 }
+
+
+/*
+    var formData = new FormData(this);
+
+    fetch('/searchCustomer', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.check === 0) {
+            // 데이터가 없는 경우
+            alert('데이터가 없습니다.');
+        } else {
+            // 데이터가 있는 경우
+            // 여기에서 필요한 다른 동작을 수행할 수 있습니다.
+            this.submit(); // 폼 제출
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});*/
+
+
 
 //바우처 등록
 function insertVoucher() {
@@ -28,6 +61,33 @@ function deleteVoucher() {
 
 // 제이쿼리
 $(document).ready(function () {
+	
+	
+	
+	/*  $.ajax({
+        url: 'searchCustomer',
+        method: 'POST',
+        success: function(data) {
+            // 데이터가 있을 때
+            if (data.length > 0) {
+                // 테이블 보이기
+                $('.customer_info').show();
+  				// 데이터를 테이블에 추가하는 로직
+
+                // 데이터를 반복하여 테이블에 추가
+              
+            } else {
+                // 데이터가 없을 때 테이블 숨기기
+                $('.customer_info').hide();
+            }
+        },
+        error: function(error) {
+            console.error('AJAX 요청 에러:', error);
+        }
+    });
+*/
+	
+
   // 클래스명이 'customer_info'인 테이블 숨기기 보이기
   //$(".customer_info").show();
   //$(".customer_info").hide();
