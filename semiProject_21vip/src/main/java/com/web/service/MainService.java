@@ -1,10 +1,10 @@
 package com.web.service;
 
-import com.web.domain.User;
+import com.web.domain.Member;
 
 public interface MainService {
 
-	void insertUser(User user);
-	User getUser(User user);
+	void insertMember(Member member);
+	Member getMember(Member member);
 
 }
