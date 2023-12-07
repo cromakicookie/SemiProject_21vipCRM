@@ -38,6 +38,14 @@ table, tr, td{
     padding-left:0; 
     margin-left:1rem;
 }
+.modal-body > ul {
+    list-style-type: none;
+    list-style: none;
+    line-height: 1.7rem;
+    margin-top: 5px;
+    padding-left:0; 
+    margin-left:1rem;
+}
 
 .img {
     display: flex;
@@ -94,4 +102,8 @@ input {
 
 .fc-scrollgrid {
 	margin-left: 0;
+}
+
+textarea {
+	resize: none;
 }
