@@ -11,6 +11,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.domain.Luxury;
@@ -26,8 +28,8 @@ public class ReserveSortController {
 	@Autowired
 	private LuxuryPageRepository luxuryPageRepo;
 	
-	@GetMapping("/reservation")
-	public String reservation(Model model, @PageableDefault(page = 0, size = 5, sort = "luxurySeq", direction = Direction.ASC)
+	@RequestMapping("/reservation")
+	public String reservation(Model model, @PageableDefault(page = 0, size = 6, sort = "luxurySeq", direction = Direction.ASC)
 								Pageable pageable, String searchKeyword) {
 		Page<Luxury> list;
 		if(searchKeyword != null) {

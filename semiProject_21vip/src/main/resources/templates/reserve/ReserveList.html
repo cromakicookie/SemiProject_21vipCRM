@@ -31,18 +31,18 @@
           </aside>
 
         <section class="servicePage">
-          <p class="sectionHeader">명품관 서비스 예약 리스트</p>
+          <p class="sectionHeader">명품관 서비스 예약 리스트 상세보기</p>
            <hr>
-           <div th:if="${not list.empty}">총 예약목록 수 : <span th:text="${list.totalElements}"></span></div>
-           <div th:if="${list.empty}">총 예약목록 수 : 없음<span></span></div>
-          <ul class="nav justify-content-end">
+           
+           <ul class="nav justify-content-end">
             <li class="nav-item">
               <a class="nav-link reslist" aria-current="page" th:href="@{/ReservationInsert}">예약 추가</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link reslist" th:href="@{/reservation}">새로고침</a>
+              <a class="nav-link reslist" th:href="@{/reservation}">전체목록</a>
             </li>
           </ul>
+
             <table class="table align-middle table-bordered text-center table-striped table-hover table caption-top">
             <caption>Reservation list</caption>
             <thead>
@@ -57,18 +57,12 @@
                 <th scope="col">휴대폰 번호</th>
                 <th scope="col">등록자ID</th>
                 <th scope="col">등록날짜</th>
-                <th>수정/삭제</th>
+                <th scope="col">수정/삭제</th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each="list : ${list}">
-				
-				<!--<td th:text="${state.count}">
-				<input type="hidden" th:value="${list.luxurySeq}"/>-->
-                <td th:text="${list.luxurySeq}">
-					<!--<a th:text="${list.luxurySeq}" th:href="@{/reserveList(luxurySeq=${list.luxurySeq})}" style="color: black; text-decoration: none;"></a>-->
-				
-                </td>
+              <tr>
+                <td th:text="${list.luxurySeq}"></td>
                 <td th:text="${list.customerNum}"></td>
                 <td th:text="${list.luxuryBrandName}"></td>
                 <td th:text="${list.luxuryDate}"></td>
@@ -78,23 +72,15 @@
                 <td th:text="${list.luxuryPhone}"></td>
                 <td th:text="${list.createBy}"></td>
                 <td th:text="${list.createDate}"></td>
-               <!-- <td><a th:href="@{/reserveList(luxurySeq=${list.luxurySeq})}" style="color: black; text-decoration: none;">목록보기</a></td>-->
-                <td><a th:href="@{/reserveList(luxurySeq=${list.luxurySeq})}" 
-       				style="color: black; text-decoration: none; display: inline-block;"
-      				onmouseover="this.style.color='blue'"
-      				onmouseout="this.style.color='black'; this.style.textDecoration='none';">목록보기</a>
-      		   </td>
+                <td>
+                  <button type="button" class="btn btn-outline-primary btn-sm"><a th:href="@{/updateForm/{luxurySeq}(luxurySeq=${list.luxurySeq})}" style="text-decoration: none;">수정</a>
+				  </button>
+                  <button type="button" class="btn btn-outline-danger btn-sm" onclick="luxurydelete()"><a th:href="@{/luxuryDelete(luxurySeq=${list.luxurySeq})}" style="text-decoration: none;">삭제</a></button>
+                </td>
               </tr>
             </tbody>
-            
           </table>
-          <th:block th:if="${not list.empty}" th:each="page : ${#numbers.sequence(startPage, endPage)}">
-			  <a th:if="${page != nowPage}" th:href="@{/reservation(page=${page-1},searchKeyword=${param.searchKeyword})}" th:text="${page}" style="text-decoration: none;"></a>
-			  <strong th:if="${page == nowPage}" th:text="${page}" style="color: red;"></strong>
-			  
-		  </th:block>
         </section>
-
     </main>
 
   
