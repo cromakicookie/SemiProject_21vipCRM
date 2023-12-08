@@ -36,7 +36,7 @@ public class QCalendar extends EntityPathBase<Calendar> {
 
     public final StringPath eventType = createString("eventType");
 
-    public final QFile file;
+    public final QdataFile file;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -68,7 +68,7 @@ public class QCalendar extends EntityPathBase<Calendar> {
 
     public QCalendar(Class<? extends Calendar> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.file = inits.isInitialized("file") ? new QFile(forProperty("file")) : null;
+        this.file = inits.isInitialized("file") ? new QdataFile(forProperty("file"), inits.get("file")) : null;
     }
 
 }
