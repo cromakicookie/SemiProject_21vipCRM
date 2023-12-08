@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -44,8 +45,8 @@ public class Calendar extends BaseEntity{
 	private String eventContent;
 	private String eventType;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="FILE_NUMBER")
-	private File file;
+	private dataFile file;
     
 }

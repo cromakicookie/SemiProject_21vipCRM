@@ -1,9 +1,6 @@
 /**
  * 
  */
-// 유저 권한 객체
-var userAuthorities = /*[[${userAuthorities}]]*/[];
-
 /* # fullcalendar api */
 $(document).ready(function() {
 	var calendarEl = document.getElementById('calendar');
@@ -18,7 +15,7 @@ $(document).ready(function() {
 		navLinks: true, // can click day/week names to navigate views
 		editable: true,
 		dayMaxEvents: true, // allow "more" link when too many events
-		events: '/calendar/event/all',
+		events: '/calendar/event/user',
 		selectable: true,
 		selectMirror: true,
 		eventStartEditable: true,
@@ -41,7 +38,6 @@ $(document).ready(function() {
 					str += "<li>제목 : " + data.title + "</li>";
 					str += "<li>번호 : <span id='dataId'>" + data.id + "</span></li>";
 					str += "<li>일시 : " + data.start + " ~ " + data.end + "</li>";
-					str += "<li>타입 : " + data.eventType + "</li>";
 					str += "<li>내용 : " + "</li>";
 					str += "<li>" + data.eventContent + "</li>";
 					str += "</ul>"
@@ -49,12 +45,13 @@ $(document).ready(function() {
 						str += "<img src='" + data.file.fileRoot + "' >";
 					}
 
-					$("#card-text").html(str);
+					$("#modal-body").html(str);
 				},
 				error: function(error) {
 					console.error('Error:', error);
 				}
 			})
+			$("#myModal2").modal('show');
 		}
 	});
 	calendar.render();
@@ -67,43 +64,43 @@ function submitForm() {
 
 
 
-function showModal() {
+function changeModal() {
 	let number = $("#dataId").text();
 	console.log(number);
-	if (number == "") {
-		alert("선택된 일정이 없습니다.");
-	} else {
-		console.log(number);
-		$("#modal-title").html("일정 수정");
-		$.get('/calendar/event/' + number, function(data) {
-			let str = "";
-			str += "<form id='modalForm2'>"
-			str += "<ul>";
-			str += "<li>제목 : <input type='text' name='title' value='" + data.title + "'/></li>";
-			str += "<li>번호 : <input type='text' name='id' value='" + data.id + "' readonly/></li>";
-			str += "<li>일시 : <input type='date' name='start' value='" + data.start + "' pattern='\d{4}-\d{2}-\d{2}'/> ~ <input type='date' name='end' value='" + data.end + "' pattern='\d{4}-\d{2}-\d{2}'/> </li>";
-			str += "<li>내용 : </li>";
-			str += "<li style='display: none;'><input type='text' value='" + data.eventType + "' name='eventType'/></li>";
-			str += "<li><textarea cols='55' rows='5' name='eventContent'>" + data.eventContent + "</textarea></li>";
-			str += "</ul>"
-			str += "</form>"
-			if (data.file != null) {
-				str += "<img src='" + data.file.fileRoot + "' >";
-			}
-			$("#modal-body").html(str);
-			$("#myModal2").modal('show');
+	$("#modal-title").html("일정 수정");
+	$.get('/calendar/event/' + number, function(data) {
+		let str = "";
+		str += "<form id='modalForm2'>"
+		str += "<ul>";
+		str += "<li>제목 : <input type='text' name='title' value='" + data.title + "'/></li>";
+		str += "<li>번호 : <input type='text' name='id' value='" + data.id + "' readonly/></li>";
+		str += "<li>일시 : <input type='date' name='start' value='" + data.start + "' pattern='\d{4}-\d{2}-\d{2}'/> ~ <input type='date' name='end' value='" + data.end + "' pattern='\d{4}-\d{2}-\d{2}'/> </li>";
+		str += "<li>내용 : </li>";
+		str += "<li style='display: none;'><input type='text' value='" + data.eventType + "' name='eventType'/></li>";
+		str += "<li><textarea cols='55' rows='5' name='eventContent'>" + data.eventContent + "</textarea></li>";
+		str += "</ul>"
+		str += "</form>"
+		if (data.file != null) {
+			str += "<img src='" + data.file.fileRoot + "' >";
+		}
+		$("#modal-body").html(str);
 
-		});
-	}
+		// form 외부의 버튼 클릭 시 form 제출
+		$('#changeButton').removeAttr("onclick");
+		$('#changeButton').attr("style", "display:none;");
+		$('#chaegeButtonB').removeAttr("style");
+		
+	});
+
 }
 
-function modalSubmit() {
-	var form = {};
+function modalSubmit(){
+	var form ={};
 	$("#modalForm2").serializeArray().forEach(function(item) {
-		form[item.name] = item.value;
+			form[item.name] = item.value;
 	});
 	console.log(form);
-
+	
 	$.ajax({
 		url: "/calendar/event",
 		type: "PUT",
@@ -112,7 +109,7 @@ function modalSubmit() {
 		success: function() {
 			console.log("수정 성공");
 			$("#myModal2").modal('hide');
-			$('#calendar').fullCalendar( 'addEventSource', form );
+			$('#calendar').fullCalendar('refetchEvents');  
 		},
 		error: function(error) {
 			console.error('Error:', error);
@@ -122,7 +119,7 @@ function modalSubmit() {
 }
 
 
-function deleteCal() {
+function deleteCal(){
 	let number = $("#dataId").text();
 	console.log(number);
 	$.ajax({
@@ -131,13 +128,13 @@ function deleteCal() {
 		success: function() {
 			console.log("삭제 성공");
 			$("#myModal2").modal('hide');
-			$('#calendar').fullCalendar('removeEventSource', events);
-			$('#calendar').fullCalendar('addEventSource', events);
-			$('#calendar').fullCalendar('refetchEvents');
+			$("#calendar").refetchEvents();
 		},
 		error: function(error) {
 			console.error('Error:', error);
 		}
 	});
 }
+
+
 
