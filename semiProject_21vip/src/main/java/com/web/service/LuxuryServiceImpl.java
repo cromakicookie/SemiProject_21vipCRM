@@ -37,10 +37,24 @@ public class LuxuryServiceImpl implements LuxuryService {
 	public Luxury luxuryView(long luxurySeq) {
 		return luxuryRepo.findById(luxurySeq).get();
 	}
-
+	
 	@Override
 	public void luxuryDelete(long luxurySeq) {
 		luxuryRepo.deleteById(luxurySeq);
+	}
+
+	@Override
+	public void luxuryupdate(Luxury luxury) {
+		Luxury findluxury = luxuryRepo.findById(luxury.getLuxurySeq()).get();
+		
+		findluxury.setCustomerNum(luxury.getCustomerNum());
+		findluxury.setLuxuryBrandName(luxury.getLuxuryBrandName());
+		findluxury.setLuxuryDate(luxury.getLuxuryDate());
+		findluxury.setLuxuryName(luxury.getLuxuryName());
+		findluxury.setLuxuryPhone(luxury.getLuxuryPhone());
+		findluxury.setLuxuryTime(luxury.getLuxuryTime());
+		findluxury.setLuxuryHeadCount(luxury.getLuxuryHeadCount());
+		luxuryRepo.save(findluxury);
 	}
 
 	

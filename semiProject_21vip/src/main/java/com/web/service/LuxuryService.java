@@ -16,6 +16,7 @@ public interface LuxuryService {
 	public Luxury luxuryView(long luxurySeq);
 	
 	public void luxuryDelete(long luxurySeq);
-		
+	
+	public void luxuryupdate(Luxury luxury);
 	
 }

@@ -1,21 +1,19 @@
 // Reservation
-function deleteReservation() {
-    // 여기에 삭제 동작을 구현합니다.
-    // 실제로 삭제하는 코드 또는 삭제 요청을 서버로 보내는 코드 등을 추가해야 합니다.
-}
-// Reservation
 function luxurydelete() {
 	alert("삭제되었습니다.");
-}
-// Reservation
-function refreshPage() {
-    // location 객체의 reload 메서드를 사용하여 현재 페이지를 다시 로드합니다.
-    location.href="reservation.html";
 }
 
 // Reservation
 function SearchCustomerNum() {
     document.searchForm.submit();
+}
+
+function UpdateCancel() {
+	history.back();
+}
+
+function InsertCancel() {
+	location.href="./reservation";
 }
 
 
@@ -49,12 +47,13 @@ function insertMessage() {
     
 }
 
+
 // 수정폼 유효성 검사
 function UpdateMessage() {
 	if(document.ReservationUpdateForm.customerNum.value == "") {
 		alert("고객번호를 입력해주세요.");
 		document.ReservationUpdateForm.customerNum.focus();
-	} else if(document.ReservationUpdateForm.luxuryBrandName.value == "none") {
+	} else if(document.ReservationUpdateForm.luxuryBrandName.value == "") {
 		alert("브랜드를 선택해주세요.");
 		document.ReservationUpdateForm.luxuryBrandName.focus();
 	} else if(document.ReservationUpdateForm.luxuryDate.value == "") {
@@ -75,11 +74,10 @@ function UpdateMessage() {
 	} else {
 		alert("에약등록이 완료되었습니다.")
     	document.ReservationUpdateForm.submit();
+    	
 	}
+	window.reload();
 }
-
-
-
 
 
 function oninputPhone(target) {

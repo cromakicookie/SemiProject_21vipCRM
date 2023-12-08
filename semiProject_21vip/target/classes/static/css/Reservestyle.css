@@ -154,6 +154,7 @@ body{
         .servicePage ul li:hover {
           background-color: #b592ff;
         }
+        
 
         .nav-link:hover{
           color: white;
@@ -169,7 +170,11 @@ body{
 
        
         /* 예약 추가, 수정 */
-
+		
+		#back {
+			border: none;
+			background-color: #f9f9f9;
+		}
         
         hr {
           border: 1.5px solid #5b5b5b;
@@ -212,7 +217,7 @@ body{
 
         .listTable {
           /* border: 1px solid black; */
-          margin-left: 140PX;
+          margin-left: 250PX;
           width: 700PX;
         }
 
