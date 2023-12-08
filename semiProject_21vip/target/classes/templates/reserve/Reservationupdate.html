@@ -36,19 +36,21 @@
           <p class="sectionHeader">명품관 서비스 예약 수정</p>
           <hr>
           <table class="listTable">
-            <form th:action="@{/Reservation}" name="ReservationForm" method="post">    
-             
+            <!--<form th:action="@{/updateResult/{luxurySeq}(luxurySeq=${list.luxurySeq})}" name="ReservationUpdateForm" method="post">-->
+            <form th:action="@{/updateResult}" name="ReservationUpdateForm" method="post">
+				<input type="hidden" name="luxurySeq" th:value="${list.luxurySeq}"/>
                 <tr>
                   <td>
-                   <label for="customerNumber">고객번호</label>
-                   <input type="text" id="customerNumber" name="customerNumber" value="고객번호?" required><br>
+                   <label for="customerNum">고객번호</label>
+                   <input type="text" id="customerNum" name="customerNum" th:value="${list.customerNum}" ><br>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                  <label for="brandName">브랜드명</label>
-                  <select id="brandDropdown" name="brandName" required>
-                      <option selected>브랜드를 선택해주세요</option>
+                  <label for="luxuryBrandName">브랜드명</label>
+                  <select id="luxuryBrandName" name="luxuryBrandName">
+                      <option value="">브랜드를 선택해주세요</option>
+                      <option th:value="${list.luxuryBrandName}" th:text="${list.luxuryBrandName}" style="display: none;" selected></option>
                       <option value="Hermes">Hermes</option>
                       <option value="Prada">Prada</option>
                       <option value="Gucci">Gucci</option>
@@ -60,41 +62,45 @@
                   <br>
                 <tr>
                   <td>
-                  <label for="reservationDate">예약일자</label>
-                  <input type="date" id="reservationDate" name="reservationDate" value="2023-12-15" required><br>
+                  <label for="luxuryDate">예약일자</label>
+                  <input type="date" id="luxuryDate" name="luxuryDate" th:value="${list.luxuryDate}"><br>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                  <label for="reservationTime">예약시간</label>
-                  <input type="time" id="reservationTime" name="reservationTime" value="00:00" required><br>
+                  <label for="luxuryTime">예약시간</label>
+                  <input type="time" id="luxuryTime" name="luxuryTime" th:value="${list.luxuryTime}"><br>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                  <label for="customerName">고객명</label>
-                  <input type="text" id="customerName" name="customerName" value="고객명?" required><br>
+                  <label for="luxuryName">고객명</label>
+                  <input type="text" id="luxuryName" name="luxuryName" th:value="${list.luxuryName}"><br>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                  <label for="partySize">참여인원</label>
-                  <input type="number" id="partySize" name="partySize" value="3" min="1" required><br>
+                  <label for="luxuryHeadCount">참여인원</label>
+                  <input type="number" id="luxuryHeadCount" name="luxuryHeadCount" th:value="${list.luxuryHeadCount}" min="1"><br>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                  <label for="phoneNumber">휴대폰번호<i class='bx bxs-phone' ></i></label>
-                  <input type="tel" id="phoneNumber" name="phoneNumber" value="010-0000-0000" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" placeholder="전화번호를 입력해주세요" required><br>
+                  <label for="luxuryPhone">휴대폰번호<i class='bx bxs-phone' ></i></label>
+                  <input type="tel" id="luxuryPhone" oninput="oninputPhone(this)" name="luxuryPhone" th:value="${list.luxuryPhone}" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" placeholder="전화번호를 입력해주세요"><br>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                  <input type="button" value="예약 완료" onclick="insertMessage()">
+					  
+                  <input type="button" value="수정 완료" onclick="UpdateMessage()"> 
+                  <input type="button" value="수정 취소" onclick="UpdateCancel()">
+                  	  
                   </td>
                 </tr>
             </form>
           </table>
+           
         </section>
     </main>
 

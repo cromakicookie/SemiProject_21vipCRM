@@ -2,6 +2,7 @@ package com.web.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,13 +22,14 @@ import lombok.ToString;
 @TableGenerator(name="LUXURY_SEQ_GENERATOR",
 table="ALL_SEQUENCE",
 pkColumnValue="LUXURY_SEQ",
-initialValue=0,
+initialValue= 0,
 allocationSize = 1)
 public class Luxury extends BaseEntity {
 	
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LUXURY_SEQ_GENERATOR")
+	@Column(updatable = false)
 	private long luxurySeq;              // 글순번
 	private String customerNum;            // 고객 번호       
 	private String luxuryBrandName;     // 브랜드명
