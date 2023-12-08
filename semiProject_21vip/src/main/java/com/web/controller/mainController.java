@@ -109,10 +109,7 @@ public class mainController {
 		return "admin/employeeManagement";
 	}
 	
-	@GetMapping("mypage")
-	public String mypage() {
-		return "calendar/mypage";
-	}
+
 	
 //	@GetMapping("mypageIdCheck")
 //	public String mypageIdCheck(@ModelAttribute("user") Member member, Model model) {
