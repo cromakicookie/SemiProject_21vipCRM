@@ -37,7 +37,6 @@
           <hr>
           <table class="listTable">
             <form th:action="@{/reservationResult}" name="ReservationForm" method="post">    
-             
                 <tr>
                   <td>
                    <label for="customerNum">고객번호</label>
@@ -90,10 +89,12 @@
                 </tr>
                 <tr>
                   <td>
-                  <input type="button" value="예약 완료" onclick="insertMessage()">
+                  <input type="button" value="등록 완료" onclick="insertMessage()">
+                  <input type="button" value="등록 취소" onclick="InsertCancel()">
                   </td>
                 </tr>
             </form>
+            
           </table>
         </section>
     </main>

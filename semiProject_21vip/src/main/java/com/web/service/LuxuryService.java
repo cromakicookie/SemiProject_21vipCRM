@@ -12,4 +12,11 @@ public interface LuxuryService {
 	Page<Luxury> PageSearchList(String searchKeyword, Pageable pageable);
 	
 	Page<Luxury> PageList(Pageable pageable);
+	
+	public Luxury luxuryView(long luxurySeq);
+	
+	public void luxuryDelete(long luxurySeq);
+	
+	public void luxuryupdate(Luxury luxury);
+	
 }
