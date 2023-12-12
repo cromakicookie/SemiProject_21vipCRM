@@ -9,7 +9,7 @@ public interface LuxuryService {
 	
 	void insertLuxury(Luxury luxury);
 	
-	Page<Luxury> PageSearchList(String searchKeyword, Pageable pageable);
+	Page<Luxury> findCustomerNum(String searchKeyword, Pageable pageable);
 	
 	Page<Luxury> PageList(Pageable pageable);
 	
@@ -18,5 +18,9 @@ public interface LuxuryService {
 	public void luxuryDelete(long luxurySeq);
 	
 	public void luxuryupdate(Luxury luxury);
+	
+	Page<Luxury> findBrand(String brand, Pageable pageable);
+	
+	Page<Luxury> findCustomerNumBrand(String searchKeyword, Pageable pageable, String brand);
 	
 }
