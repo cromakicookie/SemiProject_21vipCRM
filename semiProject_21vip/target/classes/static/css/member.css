@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+aside{
+	height: 950px;
+}
+
+.memberList{
+	height: auto;
+}
 .card{
 	background-color: white;
 	margin: 10px;
@@ -28,4 +35,18 @@
 
 .spacing{
 	margin: 0 20px;
+}
+
+.img {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.img-right{
+	list-style: none;
+	line-height: 2.5rem;
+	margin-top: 5px;
+	padding-left: 0;
+	margin-left: 1rem;
 }
