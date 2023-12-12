@@ -1,6 +1,7 @@
 package com.web.controller;
 
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,10 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.domain.Calendar;
 import com.web.domain.Member;
+import com.web.domain.dataFile;
 import com.web.service.CalendarService;
+import com.web.service.FileService;
 import com.web.service.MainService;
 
 
@@ -28,17 +32,36 @@ public class CalendarController {
 	@Autowired
 	CalendarService cs;
 	@Autowired
+	FileService fs;
+	@Autowired
 	MainService ms;
 	
 	@GetMapping("calendar")
-	public String calendarPage() {
+	public String calendarPage(Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        List<String> authorityStrings = authorities.stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
+        // 사용자 role 추가
+        model.addAttribute("userAuthorities", authorityStrings);
 		return "calendar/calendar";
 	}
 	
 	// [일정관리] admin, manager만 입력가능
 	@PostMapping("inputCalendar")
-	public String inputCalendar(Calendar cal) {
-		cs.insertCalendar(cal);
+	public String inputCalendar(Calendar cal, MultipartFile uploadFiles) throws IOException{
+		if(uploadFiles != null) {
+			Long id = fs.uploadFile(uploadFiles);
+			dataFile file = fs.getFile(id);
+			cal.setFile(file);
+			cs.insertCalendar(cal);
+		}else {
+			cs.insertCalendar(cal);
+		}
+
 		return "redirect:calendar";
 	}
 	
