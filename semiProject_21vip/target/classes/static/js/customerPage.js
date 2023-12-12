@@ -10,32 +10,6 @@ function searchCustomerNum(){
 	}
 }
 
-
-/*
-    var formData = new FormData(this);
-
-    fetch('/searchCustomer', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.check === 0) {
-            // 데이터가 없는 경우
-            alert('데이터가 없습니다.');
-        } else {
-            // 데이터가 있는 경우
-            // 여기에서 필요한 다른 동작을 수행할 수 있습니다.
-            this.submit(); // 폼 제출
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-});*/
-
-
-
 //바우처 등록
 function insertVoucher() {
   window.open("voucherForm", "_blank", "width=800,height=400");
@@ -59,52 +33,107 @@ function deleteVoucher() {
   }
 }
 
+
+
+
+function updateMemo(){
+	
+}
+
+function deleteMemo(){
+	if (!confirm("정말 삭제하시겠습니까?")){
+			
+		}else{
+			alert("확인(예)을 누르셨습니다.");
+            //메모순번
+            var memoRN = $("#memoNum").val();
+
+            alert("Delete memo with ID: " + memoRN)
+			
+			$.ajax({
+			url: "/deleteMemo/" + memoRN,
+			type: "GET",
+			success: function() {
+				console.log("삭제 성공");
+				location.reload();
+				
+			},
+			error: function(error) {
+				console.error('Error:', error);
+			}
+			});
+		}
+}
+
+
+
 // 제이쿼리
 $(document).ready(function () {
 	
+	$('#mSubmit').on("click",function(){
+		
+		var memoContent = document.getElementById('memo_content');
+		
+		if(!memoContent.value.trim()){
+			alert("내용을 입력해 주세요");
+			memoContent.focus();
+			event.preventDefault(); 
+		} else {
+			alert("메모 등록 성공")
+			$("#memoInsert").submit();
+			$('#memoContent').val('');
+		}
+		
+	})//mSubmit
 	
 	
-	/*  $.ajax({
-        url: 'searchCustomer',
-        method: 'POST',
-        success: function(data) {
-            // 데이터가 있을 때
-            if (data.length > 0) {
-                // 테이블 보이기
-                $('.customer_info').show();
-  				// 데이터를 테이블에 추가하는 로직
-
-                // 데이터를 반복하여 테이블에 추가
-              
-            } else {
-                // 데이터가 없을 때 테이블 숨기기
-                $('.customer_info').hide();
-            }
-        },
-        error: function(error) {
-            console.error('AJAX 요청 에러:', error);
-        }
-    });
-*/
+	$(".table_memo tbody tr").each(function(index) {
+    	$(this).data("originalIndex", index);
+	});
 	
+	
+	  // 메모 중요 체크박스 이벤트
+	 $(".check_important").change(function () {
+	    var row = $(this).closest("tr");
+	    var row1 = row.next("tr");
+	    
+	
+	    // 체크된 행이 있는 경우
+	    if (this.checked) { 
+	        row.toggleClass("selected-row", this.checked);
+	        $(".table_memo tbody").prepend(row);
+	        
+	    } else {
+			row.removeClass("selected-row");    
+	        row.before(row1);
+	        
+	         // 이전에 저장해둔 원래 위치로 삽입
+       		 var originalIndex = row.data("originalIndex");
+        	if (originalIndex !== undefined) {
+            $(".table_memo tbody").children("tr").eq(originalIndex).after(row);
+	    	}
 
-  // 클래스명이 'customer_info'인 테이블 숨기기 보이기
-  //$(".customer_info").show();
-  //$(".customer_info").hide();
+	    }
+	});
+	
+	 $(".check_important").change(function () {
+		 
+		 var ck = 0;
+		 
+		 if(this.checked){
+			 ck = 1;
+			 console
+		 }else{
+			 ck = 0;
+		 }
+		 
+		 
+		 
+		 
+	 })
+	  
 
-  // 체크박스가 변경될 때 이벤트 리스너 추가
-  $(".check_important").change(function () {
-    var row = $(this).closest("tr");
+})
 
-    // 체크된 행이 있는 경우
-    if (this.checked) {
-      // 체크박스의 상태에 따라서 해당 행 토글
-      $(this).closest("tr").toggleClass("selected-row", this.checked);
-      // 체크된 행을 테이블의 첫 번째 행으로 이동
-      $(".table_memo tbody").prepend(row);
-    } else {
-      row.removeClass("selected-row");
-      $(".table_memo tbody").append(row);
-    }
-  });
-});
+
+            

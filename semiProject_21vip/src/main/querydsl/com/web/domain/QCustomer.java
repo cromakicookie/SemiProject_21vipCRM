@@ -36,7 +36,7 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final StringPath customerHP = createString("customerHP");
 
-    public final ListPath<CustomerMemo, QCustomerMemo> customerMemo = this.<CustomerMemo, QCustomerMemo>createList("customerMemo", CustomerMemo.class, QCustomerMemo.class, PathInits.DIRECT2);
+    public final ListPath<CustomerMemo, QCustomerMemo> customerMemoList = this.<CustomerMemo, QCustomerMemo>createList("customerMemoList", CustomerMemo.class, QCustomerMemo.class, PathInits.DIRECT2);
 
     public final StringPath customerName = createString("customerName");
 

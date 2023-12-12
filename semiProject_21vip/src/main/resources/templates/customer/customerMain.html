@@ -29,10 +29,9 @@
 
       <aside>
         <nav>
-		   <form th:action="@{/searchCustomer}" id="searchCustomerNum" method="post">
+		   <form th:action="@{/searchCustomer}" id="searchCustomerNum" method="get">
           	<input type="text" id="customerNum" name="customerNum" placeholder="  검색..." />
-          	<input type="button" onclick="searchCustomerNum()" value="검색"/>
-          <!--	<i class='bx bx-search' onclick="searchCustomerNum()"></i>-->
+            <i class='bx bx-search' onclick="searchCustomerNum()"></i>
           </form>
         </nav>
       
@@ -103,7 +102,7 @@
       </section>
 
       <!-- 세로형 섹션 3 -->
-      <section class="customer_memo">
+      <section class="memoSection">
         <p class="sectionHeader">특이사항 입력</h2>
         <hr>
         <form action="memoInsert" method="post">
