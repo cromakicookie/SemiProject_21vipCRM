@@ -24,6 +24,7 @@ public class Member{
 	private String memberName;
 	private String memberBirth;
 	private String memberDept;
+	private String memberEmail;
 	
 	@Enumerated(EnumType.STRING)
 	private Role memberRole;

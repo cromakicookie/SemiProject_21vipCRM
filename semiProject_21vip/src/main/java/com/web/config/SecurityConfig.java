@@ -30,55 +30,6 @@ import lombok.RequiredArgsConstructor;
 //@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) //secured 어노테이션 활성화, preAuthorize 어노테이션 활성화
 public class SecurityConfig{
 	
-//	private final CorsFilter corsFilter;
-	
-//	private final AuthenticationConfiguration authConfig;
-//	
-//	 @Bean
-//	 public AuthenticationManager authenticationManager() throws Exception {
-//	        return authConfig.getAuthenticationManager();
-//	 }
-//	
-//	
-//	@Bean
-//	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//		http
-//			.csrf().disable()
-//			.cors().configurationSource(corsFilter()) // cors설정
-//			.and()
-//			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//			.and()
-//			//.addFilterBefore(corsFilter, ChannelProcessingFilter.class)
-//			.formLogin().disable()
-//			.httpBasic().disable()
-//			//.addFilter(new JwtAuthenticationFilter(authenticationManager()))
-//			//.addFilter(new JwtAuthorizationFilter(authenticationManager(), userService))
-//			.authorizeRequests()
-//			.antMatchers("/").permitAll()
-//			.antMatchers("/api/v1/customer*/**").authenticated()
-//			.antMatchers("/api/v1/reservation*/**").authenticated()
-//			.antMatchers("/api/v1/calendar*/**").authenticated()
-//			.antMatchers("/api/v1/mypage*/**").authenticated()
-//			.antMatchers("/api/v1/employee*/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
-//			.anyRequest().permitAll()
-//			;
-//		return http.build();
-//	}
-//	
-//	@Bean
-//    public CorsConfigurationSource corsFilter(){
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowCredentials(true); // 자바스크립트 응답을 처리할 수 있게 할지 설정(ajax, axios)
-//        config.addAllowedOrigin("*");
-//        config.addAllowedHeader("*");
-//        config.addAllowedMethod("*");
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/api/*", config);
-//        // TODO /api/* 으로 요청이 왔을때, Allowed 된 요청만 받는지 확인하기
-//
-//        return source;
-//    }
 	
 	
 	@Autowired
@@ -89,12 +40,6 @@ public class SecurityConfig{
 	public BCryptPasswordEncoder encodePwd() {
 		return new BCryptPasswordEncoder();
 	}
-	
-//	@Bean
-//    AuthenticationManager authenticationManager(
-//    AuthenticationConfiguration authenticationConfiguration) throws Exception {
-//        return authenticationConfiguration.getAuthenticationManager();
-//    }
 	
 	
 	
@@ -107,16 +52,17 @@ public class SecurityConfig{
 			.and()
 			.authorizeRequests()
 			.antMatchers("/").permitAll()
-//			.antMatchers("/customer*/**").authenticated()
-//			.antMatchers("/reservation*/**").authenticated()
-//			.antMatchers("/calendar*/**").authenticated()
-//			.antMatchers("/mypage*/**").authenticated()
-//			.antMatchers("/employee*/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
+			.antMatchers("/customer*/**").authenticated()
+			.antMatchers("/reservation*/**").authenticated()
+			.antMatchers("/calendar*/**").authenticated()
+			.antMatchers("/mypage*/**").authenticated()
+			.antMatchers("/employee*/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
 			.anyRequest().permitAll()
 			.and()
 			.formLogin()
 			.loginPage("/loginForm")
 			.loginProcessingUrl("/login")
+			.failureUrl("/loginError")
 			.defaultSuccessUrl("/")
 			.and()
 			.exceptionHandling().accessDeniedPage("/accessDenied")
