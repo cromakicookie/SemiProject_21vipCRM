@@ -10,8 +10,8 @@ public interface LuxuryPageRepository extends JpaRepository<Luxury, Long> {
 	
 	Page<Luxury> findBycustomerNumContaining(String searchKeyword, Pageable pageable);
 	
+	Page<Luxury> findByluxuryBrandNameEquals(String brand, Pageable pageable);
 	
-	
-	
+	Page<Luxury> findByCustomerNumContainingAndLuxuryBrandNameEquals(String searchKeyword, Pageable pageable, String brand);
 	
 }

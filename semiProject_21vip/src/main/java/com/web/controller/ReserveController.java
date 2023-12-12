@@ -1,5 +1,7 @@
 package com.web.controller;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,19 +20,22 @@ public class ReserveController {
 	@Autowired
 	private LuxuryService luxuryService;
 	
-//	@GetMapping("/reservation")
-//	public String Reservation() {
-//	return "reserve/Reservation";
-//	}
-	
 	
 	// 예약등록 폼 이동
 	@GetMapping("/ReservationInsert")
-	public String ReservationInsert() {
+	public String ReservationInsert(Model model) {
+		String RandomNum = generateRandomNum();
+		model.addAttribute("generateRandomNum", generateRandomNum());
 		return "reserve/ReservationInsert";
 	}
 	
-	// 목록 추가
+	private String generateRandomNum() {
+		Random random = new Random();
+		int randomNumber = random.nextInt(9999) + 1000;
+		return "L" + randomNumber;
+	}
+	
+	// 예약정보 전송
 	@PostMapping("/reservationResult")
 	public String reservationResult(Luxury luxury) {
 		luxuryService.insertLuxury(luxury);
@@ -67,20 +72,6 @@ public class ReserveController {
 		luxuryService.luxuryDelete(luxurySeq);
 		return "redirect:reservation";
 	}
-	
-//	@PostMapping(value="/updateResult/{luxurySeq}")
-//	public String updateResult(@PathVariable("luxurySeq") long luxurySeq, Luxury luxury) {
-//		Luxury findLuxury = luxuryService.luxuryView(luxurySeq);
-//		findLuxury.setCustomerNum(luxury.getCustomerNum());
-//		findLuxury.setLuxuryBrandName(luxury.getLuxuryBrandName());
-//		findLuxury.setLuxuryDate(luxury.getLuxuryDate());
-//		findLuxury.setLuxuryName(luxury.getLuxuryName());
-//		findLuxury.setLuxuryPhone(luxury.getLuxuryPhone());
-//		findLuxury.setLuxuryTime(luxury.getLuxuryTime());
-//		findLuxury.setLuxuryHeadCount(luxury.getLuxuryHeadCount());
-//		luxuryService.insertLuxury(findLuxury);
-//		return "forward:reservation";
-//	}
 	
 
 	

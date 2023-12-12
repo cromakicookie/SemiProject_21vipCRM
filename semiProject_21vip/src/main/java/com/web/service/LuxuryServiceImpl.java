@@ -18,31 +18,26 @@ public class LuxuryServiceImpl implements LuxuryService {
 	@Autowired
 	private LuxuryPageRepository luxuryPageRepo;
 	
+	
+	// 데이터 추가
 	@Override
 	public void insertLuxury(Luxury luxury) {
 		luxuryRepo.save(luxury);
 	}
 
-	@Override
-	public Page<Luxury> PageSearchList(String searchKeyword, Pageable pageable) {
-		return luxuryPageRepo.findBycustomerNumContaining(searchKeyword, pageable);
-	}
-
-	@Override
-	public Page<Luxury> PageList(Pageable pageable) {
-		return luxuryPageRepo.findAll(pageable);
-	}
-
+	// 목록 상세보기
 	@Override
 	public Luxury luxuryView(long luxurySeq) {
 		return luxuryRepo.findById(luxurySeq).get();
 	}
 	
+	// 목록 삭제
 	@Override
 	public void luxuryDelete(long luxurySeq) {
 		luxuryRepo.deleteById(luxurySeq);
 	}
-
+	
+	// 목록 수정
 	@Override
 	public void luxuryupdate(Luxury luxury) {
 		Luxury findluxury = luxuryRepo.findById(luxury.getLuxurySeq()).get();
@@ -56,8 +51,33 @@ public class LuxuryServiceImpl implements LuxuryService {
 		findluxury.setLuxuryHeadCount(luxury.getLuxuryHeadCount());
 		luxuryRepo.save(findluxury);
 	}
-
 	
+	// searchKeyword가 포함되어있는 데이터만 검색
+	@Override
+	public Page<Luxury> findCustomerNum(String searchKeyword, Pageable pageable) {
+		return luxuryPageRepo.findBycustomerNumContaining(searchKeyword, pageable);
+	}
+	
+	// 전체목록 
+	@Override
+	public Page<Luxury> PageList(Pageable pageable) {
+		return luxuryPageRepo.findAll(pageable);
+	}
+
+	@Override
+	public Page<Luxury> findBrand(String brand, Pageable pageable) {
+		
+		return luxuryPageRepo.findByluxuryBrandNameEquals(brand, pageable);
+	}
+
+	@Override
+	public Page<Luxury> findCustomerNumBrand(String searchKeyword, Pageable pageable, String brand) {
+		
+		return luxuryPageRepo.findByCustomerNumContainingAndLuxuryBrandNameEquals(searchKeyword, pageable, brand);
+	}
+	
+	
+
 	
 
 }
