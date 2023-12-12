@@ -11,17 +11,20 @@
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 	<link rel="stylesheet" th:href="@{/css/cal.css}">
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;300&display=swap" rel="stylesheet">
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-pzjw8J+2pLXRzUE5t5V1Q8FqJmfR5p7jSwbbh5S/Mm0kFCcQOhKD9tjYLj4PsrKI"
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+		integrity="sha384-pzjw8J+2pLXRzUE5t5V1Q8FqJmfR5p7jSwbbh5S/Mm0kFCcQOhKD9tjYLj4PsrKI"
 		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6Lc6QppPFVTt+Oz6L39L/6ek5u8qvu5cJyMs"
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6Lc6QppPFVTt+Oz6L39L/6ek5u8qvu5cJyMs"
 		crossorigin="anonymous"></script>
 
 	<script src='/js/fullcalendar-6.1.10/dist/index.global.js'></script>
 	<script src='/js/fullcalendar-6.1.10/packages/moment/index.global.js'></script>
-	<script src='/js/calendar.js'></script>
+	<script src='/js/calendar.js' th:src="@{/js/calendar.js}" th:attr="data-custom=${userAuthorities[0]}"></script>
 
 	<style>
 		#calendar {
@@ -57,13 +60,13 @@
 							</select></li>
 						<li>이미지 : <input type="file" name="file"> </li>
 						<li>내용 : </li>
-						<li><textarea cols="55" rows="5" name="eventContent" ></textarea></li>
+						<li><textarea cols="55" rows="5" name="eventContent"></textarea></li>
 					</ul>
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" onclick="submitForm()">Save changes</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-primary" onclick="submitForm()">저장</button>
 				</div>
 			</form>
 		</div>
@@ -77,14 +80,13 @@
 				<h5 class="modal-title">일정 수정</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-				<div class="modal-body" id="modal-body">
+			<div class="modal-body" id="modal-body">
 
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="deleteCal()">삭제</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-					<button type="button" id="chaegeButtonB" class="btn btn-primary" onclick="modalSubmit()" >수정완료</button>
-				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				<button type="button" id="chaegeButtonB" class="btn btn-primary" onclick="modalSubmit()">수정완료</button>
+			</div>
 		</div>
 	</div>
 </div>
@@ -96,8 +98,10 @@
 <div class="row row-cols-1 row-cols-md-2">
 	<div class="col col-1">
 		<div class="card">
-			<div class="card-body" >
-				<h5 class="card-title">일정 관리<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><button type="button" class="btn btn-primary btn-sm" onclick="showModal()" >수정</button></span></h5>
+			<div class="card-body">
+				<h5 class="card-title">일정 관리<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+						<button type="button" class="btn btn-secondary btn-sm" onclick="deleteCal()">삭제</button> &nbsp;  
+						<button type="button" class="btn btn-primary btn-sm" onclick="showModal()">수정</button></span></h5>
 				<hr>
 				<div class="card-text" id="card-text">
 					지정된 데이터가 없습니다.

@@ -22,7 +22,7 @@
 </head>
 <script src='/js/fullcalendar-6.1.10/dist/index.global.js'></script>
 <script src='/js/fullcalendar-6.1.10/packages/moment/index.global.js'></script>
-<script src='/js/mypage.js'></script>
+<script src='/js/mypage.js' th:src="@{/js/mypage.js}" ></script>
 <style>
 	#calendar {
 		max-height: 700px;
@@ -74,7 +74,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="deleteCal()">삭제</button>
+					<button type="button" id="chaegeButtonC" class="btn btn-secondary" data-bs-dismiss="modal" onclick="deleteCal()">삭제</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 					<button type="button" id="changeButton" class="btn btn-primary" onclick="changeModal()">수정</button>
 					<button type="button" id="chaegeButtonB" class="btn btn-primary" onclick="modalSubmit()" style="display: none;">수정완료</button>
@@ -91,14 +91,18 @@
 	<div class="col col-1">
 		<div class="card">
 			<div class="card-body">
-				<form action="">
-					<h5 class="card-title">마이페이지 <span><input type="submit" value="저장"></span></h5>
+					<h5 class="card-title">마이페이지 <span><input type="button" value="저장" onclick="mySubmit()"></span></h5>
 					<hr>
-
 					<div class="card-text img">
 						<div class="img">
-							<img src="http://placehold.it/150x150" alt="">
+							<form id="uploadForm" th:action="@{/file/upload}" method="post" enctype="multipart/form-data">
+							<div class="send">
+							<img src="http://placehold.it/150x150" id="uploadImage" th:onclick="document.getElementById('fileInput').click();">
+							</div>
+							<input id="fileInput" type="file" name="file" onchange="handleFileUpload(this.files)" style="display: none;">
+							</form>
 						</div>
+						<!--<form id="userUpdateForm">-->
 						<ul class="img-right">
 							<li>성명 : <span th:text="${member.memberName}"></span></li>
 							<li>부서 : <span th:text="${member.memberDept}"></span></li>
@@ -106,11 +110,12 @@
 							<li>직급 : <span th:text="${userAuthorities[0]}"></span></li>
 						</ul>
 						<ul class="img-bottom">
+							<li>이메일 : <span th:text="${userId}"></span></li>
 							<li>아이디 : <span th:text="${userId}"></span></li>
 							<li>패스워드 : <span><input type="password" name="pw"></span></li>
 						</ul>
+						<!--</form>-->
 					</div>
-				</form>
 				<hr>
 			</div>
 		</div>
