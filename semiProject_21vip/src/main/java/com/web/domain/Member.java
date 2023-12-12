@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -29,7 +31,9 @@ public class Member{
 	@Enumerated(EnumType.STRING)
 	private Role memberRole;
 	
-	private String memberFile;
+	@OneToOne
+    @JoinColumn(name="FILE_NUMBER")
+    private dataFile memberFile;
 
 	
 }
