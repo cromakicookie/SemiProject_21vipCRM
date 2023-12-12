@@ -2,32 +2,37 @@
  * 
  */
 // 유저 권한 객체
-var userAuthorities = /*[[${userAuthorities}]]*/[];
+var userRole = document.currentScript.getAttribute('data-custom');
 
 /* # fullcalendar api */
+var calendar; // 전역변수 선언.
 $(document).ready(function() {
 	var calendarEl = document.getElementById('calendar');
 
-	var calendar = new FullCalendar.Calendar(calendarEl, {
+	calendar = new FullCalendar.Calendar(calendarEl, {
 		headerToolbar: {
 			left: 'prevYear,prev,next,nextYear today',
 			center: 'title',
 			right: 'dayGridMonth,dayGridWeek,dayGridDay'
 		},
 		initialDate: '2023-12-06',
-		navLinks: true, // can click day/week names to navigate views
+		navLinks: true,
 		editable: true,
-		dayMaxEvents: true, // allow "more" link when too many events
+		dayMaxEvents: true,
 		events: '/calendar/event/all',
 		selectable: true,
 		selectMirror: true,
 		eventStartEditable: true,
 		eventDurationEditable: true,
 		select: function(arg) {
-			$("#start").val(moment(arg.start).format('YYYY-MM-DD'));
-			$("#end").val(moment(arg.end).format('YYYY-MM-DD'));
-			$("#myModal").modal('show');
-			calendar.unselect()
+			if (userRole != 'ROLE_MEMBER') {
+				$("#start").val(moment(arg.start).format('YYYY-MM-DD'));
+				$("#end").val(moment(arg.end).format('YYYY-MM-DD'));
+				$("#myModal").modal('show');
+				calendar.unselect()
+			} else {
+				alert("일정 수정이 불가합니다.");
+			}
 		},
 		eventClick: function(arg) {
 			console.log(arg.event.id);
@@ -112,7 +117,7 @@ function modalSubmit() {
 		success: function() {
 			console.log("수정 성공");
 			$("#myModal2").modal('hide');
-			$('#calendar').fullCalendar( 'addEventSource', form );
+			calendar.refetchEvents();
 		},
 		error: function(error) {
 			console.error('Error:', error);
@@ -123,21 +128,23 @@ function modalSubmit() {
 
 
 function deleteCal() {
+	var confirmDelete = confirm("삭제하시겠습니까?");
 	let number = $("#dataId").text();
 	console.log(number);
-	$.ajax({
-		url: "/calendar/event/" + number,
-		type: "DELETE",
-		success: function() {
-			console.log("삭제 성공");
-			$("#myModal2").modal('hide');
-			$('#calendar').fullCalendar('removeEventSource', events);
-			$('#calendar').fullCalendar('addEventSource', events);
-			$('#calendar').fullCalendar('refetchEvents');
-		},
-		error: function(error) {
-			console.error('Error:', error);
-		}
-	});
+	if (confirmDelete) {
+		$.ajax({
+			url: "/calendar/event/" + number,
+			type: "DELETE",
+			success: function() {
+				console.log("삭제 성공");
+				$("#myModal2").modal('hide');
+				calendar.refetchEvents();
+			},
+			error: function(error) {
+				console.error('Error:', error);
+			}
+		});
+	}
+
 }
 
