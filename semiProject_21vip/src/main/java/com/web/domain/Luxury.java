@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -31,7 +33,8 @@ public class Luxury extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LUXURY_SEQ_GENERATOR")
 	@Column(updatable = false)
 	private long luxurySeq;              // 글순번
-	private String customerNum;            // 고객 번호       
+	
+	private String customerNum;         // 고객 번호
 	private String luxuryBrandName;     // 브랜드명
 	
 	private String luxuryDate;             // 예약일자
@@ -40,8 +43,7 @@ public class Luxury extends BaseEntity {
 	private String luxuryTime;           // 예약시간
 	private long luxuryHeadCount;        // 참여인원
 
-	
-	
+
 	
 	
 }
