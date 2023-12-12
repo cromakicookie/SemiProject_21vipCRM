@@ -44,6 +44,13 @@ public class CustomerServiceImpl implements CustomerService {
 		memoRepo.save(memo);		
 	}
 	
+	//메모삭제
+	@Override
+	public void deleteMemo(Long memoNum) {
+		// TODO Auto-generated method stub
+		memoRepo.deleteById(memoNum);
+		
+	}
 
 
 }
