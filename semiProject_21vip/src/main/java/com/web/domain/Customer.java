@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,7 +23,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "COM_CUSTOMER")
 public class Customer extends BaseEntity {
@@ -37,9 +37,11 @@ public class Customer extends BaseEntity {
 	private String customerHP;	//핸드폰번호
 	
 	// 다대일(N:1) 관계 설정
-    @OneToMany(mappedBy = "customer", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<CustomerMemo> customerMemo = new ArrayList<>();
+    @OneToMany(mappedBy = "customer", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OrderBy("MemoNum ASC")
+    private List<CustomerMemo> customerMemoList = new ArrayList<>();
 	
-    //고객번호로 메모테이블의 일치하는 행 리스트를 뽑을 수 있음.
+    //고객번호로 메모테이블의 일치하는 행 리스트를 뽑을 수 있음. 
+    //내림차순 시 MemoNum DESC
 	
 }
