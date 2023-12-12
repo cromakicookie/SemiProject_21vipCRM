@@ -13,5 +13,7 @@ public interface CustomerService {
 	
 	void insertMemo(CustomerMemo memo);
 	
+	void deleteMemo(Long memoNum);
+	
 
 }

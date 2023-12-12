@@ -15,7 +15,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "COM_MEMO")
 @TableGenerator(name="MEMO_SEQ_GENERATOR",
@@ -33,7 +32,7 @@ public class CustomerMemo extends BaseEntity {
 	
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_NUM", referencedColumnName = "customerNum") // 외부 키 지정
-    private Customer customer;
+    private Customer customer; //고객번호
     
     public void setCustomer(Customer customer) {
  	   this.customer=customer;
