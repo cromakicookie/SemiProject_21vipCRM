@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.card{
+	background-color: white;
+	margin: 10px;
+}
+
+.memberInfo{
+	display: inline-flex;
+	font-size: 20px;
+}
+
+.memberInfo span{
+	margin: 0 30px;
+}
+
+.memberChange{
+	display: inline-flex;
+	font-size: 20px;
+	margin-left: auto;
+	margin-right: 30px;
+}
+
+.memberChange button{
+	border: none;
+	background-color: white;
+}
+
+.spacing{
+	margin: 0 20px;
+}
