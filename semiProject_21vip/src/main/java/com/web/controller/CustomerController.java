@@ -1,13 +1,29 @@
 package com.web.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.web.domain.Calendar;
 import com.web.domain.Customer;
 import com.web.domain.CustomerMemo;
 import com.web.service.CustomerService;
@@ -46,7 +62,7 @@ public class CustomerController {
 	
 	
 	//고객 조회 
-	@PostMapping("searchCustomer")
+	@GetMapping("searchCustomer")
 	public String searchCustomer(@RequestParam(name="customerNum") String customerNum, Model model) {
 		//서비스에서 고객번호로 고객정보 가져옴
 		Customer customer = new Customer();
@@ -65,6 +81,7 @@ public class CustomerController {
 		        // 고객이 있을 경우
 		        model.addAttribute("check", 1);
 		        model.addAttribute("customer", customer);
+		        model.addAttribute("memoList", customer.getCustomerMemoList());
 		    }
 		 
 		return "customer/customerPage";
@@ -73,8 +90,11 @@ public class CustomerController {
 	
 	//메모 등록
 	@PostMapping("memoInsert")
-	public void memoInsert(@RequestParam("customerNum") String customerNum,
-							@RequestParam("memoContent") String memoContent) {
+	public String memoInsert(@RequestParam(name = "mcustomerNum") String customerNum,
+							@RequestParam(name = "memoContent") String memoContent) {
+		
+		System.out.println("고번" + customerNum +"내용" + memoContent);
+
 		CustomerMemo cm = new CustomerMemo();
 		Customer customer = new Customer();
 		
@@ -82,12 +102,47 @@ public class CustomerController {
 		customer.setCustomerNum(customerNum);
 		cm.setCustomer(customer);
 		
-		System.out.println(cm.toString());
+		System.out.println(cm);
 		customerService.insertMemo(cm);
+		
+		return "redirect:/searchCustomer?customerNum="+customerNum;
 	}
+	
+	
+	//메모삭제
+	@GetMapping("deleteMemo/{num}")
+	@ResponseBody
+	public void deleteMemo(@PathVariable("num") Long memoNum) {
+		System.out.println("삭제 확인");
+		CustomerMemo cm = new CustomerMemo();
+		cm.setMemoNum(memoNum);
+		customerService.deleteMemo(memoNum);
+	}
+	
+	
+	//메모페이징
+	//전체 메모 리스트
+	@GetMapping("/getMemoPage")
+	@ResponseBody
+	public List<CustomerMemo> getMemoPage(@RequestParam("customerNum") String customerNum,
+										@RequestParam("page") int page,
+										@RequestParam("pageSize") int pageSize){
+		
+		Customer customer = new Customer();
+		customer.setCustomerNum(customerNum);
+		customer = customerService.getCustomer(customer);
+		
+		//특정 고객의 메모리스트
+		List<CustomerMemo> memoPage = customer.getCustomerMemoList();
+		return memoPage;
+	}
+	
+	
+	
 
-	
-	
+
+
+
 
 
 }
