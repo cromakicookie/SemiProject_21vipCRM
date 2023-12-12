@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.web.domain.Calendar;
+import com.web.domain.dataFile;
 
 public interface CalendarService {
 
@@ -24,5 +25,6 @@ public interface CalendarService {
 	List<Map<String, Object>> getCalendarListU(String eventType);
 
 	List<Map<String, Object>> getCalendarListAll(String eventType);
+
 
 }
