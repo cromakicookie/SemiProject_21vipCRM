@@ -44,7 +44,7 @@ public class FileServiceImpl implements FileService {
 		// ID 바로 돌려주기...
 		dataFile fileInfo = new dataFile();
 		fileInfo.setFileName(fileName);
-		fileInfo.setFileRoot(uploadPath.toString());
+		fileInfo.setFileRoot("/uploadFile/");
 		fileInfo = fr.save(fileInfo);
 		
 		Long fileNumber = fileInfo.getFileNumber();

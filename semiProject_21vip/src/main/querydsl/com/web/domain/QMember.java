@@ -56,7 +56,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public QMember(Class<? extends Member> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.memberFile = inits.isInitialized("memberFile") ? new QdataFile(forProperty("memberFile"), inits.get("memberFile")) : null;
+        this.memberFile = inits.isInitialized("memberFile") ? new QdataFile(forProperty("memberFile")) : null;
     }
 
 }

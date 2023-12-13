@@ -41,9 +41,6 @@ $(document).ready(function() {
 					str += "<li>내용 : " + "</li>";
 					str += "<li>" + data.eventContent + "</li>";
 					str += "</ul>"
-					if (data.file != null) {
-						str += "<img src='" + data.file.fileRoot + "' >";
-					}
 
 					$("#modal-body").html(str);
 					let eventType = data.eventType;
@@ -67,19 +64,9 @@ $(document).ready(function() {
 		}
 	});
 	calendar.render();
-
-
-	/*	// 이미지를 로드할 때 호버 이미지 경로로 변경
-		document.getElementById('uploadImage').addEventListener('mouseover', function() {
-			this.src = '/img/mypage_icon.png';
-		});
-	
-		// 이미지에서 마우스가 벗어날 때 기본 이미지 경로로 변경
-		document.getElementById('uploadImage').addEventListener('mouseout', function() {
-	
-			this.src = '';
-		});
-	*/
+	$("#password").on('input', function() {
+		checkPw();
+	})
 });
 
 
@@ -160,7 +147,7 @@ function deleteCal() {
 }
 
 
-function handleFileUpload(files, callback) {
+function handleFileUpload(files) {
 	/* 선택된 파일들(files)을 서버로 업로드하거나 다른 작업을 수행할 수 있음 */
 	console.log(files);
 	var formData = new FormData($('#uploadForm')[0]);
@@ -179,12 +166,9 @@ function handleFileUpload(files, callback) {
 			success: function(data) {
 				console.log("업로드 성공");
 				dataNumber = data;
-				console.log(data);
-				
-				if (typeof callback === 'function') {
-					console.log("콜백")
-					callback();
-				}
+				console.log(dataNumber);
+
+				getFile();
 			},
 			error: function(error) {
 				console.error('Error:', error);
@@ -195,18 +179,55 @@ function handleFileUpload(files, callback) {
 
 }
 
-handleFileUpload(myFiles, function() {
+function getFile() {
 	console.log("파일 가져오기");
 	$.ajax({
 		type: "GET",
 		url: "/file/" + dataNumber,
 		success: function(data) {
 			console.log(data);
-			$("#uploadImage").attr("src", data.fileRoot + "\\" + data.fileName);
+			$("#fileNumber").attr("value", data.fileNumber);
+			$("#uploadImage").attr("src", data.fileRoot + data.fileName);
 		},
 		error: function(error) {
 			console.error('Error:', error);
 		}
 	});
-});
+};
 
+function checkPw() {
+	const pwRegex = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+	var pw = $("#password").val();
+
+	function displayNone() {
+		$('#pwError').css("display", "none");
+		$('#pwOk').css("display", "none");
+	}
+
+	if (!pwRegex.test(pw)) {
+		displayNone();
+		$('#pwError').css("display", "block");
+	} else {
+		displayNone();
+		$('#pwOk').css("display", "block");
+	}
+}
+
+function mySubmit() {
+	var formData = new FormData($('#userUpdateForm')[0]);
+	$.ajax({
+		type: "POST",
+		url: "file/upload/user",
+		data: formData,
+		processData: false,
+		contentType: false,
+		success: function(data) {
+			alert("수정되었습니다.");
+			$("#memberEmail").attr("value",data.memberEmail);
+			$('#pwOk').css("display", "none");
+		},
+		error: function(error) {
+			console.error('Error:', error);
+		}
+	})
+}
