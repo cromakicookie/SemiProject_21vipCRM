@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.domain.Calendar;
@@ -52,14 +53,19 @@ public class CalendarController {
 	
 	// [일정관리] admin, manager만 입력가능
 	@PostMapping("inputCalendar")
-	public String inputCalendar(Calendar cal, MultipartFile uploadFiles) throws IOException{
-		if(uploadFiles != null) {
-			Long id = fs.uploadFile(uploadFiles);
-			dataFile file = fs.getFile(id);
-			cal.setFile(file);
+	public String inputCalendar(Calendar cal, @RequestParam("uploadFiles")MultipartFile uploadFiles) throws IOException{
+		System.out.println("input");
+		try {
+			if(uploadFiles != null && !uploadFiles.isEmpty()) {
+				Long id = fs.uploadFile(uploadFiles);
+				System.out.println(id+"upload");
+				dataFile file = fs.getFile(id);
+				
+				cal.setFile(file);
+			}
 			cs.insertCalendar(cal);
-		}else {
-			cs.insertCalendar(cal);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		return "redirect:calendar";

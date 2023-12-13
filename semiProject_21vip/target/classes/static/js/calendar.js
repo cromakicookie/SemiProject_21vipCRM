@@ -42,6 +42,9 @@ $(document).ready(function() {
 				success: function(data) {
 					console.log(data);
 					let str = "";
+					if (data.file != null) {
+						str += "<img src='" + data.file.fileRoot+data.file.fileName + "' >";
+					}
 					str += "<ul>";
 					str += "<li>제목 : " + data.title + "</li>";
 					str += "<li>번호 : <span id='dataId'>" + data.id + "</span></li>";
@@ -50,9 +53,7 @@ $(document).ready(function() {
 					str += "<li>내용 : " + "</li>";
 					str += "<li>" + data.eventContent + "</li>";
 					str += "</ul>"
-					if (data.file != null) {
-						str += "<img src='" + data.file.fileRoot + "' >";
-					}
+					
 
 					$("#card-text").html(str);
 				},
@@ -82,7 +83,7 @@ function showModal() {
 		$("#modal-title").html("일정 수정");
 		$.get('/calendar/event/' + number, function(data) {
 			let str = "";
-			str += "<form id='modalForm2'>"
+			str += "<form id='modalForm2' enctype='multipart/form-data'>"
 			str += "<ul>";
 			str += "<li>제목 : <input type='text' name='title' value='" + data.title + "'/></li>";
 			str += "<li>번호 : <input type='text' name='id' value='" + data.id + "' readonly/></li>";
@@ -91,10 +92,9 @@ function showModal() {
 			str += "<li style='display: none;'><input type='text' value='" + data.eventType + "' name='eventType'/></li>";
 			str += "<li><textarea cols='55' rows='5' name='eventContent'>" + data.eventContent + "</textarea></li>";
 			str += "</ul>"
+			str += "<input type='file' id='uploadFiles' name='uploadFiles'>"
 			str += "</form>"
-			if (data.file != null) {
-				str += "<img src='" + data.file.fileRoot + "' >";
-			}
+			
 			$("#modal-body").html(str);
 			$("#myModal2").modal('show');
 
@@ -103,17 +103,15 @@ function showModal() {
 }
 
 function modalSubmit() {
-	var form = {};
-	$("#modalForm2").serializeArray().forEach(function(item) {
-		form[item.name] = item.value;
-	});
-	console.log(form);
+	var formData = new FormData($("#modalForm2")[0]);
+	console.log(formData);
 
 	$.ajax({
 		url: "/calendar/event",
 		type: "PUT",
-		contentType: 'application/json; charset=utf-8',
-		data: JSON.stringify(form),
+		data: formData,
+		contentType: false,
+		processData: false,
 		success: function() {
 			console.log("수정 성공");
 			$("#myModal2").modal('hide');

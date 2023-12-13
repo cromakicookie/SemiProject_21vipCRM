@@ -68,7 +68,7 @@ public class QCalendar extends EntityPathBase<Calendar> {
 
     public QCalendar(Class<? extends Calendar> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.file = inits.isInitialized("file") ? new QdataFile(forProperty("file"), inits.get("file")) : null;
+        this.file = inits.isInitialized("file") ? new QdataFile(forProperty("file")) : null;
     }
 
 }
