@@ -27,7 +27,7 @@ td {
 }
 
 .img-right,
-.img-bottom {
+form>.img-bottom {
 	list-style: none;
 	line-height: 2.5rem;
 	margin-top: 5px;
@@ -107,3 +107,13 @@ input {
 	opacity: 0.5;
 }
 
+#pwError {
+	font-size: small;
+	color: darkred;
+	margin-bottom: 0;
+}
+#pwOk {
+	font-size: small;
+	color: blue;
+	margin-bottom: 0;
+}

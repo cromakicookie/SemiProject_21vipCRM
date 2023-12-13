@@ -32,7 +32,5 @@ public class dataFile extends BaseEntity{
 	private String fileName;
 	private String fileRoot;
 	
-	@OneToOne(mappedBy = "file")
-	private Calendar calendar;
 	
 }

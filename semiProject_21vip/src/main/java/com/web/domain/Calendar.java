@@ -43,8 +43,8 @@ public class Calendar extends BaseEntity{
 	private String eventContent;
 	private String eventType;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="FILE_NUMBER", referencedColumnName = "fileNumber")
+	@OneToOne
+	@JoinColumn(name="FILE_NUMBER")
 	private dataFile file;
     
 }
