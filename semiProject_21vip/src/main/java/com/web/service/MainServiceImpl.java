@@ -20,6 +20,9 @@ public class MainServiceImpl implements MainService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	@Autowired
+	private FileService fileRepo;
+	
 	@Override
 	public void insertMember(Member member) {
 		String encPassword = bCryptPasswordEncoder.encode(member.getPassword());
@@ -73,5 +76,23 @@ public class MainServiceImpl implements MainService {
             return false;
         }
     }
+	
+	@Override
+	public void updateFile(String username, Long fileNumber) {
+		Member updateMember = mainRepo.findByUsername(username);
+		updateMember.setMemberFile(fileRepo.getFile(fileNumber));
+		
+		mainRepo.save(updateMember);
+	}
+	
+	@Override
+	public void updateMember(Member member) {
+		Member updateMember = mainRepo.findByUsername(member.getUsername());
+		String encPassword = bCryptPasswordEncoder.encode(member.getPassword());
+		updateMember.setPassword(encPassword);
+		updateMember.setMemberEmail(member.getMemberEmail());
+		
+		mainRepo.save(updateMember);
+	}
 }
 

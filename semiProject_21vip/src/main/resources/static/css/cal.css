@@ -14,6 +14,8 @@
 
 .card {
 	background-color: #f9f9f9;
+	max-height: 800px;
+	overflow: auto;
 }
 
 .col.col-2>.card {
@@ -99,8 +101,8 @@ input {
 	color: black;
 }
 
-.card-body>img {
-	width: 100%;
+.card-body>img , .card-text > img{
+	max-width: 100%;
 	height: 10%;
 }
 
