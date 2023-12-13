@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,13 +17,9 @@ public class QdataFile extends EntityPathBase<dataFile> {
 
     private static final long serialVersionUID = 731605929L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QdataFile dataFile = new QdataFile("dataFile");
 
     public final QBaseEntity _super = new QBaseEntity(this);
-
-    public final QCalendar calendar;
 
     //inherited
     public final StringPath createBy = _super.createBy;
@@ -45,24 +40,15 @@ public class QdataFile extends EntityPathBase<dataFile> {
     public final DateTimePath<java.util.Date> modifyDate = _super.modifyDate;
 
     public QdataFile(String variable) {
-        this(dataFile.class, forVariable(variable), INITS);
+        super(dataFile.class, forVariable(variable));
     }
 
     public QdataFile(Path<? extends dataFile> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QdataFile(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QdataFile(PathMetadata metadata, PathInits inits) {
-        this(dataFile.class, metadata, inits);
-    }
-
-    public QdataFile(Class<? extends dataFile> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.calendar = inits.isInitialized("calendar") ? new QCalendar(forProperty("calendar"), inits.get("calendar")) : null;
+        super(dataFile.class, metadata);
     }
 
 }

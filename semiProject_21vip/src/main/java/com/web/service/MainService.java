@@ -13,4 +13,7 @@ public interface MainService {
 	public boolean findPw(Member member);
 	public void updatePw(Member member);
 	public boolean memberEmailCheck(String memberEmail, String username);
+	void updateMember(Member member);
+	void updateFile(String username, Long fileNumber);
+
 }
