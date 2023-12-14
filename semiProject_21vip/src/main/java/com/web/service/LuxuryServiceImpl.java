@@ -1,17 +1,26 @@
 package com.web.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.web.domain.Customer;
 import com.web.domain.Luxury;
+import com.web.persistence.CustomerRepository;
 import com.web.persistence.LuxuryPageRepository;
 import com.web.persistence.LuxuryRepository;
+import com.web.persistence.LuxuryRepository2;
 
 @Service
 public class LuxuryServiceImpl implements LuxuryService {
+
 	
+	@Autowired
+	private CustomerRepository customerRepo;
+
 	@Autowired
 	private LuxuryRepository luxuryRepo;
 	
@@ -42,10 +51,10 @@ public class LuxuryServiceImpl implements LuxuryService {
 	public void luxuryupdate(Luxury luxury) {
 		Luxury findluxury = luxuryRepo.findById(luxury.getLuxurySeq()).get();
 		
-		findluxury.setCustomerNum(luxury.getCustomerNum());
+//		findluxury.setCustomerNum(luxury.getCustomer().getCustomerNum());
 		findluxury.setLuxuryBrandName(luxury.getLuxuryBrandName());
 		findluxury.setLuxuryDate(luxury.getLuxuryDate());
-		findluxury.setLuxuryName(luxury.getLuxuryName());
+//		findluxury.setLuxuryName(luxury.getLuxuryName());
 		findluxury.setLuxuryPhone(luxury.getLuxuryPhone());
 		findluxury.setLuxuryTime(luxury.getLuxuryTime());
 		findluxury.setLuxuryHeadCount(luxury.getLuxuryHeadCount());
@@ -53,10 +62,10 @@ public class LuxuryServiceImpl implements LuxuryService {
 	}
 	
 	// searchKeyword가 포함되어있는 데이터만 검색
-	@Override
-	public Page<Luxury> findCustomerNum(String searchKeyword, Pageable pageable) {
-		return luxuryPageRepo.findBycustomerNumContaining(searchKeyword, pageable);
-	}
+//	@Override
+//	public Page<Luxury> findCustomerNum(String searchKeyword, Pageable pageable) {
+//		return luxuryPageRepo.findByCustomerNumContaining(searchKeyword, pageable);
+//	}
 	
 	// 전체목록 
 	@Override
@@ -70,14 +79,27 @@ public class LuxuryServiceImpl implements LuxuryService {
 		return luxuryPageRepo.findByluxuryBrandNameEquals(brand, pageable);
 	}
 
-	@Override
-	public Page<Luxury> findCustomerNumBrand(String searchKeyword, Pageable pageable, String brand) {
-		
-		return luxuryPageRepo.findByCustomerNumContainingAndLuxuryBrandNameEquals(searchKeyword, pageable, brand);
-	}
-	
+//	@Override
+//	public Page<Luxury> findCustomerNumBrand(String searchKeyword, Pageable pageable, String brand) {
+//		
+//		return luxuryPageRepo.findByCustomerNumContainingAndLuxuryBrandNameEquals(searchKeyword, pageable, brand);
+//	}
+
+//	@Override
+//	public Customer searchCustomer(String num) {
+//		try {
+//			Customer searchCustomer = customerRepo.findById(num).get();
+//			return searchCustomer;
+//		} catch (Exception e) {
+//			return null;
+//		}
+//		
+//	}
 	
 
+	
+	
+	
 	
 
 }
