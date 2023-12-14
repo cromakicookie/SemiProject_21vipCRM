@@ -8,7 +8,7 @@ import com.web.domain.Luxury;
 
 public interface LuxuryPageRepository extends JpaRepository<Luxury, Long> {
 	
-	Page<Luxury> findBycustomerNumContaining(String searchKeyword, Pageable pageable);
+	Page<Luxury> findByCustomerNumContaining(String searchKeyword, Pageable pageable);
 	
 	Page<Luxury> findByluxuryBrandNameEquals(String brand, Pageable pageable);
 	

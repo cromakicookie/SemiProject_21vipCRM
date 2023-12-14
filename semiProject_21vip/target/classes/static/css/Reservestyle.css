@@ -93,7 +93,7 @@ aside {
 	background-color: #5b5b5b;
 	padding: 1em;
 	width: 250px;
-	height: 800px;
+	height: 850px;
 	color: #fff;
 }
 
@@ -159,7 +159,47 @@ main aside input {
 	margin-left: 30px;
 }
 
+.customer_info_table {
+  width: 200px;
+  margin-left: 10px;
+  color: aliceblue;
+  font-weight: bold;
+  border-collapse: collapse;
+  /* border: 1px solid #d9d9d9; */
+}
 
+.customer_info_table caption {
+  font-size: 20px;
+  caption-side: top;
+  color: aliceblue;
+  font-weight: bold;
+}
+
+.customer_info_table tr,
+.customer_info_table td {
+  height: 30px;
+}
+
+.customer_info_table td:first-child {
+  text-align: left;
+  width: 80px;
+  /* border: 1px solid #d9d9d9; */
+}
+
+.customer_info_table td:last-child {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.push {
+	padding: 0px 7px;
+	margin-top: 10px;
+    color: aliceblue;
+  	font-weight: bold;
+  	background-color: #5b5b5b;
+  	border: 2px solid aliceblue;
+  	border-radius: 5px;
+}
 /* aside 끝 */
 
 
@@ -194,6 +234,7 @@ hr {
 	border: 1.5px solid #5b5b5b;
 }
 
+/* section */
 .servicePage {
 	width: 80%;
 	height: 700px;
