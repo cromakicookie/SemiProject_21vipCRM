@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +29,7 @@ import lombok.ToString;
 public class Customer extends BaseEntity {
 	
 	@Id
-	private String customerNum;		//고객번호 양식 c0000 (c+네자리숫자) 
+	private String customerNum;		//고객번호 양식 C0000 
 	private String customerName;	//고객명
 	private String customerGrade;	//고객등급
     private String customerBirth;	//생년월일
@@ -36,12 +37,23 @@ public class Customer extends BaseEntity {
 	private String favoriteStore;	//주이용점
 	private String customerHP;	//핸드폰번호
 	
-	// 다대일(N:1) 관계 설정
+	
+	// 다대일(N:1) 관계 설정 -----------
+	
+	//고객번호로 메모 리스트 조회
     @OneToMany(mappedBy = "customer", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @OrderBy("MemoNum ASC")
+    @OrderBy("MemoNum ASC") 											//내림차순 시 MemoNum DESC
     private List<CustomerMemo> customerMemoList = new ArrayList<>();
 	
-    //고객번호로 메모테이블의 일치하는 행 리스트를 뽑을 수 있음. 
-    //내림차순 시 MemoNum DESC
+    //고객번호로 바우처 리스트 조회
+    @OneToMany(mappedBy = "customer", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OrderBy("createDate ASC") 											//내림차순 시 MemoNum DESC
+    private List<VoucherC> issuedVoucherList = new ArrayList<>();
+   
+    //고객번호로 명품관 예약 리스트 조회
+    @OneToMany(mappedBy = "customer", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OrderBy("createDate DESC") 											//내림차순 시 MemoNum DESC
+    private List<Luxury> luxuryList = new ArrayList<>();
+    
 	
 }

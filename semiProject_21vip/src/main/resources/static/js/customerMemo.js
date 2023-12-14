@@ -1,7 +1,7 @@
 
 
 var startIndex = 0; // 시작 인덱스 초기화
-var itemsPerPage = 5; // 페이지당 표시할 항목 수
+var itemsPerPage = 3; // 페이지당 표시할 항목 수
 
 document.addEventListener('DOMContentLoaded', function() {
     showMemoRange(startIndex, itemsPerPage);
