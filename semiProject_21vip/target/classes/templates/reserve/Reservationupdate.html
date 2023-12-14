@@ -8,6 +8,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 
 	<script src="../js/Reservation.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>예약 수정 페이지</title>
@@ -19,22 +20,37 @@
 
 	<main>
         <aside>
-			<form name="searchForm" method="get" th:action="@{/reservation}">
-			<input type="hidden" name="brand" th:value="${param.brand}">
-            <div class="search">
-           <input type="text" name="searchKeyword" placeholder="  고객번호 검색..."/>
-            <i class='bx bx-search' onclick="SearchCustomerNum()"></i>
-            </div>
-            </form>
+		<div class="customer_info">
+			<table class="customer_info_table">
+				<caption>고객 기본정보</caption>
+				<tbody id="customerTable">
+					<tr>
+						<td>- 고객번호</td>
+						<td th:text="${customer.customerNum}"></td>
+					</tr>
+					<tr>
+						<td>- 성명</td>
+						<td th:text="${customer.customerName}"></td>
+					</tr>
+					<tr>
+						<td>- 등급</td>
+						<td th:text="${customer.customerGrade}"></td>
+					</tr>
+					<tr>
+						<td>- 주 이용점</td>
+						<td th:text="${customer.favoriteStore}"></td>
+					</tr>
+					<tr>
+						<td>- 생일</td>
+						<td th:text="${customer.customerBirth}"></td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+            
            
-		<div class="sidebar">Brand
-			<ul class="list-group">
-				<li class="list-group-item"><a th:href="@{/reservationBrand(searchKeyword=${param.searchKeyword}, brand='Hermes')}">Hermes</a></li>
-				<li class="list-group-item"><a th:href="@{/reservationBrand(searchKeyword=${param.searchKeyword}, brand='Prada')}">Prada</a></li>
-				<li class="list-group-item"><a th:href="@{/reservationBrand(searchKeyword=${param.searchKeyword}, brand='Gucci')}">Gucci</a></li>
-				<li class="list-group-item"><a th:href="@{/reservationBrand(searchKeyword=${param.searchKeyword}, brand='Burberry')}">Burberry</a></li>
-				<li class="list-group-item"><a th:href="@{/reservationBrand(searchKeyword=${param.searchKeyword}, brand='Louis Vuitton')}">Louis Vuitton</a></li>
-			</ul>
+		<div class="sidebar">
 			<div style="margin-top: 10px;">정렬</div>
 			<ul class="customerSort">
 				<li><a th:href="@{/reservationcustoNum(searchKeyword=${param.searchKeyword}, brand=${param.brand})}">고객번호</a>
@@ -55,13 +71,13 @@
 					<tr>
 						<td>
 							<label for="customerNum">고객번호</label>
-							<input type="text" id="customerNum" name="customerNum" th:value="${list.customerNum}"><br>
+							<input type="text" id="customerNum" name="customerNum" th:value="${list.customerNum}" readonly><br>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<label for="luxuryName">고객명</label>
-							<input type="text" id="luxuryName" name="luxuryName" th:value="${list.luxuryName}"><br>
+							<input type="text" id="luxuryName" name="luxuryName" th:value="${list.luxuryName}" readonly><br>
 						</td>
 					</tr>
 					<tr>
