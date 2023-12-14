@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.web.domain.Calendar;
 import com.web.domain.Customer;
@@ -46,31 +49,16 @@ public class CustomerController {
 		return "customer/customerPage";
 	}
 	
-	//고객 등록 페이지
-	@GetMapping("insertCustomer")
-	public String insertCustomer() {
-		return "customer/insertCustomer";
-	}
-	
-	
-	//고객 등록
-	@PostMapping("customerInsert")
-	public String customerInsert(Customer customer) {
-		customerService.insertCustomer(customer);
-		return "redirect:customerMain";
-	}
-	
-	
 	//고객 조회 
 	@GetMapping("searchCustomer")
-	public String searchCustomer(@RequestParam(name="customerNum") String customerNum, Model model) {
+	public String searchCustomer(@RequestParam(name="customerNum") String customerNum,
+								HttpSession session,
+								Model model) {
 		//서비스에서 고객번호로 고객정보 가져옴
 		Customer customer = new Customer();
 		customer.setCustomerNum(customerNum);
 		customer = customerService.getCustomer(customer);
 		
-//		model.addAttribute("customer", customer);
-//		System.out.println(customerService.getCustomer(customer));
 			
 		 if (customer == null) {
 			 	//check 데이터가 있으면 1 없으면 0 반환
@@ -82,10 +70,67 @@ public class CustomerController {
 		        model.addAttribute("check", 1);
 		        model.addAttribute("customer", customer);
 		        model.addAttribute("memoList", customer.getCustomerMemoList());
+		        model.addAttribute("VoucherList", customer.getIssuedVoucherList());
+		        session.setAttribute("sessionCustomerNum", customer.getCustomerNum());
 		    }
 		 
 		return "customer/customerPage";
 	}
+	
+	
+	//고객 등록 페이지
+	@GetMapping("insertCustomer")
+	public String insertCustomer(Model model) {
+		model.addAttribute("generateCustomerNum", generateRandomCustomerNum());
+		return "customer/insertCustomer";
+	}
+	
+	
+	//고객 등록
+	@PostMapping("customerInsert")
+	public String customerInsert(Customer customer) {
+		customerService.insertCustomer(customer);
+		return "redirect:customerMain";
+	}
+	
+	//고객 정보 존재 여부 조회 (중복검사)
+	@PostMapping("/haveCustomer")
+	@ResponseBody
+	public int getCustomer(@RequestParam("customerNum") String customerNum) {
+		Customer customer = new Customer();
+		customer.setCustomerNum(customerNum);
+		customer = customerService.getCustomer(customer);
+		//고객 데이터가 있으면 1 없으면 0 반환
+		if(customer == null) {
+			return 0;
+		}else {
+			return 1;
+		}
+	}
+
+	
+	//랜덤 고객번호 생성
+	@GetMapping("/generateCustomerNum")
+	@ResponseBody
+	public String reNumber() {
+		return generateRandomCustomerNum();
+	}
+		
+	public String generateRandomCustomerNum() {
+		String generateCustomerNum;
+		// Format: C + 네자리숫자
+        String prefix = "C";
+        String fourDigitNumber = generateRandomFourDigitNumber();
+        return generateCustomerNum = prefix + fourDigitNumber;
+    }
+
+	 private String generateRandomFourDigitNumber() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(9000) + 1000; // Generate a random number between 1000 and 9999
+        return String.valueOf(randomNumber);
+    }
+	
+	 
 	
 	
 	//메모 등록
@@ -120,7 +165,7 @@ public class CustomerController {
 	}
 	
 	
-	//메모페이징
+	//메모더보기
 	//전체 메모 리스트
 	@GetMapping("/getMemoPage")
 	@ResponseBody
