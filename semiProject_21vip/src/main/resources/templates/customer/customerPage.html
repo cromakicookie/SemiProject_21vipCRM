@@ -44,6 +44,9 @@
 			  <tr>
 	            <td>- 고객번호</td>
 	            <td th:text="${customer.customerNum}"></td>
+	            <p style="display: none;">
+					세션에 저장된 customerNum 값: <span th:text="${session.sessionCustomerNum}"></span>
+				</p>
 	          </tr>
 	          <tr>
 	            <td>- 성명</td>
@@ -77,10 +80,8 @@
                 
         <a th:href="@{/insertCustomer}">고객 등록</a>
 
-
       </aside>
-        
-
+      
       <!-- 세로형 섹션 2 -->
       <section class="customer_service" >
         
@@ -105,34 +106,40 @@
                 <!-- 생일테이블 -->
                 <div class="table_service">
                   <table>
-                      <tr>
-                        <th>순번</th>
-                        <th>타입</th>
-                        <th>테마명</th>
-                        <th>서비스명</th>
-                        <th id="num">일련번호</th>
-                        <th>사용기한</th>
-                        <td id="btn_UD" ></td>
-                      </tr>
-                      <tr>
-                        <td scope="row">1</td>
-                        <td>G</td>
-                        <td>생일바우처</td>
-                        <td>다이닝이용권</td>
-                        <td id="num">G001-0001-0001</td>
-                        <td>2023.12.12</td>
-                        <td id="btn_UD" >
-                          <button onclick="updateVoucher()">U</button>
-                          <button onclick="deleteVoucher()">D</button>
-                        </td>
-                      </tr>
+					  <thead>
+	                      <tr>
+	                        <th>순번</th>
+	                        <th>타입</th>
+	                        <th>테마명</th>
+	                        <th>서비스명</th>
+	                        <th id="num">일련번호</th>
+	                        <th>발행일</th>
+	                        <th>사용기한</th>
+	                        <td id="btn_UD" ></td>
+	                      </tr>
+                      </thead>
+                      <tbody th:each="cv, state : ${VoucherList}" class="cvoucher_tbody">
+	                      <tr>
+	                        <td id="vCount" th:text = "${state.count}"></td>
+	                        <td>G</td>
+	                        <td>생일바우처</td>
+	                        <td>다이닝이용권</td>
+	                        <td id="num" th:text="${cv.CheckedVoucherCode}"></td>
+	                        <td th:text="${cv.voucherIssuedDate}"></td>
+	                        <td th:text="${cv.voucherExdate}"></td>
+	                        <td id="btn_UD" >
+	                          <button onclick="updateVoucher()">U</button>
+	                          <button onclick="deleteVoucher()">D</button>
+	                        </td>
+	                      </tr>
+                      </tbody>
                   </table>
                 </div>
           <!-- <P>if등록된 서비스가 없다면 : 서비스를 등록해 주세요</P> -->
             </div>
           </div>
         </div>
-
+        
         <!-- 연간 서비스 -->
         <div class="accordion-item">
           <h2 class="accordion-header">
@@ -158,42 +165,7 @@
                       <th>사용기한</th>
                       <td id="btn_UD" ></td>
                     </tr>
-                    <tr>
-                      <td scope="row">1</td>
-                      <td>S</td>
-                      <td>BK서비스S</td>
-                      <td>프라이빗요트투어</td>
-                      <td id="num">S001-0001-0001</td>
-                      <td>2024.01.31</td>
-                      <td id="btn_UD" >
-                        <button onclick="updateVoucher()">U</button>
-                        <button onclick="deleteVoucher()">D</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td scope="row">2</td>
-                      <td>A</td>
-                      <td>BK서비스A</td>
-                      <td>스파이용권</td>
-                      <td id="num">A001-0001-0001</td>
-                      <td>2024.01.31</td>
-                      <td id="btn_UD" >
-                        <button onclick="updateVoucher()">U</button>
-                        <button onclick="deleteVoucher()">D</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td scope="row">2</td>
-                      <td>A</td>
-                      <td>BK서비스A</td>
-                      <td>스파이용권</td>
-                      <td id="num">A001-0001-0001</td>
-                      <td>2024.01.31</td>
-                      <td id="btn_UD" >
-                        <button onclick="updateVoucher()">U</button>
-                        <button onclick="deleteVoucher()">D</button>
-                      </td>
-                    </tr>
+     
                 </table>
               </div>
           <!-- <P>if등록된 서비스가 없다면 : 서비스를 등록해 주세요</P> -->

@@ -1,6 +1,7 @@
 package com.web.service;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
 		customerRepo.save(customer);
 		
 	}
-	
-	//고객 상세 정보 가져오기
+		
+	//고객 상세 정보 조회
 	@Override
 	public Customer getCustomer(Customer customer) {
 		// TODO Auto-generated method stub

@@ -44,6 +44,10 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public final StringPath favoriteStore = createString("favoriteStore");
 
+    public final ListPath<VoucherC, QVoucherC> issuedVoucherList = this.<VoucherC, QVoucherC>createList("issuedVoucherList", VoucherC.class, QVoucherC.class, PathInits.DIRECT2);
+
+    public final ListPath<Luxury, QLuxury> luxuryList = this.<Luxury, QLuxury>createList("luxuryList", Luxury.class, QLuxury.class, PathInits.DIRECT2);
+
     //inherited
     public final StringPath modifyBy = _super.modifyBy;
 
