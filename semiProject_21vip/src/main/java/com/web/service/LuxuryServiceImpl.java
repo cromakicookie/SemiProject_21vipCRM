@@ -7,19 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.web.domain.Customer;
 import com.web.domain.Luxury;
-import com.web.persistence.CustomerRepository;
 import com.web.persistence.LuxuryPageRepository;
 import com.web.persistence.LuxuryRepository;
-import com.web.persistence.LuxuryRepository2;
 
 @Service
 public class LuxuryServiceImpl implements LuxuryService {
 
 	
-	@Autowired
-	private CustomerRepository customerRepo;
 
 	@Autowired
 	private LuxuryRepository luxuryRepo;
