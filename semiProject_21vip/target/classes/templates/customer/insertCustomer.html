@@ -8,6 +8,7 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;300&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
 	<style>
 		
 		.register_customer {
@@ -104,15 +105,21 @@
 				<tr>
 					<td>고객 번호</td>
 					<td>
-						<input type="text" id="customer_num" name="customerNum" required>
-						<div id="customer_num_msg"></div>
+						<input type="text" id="customer_num" name="customerNum" th:value="${generateCustomerNum}" oninput="checkCustomerNum()" size="7"/>
+						<span id="customer_num_msg"><button type="button" onclick="reGenerateCustomerNum()">재생성</button></span>
+					</td>
+				</tr>
+				<tr class="cn_msg">
+					<td colspan="2" style="font-size: small;">
+						<span class="cn_ok">- 사용 가능한 고객번호입니다</span>
+						<span class="cn_already">- 사용 중인 고객번호입니다!</span>
 					</td>
 				</tr>
 
 				<tr>
 					<td>고객 명</td>
 					<td>
-						<input type="text" id="customer_name" name="customerName" required>
+						<input type="text" id="customer_name" name="customerName" maxlength="5" required>
 					</td>				
 				</tr>
 	        	<tr>
@@ -128,15 +135,15 @@
 				<tr>
 					<td>휴대 전화</td>
 					<td>
-						<input type="text" id="customerHP" name="customerHP" required>
+						<input type="text" id="customer_HP" name="customerHP" oninput="checkHP()" required>
 					</td>				
 				</tr>
 				<tr>
 					<td>성 별</td>
 					<td>
-						<input type="radio" id="male" name="customerGender" value="m" />
+						<input type="radio" id="male" name="customerGender" value="m"/>
 				        <label for="male"> 남성 </label> &nbsp;&nbsp;&nbsp;&nbsp;				      
-				        <input type="radio" id="female" name="customerGender" value="f" />
+				        <input type="radio" id="female" name="customerGender" value="f"/>
 				        <label for="female"> 여성 </label>
 					</td>				
 				</tr>
@@ -144,14 +151,14 @@
 	     	   	<tr>
 					<td>생년월일</td>
 					<td>
-						<input type="date" id="customerBirth" name="customerBirth" required pattern="\d{4}-\d{2}-\d{2}">	
+						<input type="date" id="customer_Birth" name="customerBirth" required pattern="\d{4}-\d{2}-\d{2}">	
 					</td>
 				</tr>
 
 	        	<tr>
 					<td>주이용점</td>
 					<td>
-						<select id="favoriteStore" name="favoriteStore" required>
+						<select id="favorite_Store" name="favoriteStore" required>
 			                <option value="본점">본점</option>
 			                <option value="무역점">무역점</option>
 			                <option value="판교점">판교점</option>
@@ -160,7 +167,7 @@
 				</tr>
 	        	<tr>
 					<td colspan="2" id="btn_insert">
-						 <input type="submit" value="등록" >
+						 <input type="submit" value="등록" onclick="customerInsertCheck()">
 					</td>
 				</tr>      
 	        </table>

@@ -248,7 +248,7 @@ textarea {
   font-size: 14px;
 }
 
-thead {
+.table_memo thead {
   background-color: #b592ff;
   color: #f9f9f9;
   height: 40px;
