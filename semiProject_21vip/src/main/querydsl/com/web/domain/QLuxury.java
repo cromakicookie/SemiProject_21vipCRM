@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -16,6 +17,8 @@ import com.querydsl.core.types.Path;
 public class QLuxury extends EntityPathBase<Luxury> {
 
     private static final long serialVersionUID = -1637559472L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QLuxury luxury = new QLuxury("luxury");
 
@@ -27,15 +30,13 @@ public class QLuxury extends EntityPathBase<Luxury> {
     //inherited
     public final DateTimePath<java.util.Date> createDate = _super.createDate;
 
-    public final NumberPath<Long> customerNum = createNumber("customerNum", Long.class);
+    public final QCustomer customer;
 
     public final StringPath luxuryBrandName = createString("luxuryBrandName");
 
     public final StringPath luxuryDate = createString("luxuryDate");
 
     public final NumberPath<Long> luxuryHeadCount = createNumber("luxuryHeadCount", Long.class);
-
-    public final StringPath luxuryName = createString("luxuryName");
 
     public final StringPath luxuryPhone = createString("luxuryPhone");
 
@@ -50,15 +51,24 @@ public class QLuxury extends EntityPathBase<Luxury> {
     public final DateTimePath<java.util.Date> modifyDate = _super.modifyDate;
 
     public QLuxury(String variable) {
-        super(Luxury.class, forVariable(variable));
+        this(Luxury.class, forVariable(variable), INITS);
     }
 
     public QLuxury(Path<? extends Luxury> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QLuxury(PathMetadata metadata) {
-        super(Luxury.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QLuxury(PathMetadata metadata, PathInits inits) {
+        this(Luxury.class, metadata, inits);
+    }
+
+    public QLuxury(Class<? extends Luxury> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.customer = inits.isInitialized("customer") ? new QCustomer(forProperty("customer")) : null;
     }
 
 }

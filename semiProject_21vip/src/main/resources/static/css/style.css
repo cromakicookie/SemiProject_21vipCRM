@@ -14,7 +14,6 @@ body{
 	margin: 0;
 	background-color: #d9d9d9;
 }
-	
 
 .header{
 	width: 100%;
@@ -156,7 +155,7 @@ body{
 	text-align: center;
 }
 
-.findIdPw p{
+.findIdPw p, .findIdResult p{
 	margin: 15px;
 	text-align: left;
 	font-size: 23px;
@@ -165,7 +164,8 @@ body{
 
 .findIdPw th{
 	font-size: 20px;
-	text-align: center;
+	width: 100px;
+	text-align: left;
 }
 
 .findIdPw th, .findIdPw td{
@@ -184,10 +184,41 @@ body{
 	width: 100px;
 }
 
+.findIdResult{
+	margin: 30px auto;
+	width: 500px;
+	min-height: 400px;
+	text-align: center;
+	border-radius: 10px;
+	background-color: #fcfcfc;
+}
+
+.findIdResult table{
+	margin: 40px auto;
+	text-align: center;
+}
+
+.findIdResult th, .findIdResult td{
+	width: 150px;
+	height: 30px;
+}
+
+.findIdResult tr th p{
+	font-size: 20px;
+	width: 200px;
+	text-align: center;
+	margin-bottom: 0;
+}
+
+.findIdResult button{
+	border: none;
+	width: 100px;
+	height: 40px;
+}
+
 .register{
 	margin: 30px auto;
 	width: 700px;
-	height: 700px;
 	text-align: center;
 	border-radius: 10px;
 	background-color: #fcfcfc;
@@ -207,6 +238,7 @@ body{
 
 .register th{
 	font-size: 20px;
+	text-align: left;
 }
 
 .register th, .register td{
@@ -230,10 +262,22 @@ body{
 	outline: none;
 }
 
-.idCheck{
-	color: rgb(164, 164, 164);
-	text-decoration: none;
-	width: 50px;
+.register span{
+	display: none;
+}
+
+.joinMsg{
+	text-align: left;
+}
+
+.id_none, .pw_error{
+	text-align: left;
+	color: red;
+}
+
+.id_ok, .pw_ok{
+	text-align: left;
+	color: green;
 }
 
 .register .submit{
@@ -243,7 +287,7 @@ body{
 	width: 100px;
 }
 
-.employeeManage{
+.memberManagement{
 	margin: 30px auto;
 	width: 900px;
 	height: 700px;

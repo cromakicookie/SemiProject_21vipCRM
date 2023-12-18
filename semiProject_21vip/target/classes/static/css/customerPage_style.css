@@ -18,7 +18,7 @@ main {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 0px 20px 0px 0px;
+
 }
 
 /* 버튼모음 */
@@ -85,13 +85,13 @@ main nav i {
 
 aside {
   width: 250px;
-  height: 700px;
+  height: 800px;
   padding: 5px;
   background-color: #5b5b5b;
   float: left;
 }
 
-.customer_info {
+.customer_info_table {
   width: 200px;
   margin-left: 10px;
   color: aliceblue;
@@ -100,25 +100,25 @@ aside {
   /* border: 1px solid #d9d9d9; */
 }
 
-.customer_info caption {
+.customer_info_table caption {
   font-size: 20px;
   caption-side: top;
   color: aliceblue;
   font-weight: bold;
 }
 
-.customer_info tr,
-.customer_info td {
+.customer_info_table tr,
+.customer_info_table td {
   height: 30px;
 }
 
-.customer_info td:first-child {
+.customer_info_table td:first-child {
   text-align: left;
   width: 80px;
   /* border: 1px solid #d9d9d9; */
 }
 
-.customer_info td:last-child {
+.customer_info_table td:last-child {
   text-align: left;
   padding-left: 20px;
 }
@@ -128,13 +128,14 @@ aside {
 /* -- 서비스 섹션 -- */
 
 .customer_service {
-  width: 800px;
+  width: 58%;
   height: 700px;
   padding: 50px 30px;
   border: 1px solid #ddd;
   border-radius: 10px;
   background-color: #f9f9f9;
   text-align: center;
+  margin: 0.1%;
   margin-top: 20px;
 }
 
@@ -185,7 +186,8 @@ section > .sectionHeader {
   text-align: center;
 }
 
-.table_service button {
+.table_service button,
+ .btn_mSubmit{
   background-color: #5b5b5b;
   color: white; /* 흰색 텍스트 */
   padding: 1px 5px; /* 패딩 설정 */
@@ -215,12 +217,12 @@ section > .sectionHeader {
 }
 
 /* 메모 섹션 */
-.customer_memo > .sectionHeader {
+.memoSection > .sectionHeader {
   font-size: 15px;
 }
 
-.customer_memo {
-  width: 400px;
+.memoSection {
+  width: 27%;
   height: 700px;
   padding: 20px;
   border: 1px solid #ddd;
@@ -228,10 +230,12 @@ section > .sectionHeader {
   background-color: #f9f9f9;
   text-align: center;
   margin-top: 20px;
+  overflow-y: auto;
+  max-height: 800px;
 }
 
 textarea {
-  width: 350px;
+  width: 98%;
   font-size: 12px;
   background-color: #f2f2f2;
   border-radius: 10px;
@@ -240,11 +244,11 @@ textarea {
 }
 
 .table_memo {
-  width: 360px;
+  width: 98%;
   font-size: 14px;
 }
 
-thead {
+.table_memo thead {
   background-color: #b592ff;
   color: #f9f9f9;
   height: 40px;
@@ -269,4 +273,10 @@ thead {
   width: 200px;
   text-align: left;
   padding: 5px;
+}
+
+.btn_memo{}
+
+.btn_memo button {
+  font-size: 8px;
 }

@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -24,19 +25,28 @@ public class QCustomer extends EntityPathBase<Customer> {
     //inherited
     public final StringPath createBy = _super.createBy;
 
-    public final DateTimePath<java.util.Date> createDate = createDateTime("createDate", java.util.Date.class);
+    //inherited
+    public final DateTimePath<java.util.Date> createDate = _super.createDate;
 
-    public final DateTimePath<java.util.Date> customerBirth = createDateTime("customerBirth", java.util.Date.class);
+    public final StringPath customerBirth = createString("customerBirth");
 
     public final StringPath customerGender = createString("customerGender");
 
     public final StringPath customerGrade = createString("customerGrade");
 
+    public final StringPath customerHP = createString("customerHP");
+
+    public final ListPath<CustomerMemo, QCustomerMemo> customerMemoList = this.<CustomerMemo, QCustomerMemo>createList("customerMemoList", CustomerMemo.class, QCustomerMemo.class, PathInits.DIRECT2);
+
     public final StringPath customerName = createString("customerName");
 
-    public final NumberPath<Long> customerNum = createNumber("customerNum", Long.class);
+    public final StringPath customerNum = createString("customerNum");
 
     public final StringPath favoriteStore = createString("favoriteStore");
+
+    public final ListPath<VoucherC, QVoucherC> issuedVoucherList = this.<VoucherC, QVoucherC>createList("issuedVoucherList", VoucherC.class, QVoucherC.class, PathInits.DIRECT2);
+
+    public final ListPath<Luxury, QLuxury> luxuryList = this.<Luxury, QLuxury>createList("luxuryList", Luxury.class, QLuxury.class, PathInits.DIRECT2);
 
     //inherited
     public final StringPath modifyBy = _super.modifyBy;

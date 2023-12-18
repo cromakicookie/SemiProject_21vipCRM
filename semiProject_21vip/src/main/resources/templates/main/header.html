@@ -4,9 +4,17 @@
 		<ul class="nav">
 		  <li class="flex-grow-1">
 		    <a class="header_icon" th:href="@{/}"><h1>21VIP SYSTEM</h1></a>
+<!--		  </li>
+		  <li th:if="${member != null}" class="nav-item">
+		    <a th:if="${#strings.equals(member.memberRole, 'ROLE_ADMIN') or #strings.equals(member.memberRole, 'ROLE_MANAGER')}" class="nav-link" th:href="@{/employee}">사원관리</a>
+		  </li>
+-->
+		
+		  <li class="nav-item">
+		    <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_MANAGER'')')}" class="nav-link" th:href="@{/memberMain}">사원관리</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" th:href="@{/employee}">사원관리</a>
+		    <a class="nav-link" th:href="@{/customerMain}">고객관리</a>
 		  </li>
 		  <li class="nav-item">
 		    <a class="nav-link" th:href="@{/reservation}">예약관리</a>
@@ -14,11 +22,11 @@
 		  <li class="nav-item">
 		    <a class="nav-link" th:href="@{/calendar}">일정관리</a>
 		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" th:href="@{/login}">로그인</a>
-<!--	    <a th:if="${member.userId == null}" class="nav-link" th:href="@{/login}">로그인</a>
-		    <a th:if="${member.userId != null}" class="nav-link" th:href="@{/logout}">로그아웃</a>
--->
+		  <li th:unless="${#authorization.expression('isAuthenticated()')}" class="nav-item">
+			<a class="nav-link" th:href="@{/loginForm}">로그인</a>
+		  </li>
+		  <li th:if="${#authorization.expression('isAuthenticated()')}" class="nav-item">
+			<a class="nav-link" th:href="@{/logout}">로그아웃</a>
 		  </li>
 		  <li class="mypageIcon">
 		    <a class="nav-link" th:href="@{/mypage}"><img th:src="@{/img/user_icon.png}"></a>

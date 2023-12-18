@@ -1,83 +1,148 @@
 /**
  * 
  */
+// 유저 권한 객체
+var userRole = document.currentScript.getAttribute('data-custom');
 
- 	/* # fullcalendar api */
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-  
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        headerToolbar: {
-          left: 'prevYear,prev,next,nextYear today',
-          center: 'title',
-          right: 'dayGridMonth,dayGridWeek,dayGridDay'
-        },
-        initialDate: '2023-01-12',
-        navLinks: true, // can click day/week names to navigate views
-        editable: true,
-        dayMaxEvents: true, // allow "more" link when too many events
-        events: [
-          {
-            title: 'All Day Event',
-            start: '2023-01-01'
-          },
-          {
-            title: 'Long Event',
-            start: '2023-01-07',
-            end: '2023-01-10'
-          },
-          {
-            groupId: 999,
-            title: 'Repeating Event',
-            start: '2023-01-09T16:00:00'
-          },
-          {
-            groupId: 999,
-            title: 'Repeating Event',
-            start: '2023-01-16T16:00:00'
-          },
-          {
-            title: 'Conference',
-            start: '2023-01-11',
-            end: '2023-01-13'
-          },
-          {
-            title: 'Meeting',
-            start: '2023-01-12T10:30:00',
-            end: '2023-01-12T12:30:00'
-          },
-          {
-            title: 'Lunch',
-            start: '2023-01-12T12:00:00'
-          },
-          {
-            title: 'Meeting',
-            start: '2023-01-12T14:30:00'
-          },
-          {
-            title: 'Happy Hour',
-            start: '2023-01-12T17:30:00'
-          },
-          {
-            title: 'Dinner',
-            start: '2023-01-12T20:00:00'
-          },
-          {
-            title: 'Birthday Party',
-            start: '2023-01-13T07:00:00'
-          },
-          {
-            title: 'Click for Google',
-            url: 'http://google.com/',
-            start: '2023-01-28'
-          }
-        ]
-      });
-      calendar.render();
-    });
-    
-    var request = $.ajax({
-      url: "/calendar/event",
-      method: "GET",
-    });
-  
+/* # fullcalendar api */
+var calendar; // 전역변수 선언.
+$(document).ready(function() {
+	var calendarEl = document.getElementById('calendar');
+
+	calendar = new FullCalendar.Calendar(calendarEl, {
+		headerToolbar: {
+			left: 'prevYear,prev,next,nextYear today',
+			center: 'title',
+			right: 'dayGridMonth,dayGridWeek,dayGridDay'
+		},
+		initialDate: '2023-12-06',
+		navLinks: true,
+		editable: true,
+		dayMaxEvents: true,
+		events: '/calendar/event/all',
+		selectable: true,
+		selectMirror: true,
+		eventStartEditable: true,
+		eventDurationEditable: true,
+		select: function(arg) {
+			if (userRole != 'ROLE_MEMBER') {
+				$("#start").val(moment(arg.start).format('YYYY-MM-DD'));
+				$("#end").val(moment(arg.end).format('YYYY-MM-DD'));
+				$("#myModal").modal('show');
+				calendar.unselect()
+			} else {
+				alert("일정 수정이 불가합니다.");
+			}
+		},
+		eventClick: function(arg) {
+			console.log(arg.event.id);
+			$.ajax({
+				type: "GET",
+				url: "/calendar/event/" + arg.event.id,
+				success: function(data) {
+					console.log(data);
+					let str = "";
+					if (data.file != null) {
+						str += "<img src='" + data.file.fileRoot+data.file.fileName + "' >";
+					}
+					str += "<ul>";
+					str += "<li>제목 : " + data.title + "</li>";
+					str += "<li>번호 : <span id='dataId'>" + data.id + "</span></li>";
+					str += "<li>일시 : " + data.start + " ~ " + data.end + "</li>";
+					str += "<li>타입 : " + data.eventType + "</li>";
+					str += "<li>내용 : " + "</li>";
+					str += "<li>" + data.eventContent + "</li>";
+					str += "</ul>"
+					
+
+					$("#card-text").html(str);
+				},
+				error: function(error) {
+					console.error('Error:', error);
+				}
+			})
+		}
+	});
+	calendar.render();
+});
+
+
+function submitForm() {
+	$("#modalForm").submit();
+}
+
+
+
+function showModal() {
+	let number = $("#dataId").text();
+	console.log(number);
+	if (number == "") {
+		alert("선택된 일정이 없습니다.");
+	} else {
+		console.log(number);
+		$("#modal-title").html("일정 수정");
+		$.get('/calendar/event/' + number, function(data) {
+			let str = "";
+			str += "<form id='modalForm2' enctype='multipart/form-data'>"
+			str += "<ul>";
+			str += "<li>제목 : <input type='text' name='title' value='" + data.title + "'/></li>";
+			str += "<li>번호 : <input type='text' name='id' value='" + data.id + "' readonly/></li>";
+			str += "<li>일시 : <input type='date' name='start' value='" + data.start + "' pattern='\d{4}-\d{2}-\d{2}'/> ~ <input type='date' name='end' value='" + data.end + "' pattern='\d{4}-\d{2}-\d{2}'/> </li>";
+			str += "<li>내용 : </li>";
+			str += "<li style='display: none;'><input type='text' value='" + data.eventType + "' name='eventType'/></li>";
+			str += "<li><textarea cols='55' rows='5' name='eventContent'>" + data.eventContent + "</textarea></li>";
+			str += "</ul>"
+			str += "<input type='file' id='uploadFiles' name='uploadFiles'>"
+			str += "</form>"
+			
+			$("#modal-body").html(str);
+			$("#myModal2").modal('show');
+
+		});
+	}
+}
+
+function modalSubmit() {
+	var formData = new FormData($("#modalForm2")[0]);
+	console.log(formData);
+
+	$.ajax({
+		url: "/calendar/event",
+		type: "PUT",
+		data: formData,
+		contentType: false,
+		processData: false,
+		success: function() {
+			console.log("수정 성공");
+			$("#myModal2").modal('hide');
+			calendar.refetchEvents();
+		},
+		error: function(error) {
+			console.error('Error:', error);
+		}
+	});
+
+}
+
+
+function deleteCal() {
+	var confirmDelete = confirm("삭제하시겠습니까?");
+	let number = $("#dataId").text();
+	console.log(number);
+	if (confirmDelete) {
+		$.ajax({
+			url: "/calendar/event/" + number,
+			type: "DELETE",
+			success: function() {
+				console.log("삭제 성공");
+				$("#myModal2").modal('hide');
+				calendar.refetchEvents();
+			},
+			error: function(error) {
+				console.error('Error:', error);
+			}
+		});
+	}
+
+}
+
