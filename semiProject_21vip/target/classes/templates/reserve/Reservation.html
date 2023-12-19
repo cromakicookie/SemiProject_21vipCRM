@@ -44,9 +44,10 @@
 		</div>
           </aside>
         <section class="servicePage">
+			<a th:href="@{kakao}">카카오</a>
           <p class="sectionHeader">명품관 서비스 예약 리스트</p>
              <!--<input type="button" onClick="sendLinkCustom();" value="카카오 전송"/>-->
-    		  <!--<input type="button" onClick="kakaoLogin()" value="카카오 전송2"/>-->
+    		  <input type="button" onClick="sendCommerceMessage()" value="카카오 전송2"/>
            <hr>
            <div th:if="${not Pagelist.empty}">예약목록 : <span th:text="${Pagelist.totalElements}"></span></div>
            <div th:if="${Pagelist.empty}">총 예약목록 수 : 없음<span></span></div>
