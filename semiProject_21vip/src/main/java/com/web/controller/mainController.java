@@ -27,16 +27,11 @@ import com.web.service.MainService;
 
 import net.bytebuddy.dynamic.loading.PackageDefinitionStrategy.Definition.Undefined;
 
-//@SessionAttributes("member")
 @Controller
 public class mainController {
 	
-	
 	@Autowired
 	private MainService mainService;
-	
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	
 	@GetMapping("/")
@@ -56,21 +51,6 @@ public class mainController {
 		return "main/loginForm";
 	}
 	
-//	@GetMapping("login")
-//	public void login() {
-//		
-//	}
-	
-//	@PostMapping("/login")
-//	public String login(Member member, Model model) {
-//		Member findMember = mainService.getMember(member);
-//		if(findMember != null && findMember.getPassword().equals(member.getPassword())) {
-//			model.addAttribute("member", findMember);
-//			System.out.println(findMember.getUsername());
-//			return "redirect:/";
-//		}
-//		return "redirect:loginForm";
-//	}
 	
 	@GetMapping("/loginSuccess")
 	public void loginSuccess() {
@@ -113,27 +93,6 @@ public class mainController {
 		return "main/findIdResult";
 	}
 	
-//	@PostMapping("/findId")
-//	public ResponseEntity<?> findId(Member member, Model model) {
-//		List<String> findId = mainService.findId(member);
-//		System.out.println(findId.toString());
-//		if(findId.toString() == null) {
-//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Your error message");
-//		}
-//		model.addAttribute("findId", findId);
-//		return ResponseEntity.ok("Success");
-//	}
-	
-	@PostMapping("/findPw")
-	public String findPw(Member member) {
-		System.out.println(member);
-		boolean res = mainService.findPw(member);
-		return "/main/findPwResult";
-//		if(res) {
-//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("일치하는 값이 없습니다");
-//		}
-//		return ResponseEntity.ok("Success");
-	}
 	
 	@GetMapping("joinForm")
 	public String joinForm() {
@@ -146,6 +105,7 @@ public class mainController {
 		return "main/registerSuccess";
 	}
 	
+	//id 중복검사
 	@PostMapping("/idValid")
 	@ResponseBody
 	public boolean idValid(@RequestParam("username") String username) {
@@ -153,46 +113,5 @@ public class mainController {
 		return haveId;
 	}
 	
-//	
-//	@GetMapping("employee")
-//	public String employee(){
-//		return "admin/employeeManagement";
-//	}
-	
-	
-	
-
-	
-//	@GetMapping("mypageIdCheck")
-//	public String mypageIdCheck(@ModelAttribute("user") Member member, Model model) {
-//		if(member.getUsername() !=null) {
-//			return "redirect:mypage";
-//		}else {
-//			return "redirect:loginForm";
-//		}
-//	}
-	
-//	@ModelAttribute("member")
-//	public Member setEmptyMember() {
-//		return new Member();
-//	}
-	
-//	@GetMapping("mypage")
-//    public String myPage(Model model, @ModelAttribute("member") Member Member) {
-//		Member findMember = mainService.getMember(Member);
-//        model.addAttribute("Member",findMember);
-//        return "calendar/mypage";
-//    }
-	
-	// 인증번호 보내기 페이지
-//		@GetMapping("/find/password/auth")
-//		public String auth(String username, HttpSession session) {
-//		    Map<String, Object> authStatus = (Map<String, Object>) session.getAttribute("authStatus");
-//		    if(authStatus == null || !username.equals(authStatus.get("username"))) {
-//		        return "redirect:/find/password";
-//		    }
-//		    
-//		    return "user/find/auth";
-//		}
 
 }
