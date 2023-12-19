@@ -26,6 +26,13 @@ public class CustomerServiceImpl implements CustomerService {
 		customerRepo.save(customer);
 		
 	}
+	
+	//고객삭제
+	@Override
+	public void deleteCustomer(String customerNumber) {
+		// TODO Auto-generated method stub
+		customerRepo.deleteById(customerNumber);
+	}
 		
 	//고객 상세 정보 조회
 	@Override

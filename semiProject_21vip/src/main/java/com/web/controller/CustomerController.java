@@ -29,13 +29,22 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.web.domain.Calendar;
 import com.web.domain.Customer;
 import com.web.domain.CustomerMemo;
+import com.web.domain.Voucher;
+import com.web.domain.VoucherC;
 import com.web.service.CustomerService;
+import com.web.service.VoucherService;
 
 @Controller
 public class CustomerController {
 	
 	@Autowired
-	private CustomerService customerService; 
+	private CustomerService customerService;
+	
+	//카카오톡
+	@GetMapping("kakaotalk")
+	public String kakaotalk() {
+		return "customer/kakaotalk";
+	}
 	
 	//고객관리 메인 
 	@GetMapping("customerMain")
@@ -54,26 +63,27 @@ public class CustomerController {
 	public String searchCustomer(@RequestParam(name="customerNum") String customerNum,
 								HttpSession session,
 								Model model) {
-		//서비스에서 고객번호로 고객정보 가져옴
+		//고객번호로 고객정보 가져옴
 		Customer customer = new Customer();
 		customer.setCustomerNum(customerNum);
 		customer = customerService.getCustomer(customer);
 		
-			
+		
+
 		 if (customer == null) {
-			 	//check 데이터가 있으면 1 없으면 0 반환
 		        // 고객이 없을 경우
 		        model.addAttribute("check", 0);
 		        System.out.println(customer);
 		    } else {
 		        // 고객이 있을 경우
 		        model.addAttribute("check", 1);
+		        session.setAttribute("sessionCustomerNum", customer.getCustomerNum());	    
 		        model.addAttribute("customer", customer);
 		        model.addAttribute("memoList", customer.getCustomerMemoList());
 		        model.addAttribute("VoucherList", customer.getIssuedVoucherList());
-		        session.setAttribute("sessionCustomerNum", customer.getCustomerNum());
-		    }
-		 
+		        
+		           
+		    }	 
 		return "customer/customerPage";
 	}
 	
