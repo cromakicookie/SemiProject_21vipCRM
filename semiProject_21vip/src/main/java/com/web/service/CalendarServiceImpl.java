@@ -35,6 +35,16 @@ public class CalendarServiceImpl implements CalendarService{
 	}
 	
 	@Override
+	public List<Map<String, Object>> getCalendarListA(String eventType){
+		List<Map<String, Object>> objectList = new ArrayList<>();
+		List<Calendar> eventAll = cr.findByEventTypeIsNotStartingWith();
+		for (Calendar cal : eventAll) {
+	        objectList.add(createEventMap(cal));
+	    }
+		return objectList;
+	}
+	
+	@Override
 	public List<Map<String, Object>> getCalendarListU(String eventType){
 		List<Map<String, Object>> objectList = new ArrayList<>();
 		Map<String, Object> calendarEvent = new HashMap<>();
@@ -58,18 +68,18 @@ public class CalendarServiceImpl implements CalendarService{
 		// 행사 (일정관리)
 		List<Calendar> eventAll = cr.findByEventTypeIsNotStartingWith();
 		for (Calendar cal : eventAll) {
-	        objectList.add(createEventMap(cal, "blue","white"));
+	        objectList.add(createEventMap(cal));
 	    }
 		// 유저 (마이페이지)
 		List<Calendar> event = cr.findByEventTypeStartingWith(eventType);
 		for (Calendar cal : event) {
-	        objectList.add(createEventMap(cal, "yellow","black"));
+	        objectList.add(createEventMap(cal));
 	    }
 		
 		return objectList;
 	}
 	
-	private Map<String, Object> createEventMap(Calendar cal, String backgroundColor, String color){
+	private Map<String, Object> createEventMap(Calendar cal){
 		Map<String, Object> calendarEvent = new HashMap<>();
 		calendarEvent.put("id", cal.getId());
 		calendarEvent.put("title", cal.getTitle());
@@ -77,8 +87,7 @@ public class CalendarServiceImpl implements CalendarService{
 		calendarEvent.put("end", cal.getEnd());
 		calendarEvent.put("eventContent", cal.getEventContent());
 		calendarEvent.put("eventType", cal.getEventType());
-		calendarEvent.put("backgroundColor", backgroundColor);
-		calendarEvent.put("textColor", color);
+		calendarEvent.put("color", cal.getColor());
 		return calendarEvent;
 	}
 	
@@ -102,6 +111,7 @@ public class CalendarServiceImpl implements CalendarService{
 		selectCal.setEnd(calendar.getEnd());
 		selectCal.setEventContent(calendar.getEventContent());
 		selectCal.setEventType(calendar.getEventType());
+		selectCal.setColor(calendar.getColor());
 		selectCal.setFile(calendar.getFile());
 		
 		cr.save(selectCal);

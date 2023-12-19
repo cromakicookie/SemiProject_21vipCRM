@@ -54,6 +54,14 @@
 						<li style="display: none;"><input type="text" th:value="${'U'+userId}" name="eventType"></li>
 						<li>내용 : </li>
 						<li><textarea cols="55" rows="5" name="eventContent"></textarea></li>
+						<li style="display: none;"><input type="text" id="colorId" name="color" value=""></li>
+						<li><button type="button" id="colorButton" class="btn btn-primary">색 변경</button></li>
+					</ul>
+					<div id="box" class="box" style="display: none;">
+						<div id="palletBox" class="pallet">
+
+						</div>
+					</div>
 					</ul>
 
 				</div>
@@ -102,8 +110,8 @@
 					<div class="img">
 						<form id="uploadForm" th:action="@{/file/upload}" method="post" enctype="multipart/form-data">
 							<div class="send">
-								<img th:attr="src=${not #strings.isEmpty(member.memberFile)} ? ${member.memberFile.fileRoot+member.memberFile.fileName} : 'http://placehold.it/150x150'" id="uploadImage"
-									th:onclick="document.getElementById('fileInput').click();">
+								<img th:attr="src=${not #strings.isEmpty(member.memberFile)} ? ${member.memberFile.fileRoot+member.memberFile.fileName} : 'http://placehold.it/150x150'"
+									id="uploadImage" th:onclick="document.getElementById('fileInput').click();">
 							</div>
 							<input type="text" th:value="${userId}" name="username" readonly style="display: none;">
 							<input id="fileInput" type="file" name="file" onchange="handleFileUpload(this.files)"
@@ -118,10 +126,10 @@
 					</ul>
 					<form id="userUpdateForm" th:action="@{/file/upload/user}" method="post">
 						<ul class="img-bottom">
-							<li style="display: none;"> <input type="text" id="fileNumber" name="fileNumber" th:attr="value=${not #strings.isEmpty(member.memberFile.fileNumber)} ? ${member.memberFile.fileNumber} : ''">
-							</li>
-							<li>이메일 : &nbsp;&nbsp;&nbsp;&nbsp;<span><input type="text" th:value="${member.memberEmail}" name="memberEmail" id="memberEmail"></span></li>
-							<li>아이디 : &nbsp;&nbsp;&nbsp;&nbsp;<span><input type="text" th:value="${userId}" name="username" readonly></span></li>
+							<li>이메일 : &nbsp;&nbsp;&nbsp;&nbsp;<span><input type="text" th:value="${member.memberEmail}"
+										name="memberEmail" id="memberEmail"></span></li>
+							<li>아이디 : &nbsp;&nbsp;&nbsp;&nbsp;<span><input type="text" th:value="${userId}"
+										name="username" readonly></span></li>
 							<li>패스워드 : <span><input type="password" name="password" id="password"></span></li>
 							<li style="display: none;" id="pwError">- 비밀번호는 최소 8자리 이상이며, 최소 한 개의 영문과 숫자를 포함해야합니다.</li>
 							<li style="display: none;" id="pwOk">- 사용 가능한 비밀번호입니다.</li>
