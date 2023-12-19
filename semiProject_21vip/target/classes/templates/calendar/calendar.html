@@ -52,6 +52,58 @@
 						<li>일시 : <input type="date" name="start" id="start" pattern="\d{4}-\d{2}-\d{2}" value=""> ~
 							<input type="date" name="end" id="end" pattern="\d{4}-\d{2}-\d{2}" value="">
 						</li>
+						<!--<li id="checkBox">
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="recurringRule"
+									id="flexRadioDefault1">
+								<label class="form-check-label" for="flexRadioDefault1">
+									반복 일정
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="recurringRule" id="flexRadioDefault2"
+									checked>
+								<label class="form-check-label" for="flexRadioDefault2">
+									일반 일정
+								</label>
+							</div>
+						</li>-->
+						<!--<li id="recur" style="display: none;">반복 : <select name="recurring">
+								<option value="every day">매일</option>
+								<option value="weekly">매주</option>
+								<option value="C">매달</option>
+								<option value="D">매년</option>
+							</select></li>
+						<li id="recur2" style="display: none;">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" name="daysOfWeek" type="checkbox" value="0">
+								<label class="form-check-label" for="inlineCheckbox1">일</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" name="daysOfWeek" type="checkbox" value="1">
+								<label class="form-check-label" for="inlineCheckbox2">월</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" name="daysOfWeek" type="checkbox" value="2">
+								<label class="form-check-label" for="inlineCheckbox1">화</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" name="daysOfWeek" type="checkbox" value="3">
+								<label class="form-check-label" for="inlineCheckbox2">수</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" name="daysOfWeek" type="checkbox" value="4">
+								<label class="form-check-label" for="inlineCheckbox1">목</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" name="daysOfWeek" type="checkbox" value="5">
+								<label class="form-check-label" for="inlineCheckbox2">금</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" name="daysOfWeek" type="checkbox" ivalue="6">
+								<label class="form-check-label" for="inlineCheckbox2">토</label>
+							</div>
+						</li>-->
 						<li>타입 : <select name="eventType">
 								<option value="A">A</option>
 								<option value="B">B</option>
@@ -61,8 +113,14 @@
 						<li>이미지 : <input type="file" name="uploadFiles"> </li>
 						<li>내용 : </li>
 						<li><textarea cols="55" rows="5" name="eventContent"></textarea></li>
+						<li style="display: none;"><input type="text" id="colorId" name="color" value=""></li>
+						<li><button type="button" id="colorButton" class="btn btn-primary">색 변경</button></li>
 					</ul>
+					<div id="box" class="box" style="display: none;">
+						<div id="palletBox" class="pallet">
 
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -100,8 +158,9 @@
 		<div class="card">
 			<div class="card-body">
 				<h5 class="card-title">일정 관리<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-						<button type="button" class="btn btn-secondary btn-sm" onclick="deleteCal()">삭제</button> &nbsp;  
-						<button type="button" class="btn btn-primary btn-sm" onclick="showModal()">수정</button></span></h5>
+						<button type="button" class="btn btn-secondary btn-sm" onclick="deleteCal()">삭제</button> &nbsp;
+						<button type="button" class="btn btn-primary btn-sm" onclick="showModal()">수정</button></span>
+				</h5>
 				<hr>
 				<div class="card-text" id="card-text">
 					지정된 데이터가 없습니다.
