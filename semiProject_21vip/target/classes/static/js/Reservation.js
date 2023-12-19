@@ -238,69 +238,157 @@ function insertMessage() {
 		
 }
 
-   function sendLinkCustom() {
-        Kakao.init("c4d73e82a26e246155c3246c9a8d45ec");
-        Kakao.Link.sendCustom({
-            templateId: 101944
-        });
-    }
+
     
     
-/*
-try {
-  function sendCommerceMessage() {*/
-	  
-/*          Kakao.init('c4d73e82a26e246155c3246c9a8d45ec');
 
-    function kakaoLogin() {
-        Kakao.Auth.login({
-            success: function(authObj) {
-                console.log('Authorization successful:', authObj);
-                // 여기서 authObj.access_token을 사용하여 사용자 정보 요청 등 다양한 작업 수행 가능
-                getUserInfo(authObj.access_token);
-            },
-            fail: function(err) {
-                console.error('Authorization failed:', err);
-            }
-        });
-    }
+// Kakao API 초기화
+Kakao.init('c4d73e82a26e246155c3246c9a8d45ec');
 
-    function getUserInfo(accessToken) {
-        Kakao.API.request({
-            url: '/v2/user/me',
-            success: function(response) {
-                console.log('User info:', response);
-                // 여기서 사용자 정보를 처리하면 됨
+// 사용자 정보 요청 및 메시지 전송
+function sendCommerceMessage() {
+    // 카카오 로그인
+    Kakao.Auth.login({
+        success: function(authObj) {
+            console.log('Authorization successful:', authObj);
+            // 로그인 성공 시 사용자 정보 요청
+            getUserInfo(authObj.access_token);
+        },
+        fail: function(err) {
+            console.error('Authorization failed:', err);
+        }
+    });
+}
+
+// 사용자 정보 가져오기
+function getUserInfo(accessToken) {
+    Kakao.Auth.setAccessToken(accessToken); // 토큰 설정
+
+    Kakao.API.request({
+        url: '/v2/user/me',
+        data: {
+            property_keys: ['kakao_account.has_talk_message_permission']
+        },
+        success: function(response) {
+            console.log('User info:', response);
+
+            // 사용자 정보를 가져온 후 talk_message 권한이 있는지 확인
+            const hasTalkMessagePermission =
+                response.kakao_account && response.kakao_account.has_talk_message_permission;
+
+            if (!hasTalkMessagePermission) {
+                // talk_message 권한이 없으면 동적 동의 요청
+                requestTalkMessagePermission();
+            } else {
+                // talk_message 권한이 있는 경우 바로 메시지 전송
                 sendMessage(response.id, 'Hello, Kakao Message!');
-            },
-            fail: function(error) {
-                console.error('Failed to get user info:', error);
             }
-        });
-    }
-	  
+        },
+        fail: function(error) {
+            console.error('Failed to get user info:', error);
+        },
+    });
+}
+
+// talk_message 권한 동적 동의 요청
+function requestTalkMessagePermission() {
+    Kakao.Auth.authorize({
+        redirectUri: 'http://localhost:8080/',  // 사용자 동의 완료 후 리디렉션될 URI
+        scope: 'talk_message',  // 동적 동의를 받고자 하는 권한
+        success: function () {
+            console.log('Dynamic permission request successful');
+            // 동의를 받은 후의 로직 추가
+            // 예: 메시지 전송 등
+            // 여기서 sendMessage를 호출합니다.
+            sendMessage();
+        },
+        fail: function (err) {
+            console.error('Dynamic permission request failed:', err);
+        },
+    });
+}
+
+// 메시지 전송
 function sendMessage(userId, message) {
     Kakao.API.request({
         url: '/v1/api/talk/friends/message/default/send',
         data: {
-            receiver_uuids: JSON.stringify([userId]), // 배열로 감싸서 전달
-            template_object: JSON.stringify({
+            receiver_uuids: [userId],
+            template_object: {
                 object_type: 'text',
                 text: message,
                 link: {
                     web_url: 'http://localhost:8080/',
                 },
-            }),
+            },
         },
         success: function(response) {
             console.log('Message sent successfully:', response);
         },
         fail: function(error) {
             console.error('Failed to send message:', error);
-        }
+        },
     });
-}*/
+}
 
+
+const axios = require('axios');
+
+const REST_API_KEY = '4340646219326247fb0a9428d5ba413d';
+
+async function getKakaoAuthToken() {
+  try {
+    const response = await axios.post(
+      'https://kauth.kakao.com/oauth/token',
+      `grant_type=client_credentials&client_id=${REST_API_KEY}`,
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+
+    const accessToken = response.data.access_token;
+    return accessToken;
+  } catch (error) {
+    console.error('Failed to get Kakao auth token:', error.response.data);
+    throw error;
+  }
+}
+
+// 토큰 발급 예시
+const accessToken = await getKakaoAuthToken();
+console.log('Kakao Access Token:', accessToken);
+async function sendKakaoMessage(accessToken, receiverUuid, message) {
+  try {
+    const response = await axios.post(
+      'https://kapi.kakao.com/v1/api/talk/friends/message/default/send',
+      {
+        receiver_uuids: [receiverUuid],
+        template_object: {
+          object_type: 'text',
+          text: message,
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    console.log('Kakao Message Sent:', response.data);
+  } catch (error) {
+    console.error('Failed to send Kakao message:', error.response.data);
+    throw error;
+  }
+}
+
+// 메시지 전송 예시
+const receiverUuid = 'RECEIVER_UUID';  // 수신자의 UUID
+const messageToSend = 'Hello, Kakao Message!';
+await sendKakaoMessage(accessToken, receiverUuid, messageToSend);
 
 
 
