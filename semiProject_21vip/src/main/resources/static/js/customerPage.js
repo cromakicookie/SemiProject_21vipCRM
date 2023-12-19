@@ -6,9 +6,11 @@ function searchCustomerNum(){
 		alert("고객번호를 입력해 주세요");
 		inputNumber.focus();
 	}else{
+		
 		document.getElementById('searchCustomerNum').submit();
 	}
 }
+
 
 //바우처 등록
 function insertVoucher() {
@@ -19,6 +21,9 @@ function insertVoucher() {
 function updateVoucher() {
   // 폼 제출 로직 추가
   window.open("voucherUpdateForm", "_blank", "width=800,height=400");
+  
+  
+  
 }
 
 //바우처 삭제
@@ -26,20 +31,31 @@ function deleteVoucher() {
   // 폼 제출 로직 추가
   var result = confirm("정말 삭제하시겠습니까?");
   if (result) {
-    //delete
-    alert("삭제되었습니다.");
-  } else {
-    alert("취소되었습니다.");
-  }
-}
+    
+	var voucherCode = $("#voucherCode_view").text();
 
-
-
-
-function updateMemo(){
+    alert("Delete voucherCode: " + voucherCode)
 	
+	$.ajax({
+	url: "/deleteVoucher/" + voucherCode,
+	type: "GET",
+	success: function() {
+		console.log("삭제 성공");
+		alert("삭제되었습니다.");
+		location.reload();
+		
+	},
+	error: function(error) {
+		console.error('Error:', error);
+		 alert("삭제 실패");
+	}
+	}); 
+    
 }
 
+
+
+//메모삭제
 function deleteMemo(){
 	if (!confirm("정말 삭제하시겠습니까?")){
 			
@@ -48,18 +64,21 @@ function deleteMemo(){
             //메모순번
             var memoRN = $("#memoNum").val();
 
-            alert("Delete memo with ID: " + memoRN)
+            //alert("Delete memo with ID: " + memoRN)
 			
 			$.ajax({
 			url: "/deleteMemo/" + memoRN,
 			type: "GET",
 			success: function() {
 				console.log("삭제 성공");
+				alert("삭제되었습니다.");
 				location.reload();
 				
 			},
 			error: function(error) {
 				console.error('Error:', error);
+				alert("삭제 실패");
+				
 			}
 			});
 		}
@@ -116,24 +135,8 @@ $(document).ready(function () {
 	    }
 	});
 	
-	 $(".check_important").change(function () {
-		 
-		 var ck = 0;
-		 
-		 if(this.checked){
-			 ck = 1;
-			 console
-		 }else{
-			 ck = 0;
-		 }
-		 
-		 
-		 
-		 
-	 })
-	  
-
+	
+	 
 })
 
-
-            
+}

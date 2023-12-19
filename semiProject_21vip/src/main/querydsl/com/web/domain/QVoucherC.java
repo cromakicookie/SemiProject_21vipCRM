@@ -24,7 +24,7 @@ public class QVoucherC extends EntityPathBase<VoucherC> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final StringPath CheckedVoucherCode = createString("CheckedVoucherCode");
+    public final StringPath checkedVoucherCode = createString("checkedVoucherCode");
 
     //inherited
     public final StringPath createBy = _super.createBy;
@@ -40,9 +40,15 @@ public class QVoucherC extends EntityPathBase<VoucherC> {
     //inherited
     public final DateTimePath<java.util.Date> modifyDate = _super.modifyDate;
 
-    public final DateTimePath<java.util.Date> voucherExdate = createDateTime("voucherExdate", java.util.Date.class);
+    public final DatePath<java.util.Date> voucherExdate = createDate("voucherExdate", java.util.Date.class);
 
-    public final DateTimePath<java.util.Date> voucherIssuedDate = createDateTime("voucherIssuedDate", java.util.Date.class);
+    public final DatePath<java.util.Date> voucherIssuedDate = createDate("voucherIssuedDate", java.util.Date.class);
+
+    public final StringPath voucherServiceC = createString("voucherServiceC");
+
+    public final StringPath voucherServiceNameC = createString("voucherServiceNameC");
+
+    public final StringPath voucherTypeC = createString("voucherTypeC");
 
     public QVoucherC(String variable) {
         this(VoucherC.class, forVariable(variable), INITS);
