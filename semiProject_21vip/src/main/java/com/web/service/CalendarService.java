@@ -26,5 +26,8 @@ public interface CalendarService {
 
 	List<Map<String, Object>> getCalendarListAll(String eventType);
 
+	List<Map<String, Object>> getCalendarListA(String eventType);
+
+
 
 }
