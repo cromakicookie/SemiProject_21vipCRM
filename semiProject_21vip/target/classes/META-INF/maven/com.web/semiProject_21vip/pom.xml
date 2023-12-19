@@ -63,6 +63,7 @@
           <artifactId>querydsl-apt</artifactId>
       </dependency>
     
+      <!--spring security-->
       <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -77,11 +78,22 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!--메일 의존성 추가-->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+		
+		<!--엑셀 관련 의존성 추가-->
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>5.2.2</version>
+		</dependency>
+		
 	</dependencies>
+	
 
 	<build>
 		<plugins>

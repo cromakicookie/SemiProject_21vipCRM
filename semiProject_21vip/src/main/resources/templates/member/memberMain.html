@@ -35,12 +35,12 @@
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td><input type="text" name="memberEmail"></td>
+					<td><input type="text" name="memberEmail" id="memberEmail"></td>
 				</tr>
 				<tr>
 					<th>생년월일</th>
 					<td>
-						<input type="date" name="memberBirth">
+						<input type="date" name="memberBirth" id="memberBirth">
          			</td>
 				</tr>
 				<tr>
@@ -73,8 +73,8 @@
 			</table>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
+	        <button type="button" class="modal_but" data-bs-dismiss="modal">닫기</button>
+	        <button type="button" class="modal_but" onclick="updateMember()">변경 사항 저장</button>
 	      </div>
 	    </div>
 	  </div>
@@ -84,45 +84,53 @@
 	<div th:include="main/header :: head1"></div>
     <main>
         <aside>
-			<form name="searchForm" method="get" th:action="@{/reservation}">
-			<input type="hidden" name="brand" >
-            <div class="search">
-           <input type="text" name="searchKeyword" placeholder="  고객번호 검색..."/>
-            <i class='bx bx-search' onclick="SearchCustomerNum()"></i>
-            </div>
-            </form>
-           
-		<div class="sidebar">Brand
-			<ul class="list-group">
-				<li class="list-group-item">Hermes</li>
-				<li class="list-group-item">Prada</li>
-				<li class="list-group-item">Gucci</li>
-				<li class="list-group-item">Burberry</li>
-				<li class="list-group-item">Louis Vuitton</li>
-			</ul>
-			<div style="margin-top: 10px;">정렬</div>
-			<ul>
-				<li>고객번호</a>
-				</li>
-				<li>예약일자</a>
-				</li>
-			</ul>
-		</div>
-          </aside>
+			<form name="searchForm" method="get" th:action="@{/memberMain}">
+		<!--	            <div class="search">
+					<div class="sidebar">이름 검색</div>
+					<input type="text" name="memberName" placeholder="  사원이름 검색..."/>
+				<i class='bx bx-search' onclick="document.searchForm.submit()"></i>
+	            </div>-->
+           		
+				<div class="sidebar">이름 검색
+					<input type="text" name="memberName" class="memberName" th:value="${memberName}" placeholder="  사원이름 검색..."/>
+				<div style="margin-top: 10px;">직급별</div>
+				<select name="memberRole" th:value="${memberRole}">
+					<option value="">------- 선택 -------</option>
+					<option value="ROLE_MEMBER">평사원</option>
+					<option value="ROLE_MANAGER">매니저</option>
+					<option value="ROLE_ADMIN">관리자</option>
+				</select>
+		
+					<div style="margin-top: 10px;">부서별</div>
+					<select name="memberDept" th:value="${memberDept}">
+						<option value="">------- 선택 -------</option>
+						<option value="a">a</option>
+						<option value="b">b</option>
+						<option value="c">c</option>
+						<option value="d">d</option>
+					</select>
+				</div>
+				<input type="submit" class="searchSubmit" value="검색">
+			</form>
+		</aside>
+          
         <section class="servicePage memberList">
-          <p class="sectionHeader">사원 리스트</p>
+          <p class="sectionHeader">사원 리스트<span class="excelDownload"><a th:href="@{/excel/download/{member} (member=${paging})}">엑셀로 받기</a></span></p>
            <hr>
           <div class="card">
-			  <div class="card-body" th:each="member : ${memberList}">
+			  <div class="card-body" th:each="member : ${paging}">
 				  <div class="card-text img">
-					<div class="img">
-						<img src="http://placehold.it/100x100" alt="">
+					<div class="img" th:if="${member.memberFile} ==null">
+						<img class="memberImg" src="http://placehold.it/100x100" alt="">
+					</div>
+					<div class="img" th:if="${member.memberFile !=null}">
+						<img th:src="${member.memberFile.fileRoot+member.memberFile.fileName}" alt="">
 					</div>
 					<p class="img-right">
 						<div class="memberInfo">
 							<span>성명: <span th:text="${member.memberName}"></span></span>
-							<span>부서: <span th:text="${member.memberDept}"></span></span>
-							<span>직급: <span th:text="${member.memberRole}"></span></span>
+							<span>부서: <span th:text="${member.memberDept}+부서"></span></span>
+							<span>직급: <span th:text="${T(com.web.domain.Role).valueOf(member.memberRole).getRole()}"></span></span>
 						</div>
 						<div class="memberChange">
 							<span><button th:username="${member.username}"
@@ -131,17 +139,41 @@
 										  th:memberBirth="${member.memberBirth}"
 										  th:memberDept="${member.memberDept}"
 										  th:memberRole="${member.memberRole}"
-										  type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="openModal(this.getAttribute('username'), this.getAttribute('memberName'), this.getAttribute('memberEmail'), this.getAttribute(''))">수정</button></span>
-				<!--			<span><button data-bs-toggle="modal" th:attr="data-bs-target=${'#exampleModal'}, data-name=${member}">수정</button></span>
-					-->			<span class="spacing">|</span>
-							<span><button>삭제</button></span>
+										  type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+										  th:onclick="openModal(this.getAttribute('username'),
+										  this.getAttribute('memberName'),
+										  this.getAttribute('memberEmail'),
+										  this.getAttribute('memberBirth'),
+										  this.getAttribute('memberDept'),
+										  this.getAttribute('memberRole'))">
+										  수정</button></span>
+							  			<span class="spacing">|</span>
+					<!--		<span><a th:href="@{'/deleteMember/' + ${member.username}}">삭제</a></span>
+					-->		<span><button th:attr="data-username=${member.username}" th:onclick="deleteMember(this.getAttribute('data-username'))">삭제</button></span>
 						</div>
 					</p>
 			  </div>
 		</div>
-
-        </section>
-
+		<!-- 페이징 처리-->
+			<nav th:if="${!paging.isEmpty()}" th:with="memberNameBase = '?memberName='+${param.memberName!=null ? param.memberName : ''},
+													memberDeptBase = 'memberDept='+${param.memberDept!=null ? param.memberDept : ''},
+													memberRoleBase = 'memberRole='+${param.memberRole!=null ? param.memberRole : ''}"
+													aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+			      <a class="page-link" th:href="@{|${memberNameBase}&${memberDeptBase}&${memberRoleBase}&page=${paging.number-1}|}">이전</a>
+			    </li>
+			    <li class="page-item" th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+		th:if="${page >= paging.number-2 and page <= paging.number+2}"
+                th:classappend="${page == paging.number} ? 'active'">
+                <a th:text="${page+1}" class="page-link" th:href="@{|${memberNameBase}&${memberDeptBase}&${memberRoleBase}&page=${page}|}"></a>
+                </li>
+			    <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+			      <a class="page-link" th:href="@{|${memberNameBase}&${memberDeptBase}&${memberRoleBase}&page=${paging.number+1}|}">다음</a>
+			    </li>
+			  </ul>
+			</nav>
+	
     </main>
   
 
