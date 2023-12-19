@@ -24,6 +24,8 @@ public class QCalendar extends EntityPathBase<Calendar> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
+    public final StringPath color = createString("color");
+
     //inherited
     public final StringPath createBy = _super.createBy;
 

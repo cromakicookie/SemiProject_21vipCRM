@@ -44,9 +44,10 @@ public class EventController {
 
 	// [일정관리] 캘린더 목록 가져오기
 	@GetMapping("/all")
-	public List<Calendar> getAllEvents() {
-		List<Calendar> list = cs.getCalendarListNotOnly();
-		return list;
+	public ResponseEntity<List<Map<String, Object>>> getAllEvents() {
+		List<Map<String, Object>> allList = cs.getCalendarListA("U");
+		System.out.println(allList);
+		return new ResponseEntity<>(allList, HttpStatus.OK);
 	}
 
 	// [마이페이지] 캘린더 목록 가져오기
@@ -61,12 +62,6 @@ public class EventController {
 		return allList;
 	}
 
-	// 캘린더 저장
-	@PostMapping
-	public void createEvent(Calendar calendar) {
-		cs.getCalendar(calendar);
-	}
-
 	// [일정관리] [마이페이지] 일정 누르면 일정 보여주기
 	@GetMapping(value = "/{num}", produces = MediaType.APPLICATION_JSON_VALUE) // 일정 번호 가져와서 화면에 가져오기!
 	public Calendar EventView(@PathVariable("num") Long number) {
@@ -77,6 +72,7 @@ public class EventController {
 		return selectCal;
 	}
 
+	// 캘린더 업데이트
 	@PutMapping
 	public void updateEvent(@ModelAttribute Calendar calendar, @RequestParam("uploadFiles") MultipartFile file)
 			throws IOException {
@@ -84,15 +80,26 @@ public class EventController {
 		System.out.println("업데이트 확인");
 
 		try {
-			Long id = fs.uploadFile(file);
-			dataFile files = fs.getFile(id);
+			if (file.isEmpty()) {
+				Long id = fs.uploadFile(file);
+				dataFile files = fs.getFile(id);
 
-			calendar.setFile(files);
+				calendar.setFile(files);
+			}
+
 			cs.updateCalendar(calendar);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	@PutMapping("/update")
+	public void updateMyEvent( @RequestBody Calendar calendar){
+		System.out.println(calendar.toString());
+		System.out.println("업데이트 확인");
+
+		cs.updateCalendar(calendar);
 	}
 
 	@DeleteMapping("/{num}")
