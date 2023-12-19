@@ -1,6 +1,7 @@
 /*insertCustomer.js*/
 document.addEventListener('DOMContentLoaded', function() {
     checkCustomerNum();
+    $('#customer_Birth').prop('max', getCurrentDate());
 });
 
 
@@ -22,9 +23,20 @@ function checkCustomerNum() {
 			console.log(check)
 			displayNone()
 			if(check==1){
-				$('.cn_already').css("display", "inline-block");
+				$('.cn_already').css({
+									    "display": "inline-block",
+									    "color": "red"
+									});
+			$('#customerForm').submit(function(event) {
+                event.preventDefault();
+                alert("사용할 수 없는 고객번호 입니다.")
+            });
+            
 			}else{
-				$('.cn_ok').css("display", "inline-block");
+				$('.cn_ok').css({
+									  "display": "inline-block",
+									  "color": "green"
+								});
 			}
 		}
 	})//ajax
@@ -42,34 +54,45 @@ function reGenerateCustomerNum(){
 			console.log(re)
 			alert("랜덤 고객번호를 재생성합니다.")
 			$('#customer_num').val(re);
+			checkCustomerNum();
 		
+		},
+		error: function(error) {
+		console.error('Error:', error);
+		 alert("고객번호 생성 실패");
 		}
+	
 	})
 		
 }//reGenerateCustomerNum()
 
 
 function customerInsertCheck(){
-	var username = document.joinForm.username.value;
-	
-	if(customer_name == ""){
-		alert("고객명을 입력해주세요.");
-		document.customerForm.customer_name.focus();
-	}else if(document.customerForm.customer_HP.value ==""){
+	let customerNum = $('#customer_num').val();	
+
+	if(customerNum == ""){
+		alert("고객번호를 생성해 주세요.");
+		document.customerForm.customerNum.focus();
+	}else if(document.customerForm.customerHP.value ==""){
 		alert("연락처를 입력해주세요.")
-		document.customerForm.customer_HP.focus();
-	}else if(!(maleRadio.checked || femaleRadio.checked)){
-		alert("성별을 선택해주세요")
-		document.customerForm.customer_HP.focus();
-	}else if(document.customerForm.customer_Birth.value ==""){
-		alert("생년월일을 입력해주세요.")
-		document.customerForm.customer_Birth.focus();
-	}else if(document.customerForm.favorite_Store.value ==""){
-		alert("주 이용점을 선택해주세요.")
-		document.customerForm.favorite_Store.focus();	
+		document.customerForm.customerHP.focus();
 	}else{
 		document.customerForm.submit();
 	}
 	
+}
+
+function customerInsertReset(){
+	location.reload();
+}
+
+// 오늘의 날짜를 구하는 함수
+function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 1을 더하고 2자리로 만듭니다.
+    const day = today.getDate().toString().padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
 }
 

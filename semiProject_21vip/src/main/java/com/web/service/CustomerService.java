@@ -9,6 +9,8 @@ public interface CustomerService {
 	
 	void insertCustomer(Customer customer);
 	
+	void deleteCustomer(String customerNumber);
+	
 	Customer getCustomer(Customer customer);
 	
 	void insertMemo(CustomerMemo memo);
