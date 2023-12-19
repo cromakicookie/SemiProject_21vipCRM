@@ -1,9 +1,17 @@
 package com.web.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
+
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,55 +25,100 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.domain.Customer;
 import com.web.domain.Luxury;
+import com.web.service.CustomerService;
 import com.web.service.LuxuryService;
 
 @Controller
 public class ReserveController {
 	
 	@Autowired
+	private CustomerService customerService;
+	
+	@Autowired
 	private LuxuryService luxuryService;
 	
-	@GetMapping("kakao")
-	public String kakao() {
-		return "reserve/kakao";
+	
+//	@GetMapping("kakao")
+//	public String kakao() {
+//		return "reserve/kakao";
+//	}
+	
+	@PostMapping("/Duplicate")
+	@ResponseBody
+	public int getCustomer(@RequestParam("customerNum") String customerNum) {
+		Customer customer = new Customer();
+		customer.setCustomerNum(customerNum);
+		customer = customerService.getCustomer(customer);
+		if(customer == null) {
+			return 0;
+		} else {
+			return 1;
+		}
 	}
+	
 		
 	@GetMapping("/ReservationInsert")
 	public String ReservationInsert() {
 		return "reserve/ReservationInsert";
 	}
 	
-//	@GetMapping("/findCustomerNum")
-//	@ResponseBody
-//	public Customer findCustomerNum(@RequestParam("customerNum") String customerNum) {
-//		Customer customer = luxuryService.searchCustomer(customerNum);
-//		 
-//		return customer;
-//	}
+	@GetMapping("/findCustomerNum")
+	@ResponseBody
+	public ResponseEntity <Map<String, Object>> findCustomerNum(HttpSession session,@RequestParam("customerNum") String customerNum) {
+//		List<String> list = new ArrayList<>();
+		Map<String, Object> list = new HashMap<>();  // Map을 이용하여 JSON형식으로 받기
+		list = luxuryService.searchCustomer(customerNum);
+		session.setAttribute("customerNumL", customerNum);
+		if(list == null) {
+			return null;
+		} else {
+			return ResponseEntity.ok(list);
+		}
+	}
 	
 	
 	// 예약정보 전송
 	@PostMapping("/reservationResult")
-	public String reservationResult(Luxury luxury) {
+	public String reservationResult(HttpSession session,Luxury luxury) {
+		String cN = (String)session.getAttribute("customerNumL");
+		System.out.println(cN);
+		
+		Customer ct = new Customer();
+		ct.setCustomerNum(cN);
+		luxury.setCustomer(ct);
+		
 		luxuryService.insertLuxury(luxury);
 		return "redirect:/reservation";
 	}
 	
 	// 게시글 상세보기
-//	@GetMapping("/reserveList")
-//	public String luxuryView(Model model, Long luxurySeq, String customerNum) {
-//		model.addAttribute("customer", luxuryService.searchCustomer(customerNum));
-//		model.addAttribute("list", luxuryService.luxuryView(luxurySeq));
-//		return "reserve/ReserveList";
-//	}
+	@GetMapping("/reserveList")
+	public String luxuryView(HttpSession session, Model model, Long luxurySeq, String customerNum) {
+		String customerNumL = (String)session.getAttribute("customerNumL");
+		
+		Luxury luxury = new Luxury();
+		Customer customer = new Customer();
+		customer.setCustomerNum(customerNumL);
+		luxury.setCustomer(customer);
+		model.addAttribute("customer", luxuryService.getCustomer(customerNum));
+		model.addAttribute("list", luxuryService.luxuryView(luxurySeq));
+		return "reserve/ReserveList";
+	}
 	
 	// 수정 폼 이동
-//	@GetMapping("/updateForm/{luxurySeq}")
-//	public String ReservationUpdate(Model model, @PathVariable("luxurySeq") long luxurySeq, String customerNum) {
-//		model.addAttribute("customer", luxuryService.searchCustomer(customerNum));
-//		model.addAttribute("list",luxuryService.luxuryView(luxurySeq));
-//		return "reserve/ReservationUpdate";
-//	}
+	@GetMapping("/updateForm/{luxurySeq}")
+	public String ReservationUpdate(HttpSession session, Model model, @PathVariable("luxurySeq") long luxurySeq, String customerNum) {
+		String customerNumL = (String)session.getAttribute("customerNumL");
+		
+		Luxury luxury = new Luxury();
+		Customer customer = new Customer();
+		customer.setCustomerNum(customerNumL);
+		luxury.setCustomer(customer);
+		
+		model.addAttribute("customer", luxuryService.getCustomer(customerNum));
+		model.addAttribute("list",luxuryService.luxuryView(luxurySeq));
+		return "reserve/ReservationUpdate";
+	}
 	
 	
 	// 수정 결과 전송
