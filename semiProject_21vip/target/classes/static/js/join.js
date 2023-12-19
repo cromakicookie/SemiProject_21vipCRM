@@ -65,6 +65,7 @@ function checkPw(){
 }
 
 function joinCheck(){
+	const emailRegex = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
 	var username = document.joinForm.username.value;
 	
 	if(username == ""){
@@ -79,12 +80,17 @@ function joinCheck(){
 	}else if(document.joinForm.password.value ==""){
 		alert("비밀번호를 입력해주세요.")
 		document.joinForm.password.focus();
-/*	}else if(document.joinForm.pwError.value =="error"){
+	}else if(document.joinForm.pwError.value =="error"){
 		alert("비밀번호 조건을 충족하지 못했습니다.")
-		document.joinForm.password.focus();*/
+		document.joinForm.password.focus();
 	}else if(document.joinForm.memberName.value ==""){
 		alert("이름을 입력해주세요.")
-		document.joinForm.memberName.focus();
+	}else if(document.joinForm.memberEmail.value ==""){
+		alert("이메일을 입력해주세요.")
+		document.joinForm.memberEmail.focus();
+	}else if(!emailRegex.test(document.joinForm.memberEmail.value)){
+		alert("이메일 형식이 맞지 않습니다.")
+		document.joinForm.memberEmail.focus();
 	}else if(document.joinForm.memberBirth.value ==""){
 		alert("생년월일을 입력해주세요.")
 		document.joinForm.memberBirth.focus();
