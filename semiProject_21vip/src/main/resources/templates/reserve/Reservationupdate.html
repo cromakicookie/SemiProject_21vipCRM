@@ -66,20 +66,23 @@
 			<hr>
 			<table class="listTable">
 				<!--<form th:action="@{/updateResult/{luxurySeq}(luxurySeq=${list.luxurySeq})}" name="ReservationUpdateForm" method="post">-->
+					
+					
 				<form th:action="@{/updateResult}" name="ReservationUpdateForm" method="post">
 					<input type="hidden" name="luxurySeq" th:value="${list.luxurySeq}" />
 					<tr>
 						<td>
 							<label for="customerNum">고객번호</label>
-							<input type="text" id="customerNum" name="customerNum" th:value="${list.customerNum}" readonly><br>
+							<input type="text" id="customerNum" name="customerNum" th:value="${list.customer.customerNum}" readonly><br>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="luxuryName">고객명</label>
-							<input type="text" id="luxuryName" name="luxuryName" th:value="${list.luxuryName}" readonly><br>
+							<label for="customerName">고객명</label>
+							<input type="text" id="customerName" name="customerName" th:value="${list.customer.customerName}" readonly><br>
 						</td>
 					</tr>
+					
 					<tr>
 						<td>
 							<label for="luxuryBrandName">브랜드명</label>
