@@ -1,7 +1,5 @@
 package com.web.domain;
 
-
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,30 +19,28 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name="COM_CALENDAR")
-@TableGenerator(name="CALENDAR_SEQ_GENERATOR",
-				table="ALL_SEQUENCE",
-				pkColumnValue="CALENDAR_SEQ",
-				initialValue=0,
-				allocationSize = 1)
-public class Calendar extends BaseEntity{
+@Table(name = "COM_CALENDAR")
+@TableGenerator(name = "CALENDAR_SEQ_GENERATOR", table = "ALL_SEQUENCE", pkColumnValue = "CALENDAR_SEQ", initialValue = 1, allocationSize = 1)
+public class Calendar extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CALENDAR_SEQ_GENERATOR")
-	@Column(name="EVENT_NUMBER")
+	@Column(name = "EVENT_NUMBER")
 	private Long id;
-	
-	@Column(name="EVENT_TITLE")
+
+	@Column(name = "EVENT_TITLE")
 	private String title;
-	@Column(name="EVENT_START_DATE")
-    private String start;
-	@Column(name="EVENT_END_DATE")
-    private String end;
+	@Column(name = "EVENT_START_DATE")
+	private String start;
+	@Column(name = "EVENT_END_DATE")
+	private String end;
+	@Column(name = "EVENT_COLOR")
+	private String color;
 
 	private String eventContent;
 	private String eventType;
-	
+
 	@OneToOne
-	@JoinColumn(name="FILE_NUMBER")
+	@JoinColumn(name = "FILE_NUMBER")
 	private dataFile file;
-    
+
 }
