@@ -1,6 +1,7 @@
 package com.web.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,13 +28,29 @@ public class VoucherServiceImpl implements VoucherService {
 		return voucherRepo.findByVoucherCode(voucherCode);
 	}
 	
+	//고객에게 발급된 바우처에서 정보 조회
+	@Override
+	public VoucherC getIssuedVoucher(String voucherCode) {
+		// TODO Auto-generated method stub
+		return voucherCRepo.findByCheckedVoucherCode(voucherCode);
+	}
+	
 	//고객에게 발급된 바우처 정보 등록 (VoucherC 테이블로)
 	@Override
 	public void issueVoucher(VoucherC voucherC) {
 		// TODO Auto-generated method stub
 		voucherCRepo.save(voucherC);
-		
 	}
+	
+	
+	//바우처 삭제
+	@Override
+	public void deleteVoucher(String voucherCode) {
+		// TODO Auto-generated method stub
+		voucherCRepo.deleteById(voucherCode);
+	}
+	
+
 	
 	
 	

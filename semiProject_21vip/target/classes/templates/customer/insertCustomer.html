@@ -42,24 +42,25 @@
 		
 		.customerInsertTable td,
 		.customerInsertTable tr {
-		  border: 1px solid #d9d9d9;
-		  padding: 13px 5px;
+		  padding: 12px 5px;
 		  width: 250px;
 		}
 		
 		.customerInsertTable td:first-child{
-			font-size: 20px
+			font-size: 18px;
+			font-weight: bold;
 		}
 		
 		.customerInsertTable td:last-child{
-			text-align: center;
+			text-align: left;
+			width: 55%;
 		}
 		
 		#btn_insert {
 		  border: none;
 		}
 		
-		.customerInsertTable input [type="text"] {
+		input[type="text"] {
 		  width: 150px;
 		  height: 30px;
 		  padding: 8px;
@@ -67,10 +68,9 @@
 		}
 		
 		select {
-		  width: 100px;
+		  width: 150px;
 		  height: 30px;
 		}
-
 		
 		button {
 		  border: none;
@@ -81,6 +81,7 @@
 		  font-size: 13px;
 		  font-weight: bold;
 		  color: #5b5b5b;
+		  margin: 0 20px;
 		}
 		
 		button:hover {
@@ -105,12 +106,12 @@
 				<tr>
 					<td>고객 번호</td>
 					<td>
-						<input type="text" id="customer_num" name="customerNum" th:value="${generateCustomerNum}" oninput="checkCustomerNum()" size="7"/>
+						<input type="text" id="customer_num" name="customerNum" th:value="${generateCustomerNum}" oninput="checkCustomerNum()" maxlength="5"/>
 						<span id="customer_num_msg"><button type="button" onclick="reGenerateCustomerNum()">재생성</button></span>
 					</td>
 				</tr>
 				<tr class="cn_msg">
-					<td colspan="2" style="font-size: small;">
+					<td colspan="2" style="font-size: small; text-align: center;">
 						<span class="cn_ok">- 사용 가능한 고객번호입니다</span>
 						<span class="cn_already">- 사용 중인 고객번호입니다!</span>
 					</td>
@@ -141,9 +142,9 @@
 				<tr>
 					<td>성 별</td>
 					<td>
-						<input type="radio" id="male" name="customerGender" value="m"/>
+						<input type="radio" id="male" name="customerGender" value="m" required/>
 				        <label for="male"> 남성 </label> &nbsp;&nbsp;&nbsp;&nbsp;				      
-				        <input type="radio" id="female" name="customerGender" value="f"/>
+				        <input type="radio" id="female" name="customerGender" value="f" required/>
 				        <label for="female"> 여성 </label>
 					</td>				
 				</tr>
@@ -151,7 +152,7 @@
 	     	   	<tr>
 					<td>생년월일</td>
 					<td>
-						<input type="date" id="customer_Birth" name="customerBirth" required pattern="\d{4}-\d{2}-\d{2}">	
+						<input type="date" id="customer_Birth" name="customerBirth" style="width: 150px; height: 30px;" required pattern="\d{4}-\d{2}-\d{2}">	
 					</td>
 				</tr>
 
@@ -166,8 +167,9 @@
 					</td>
 				</tr>
 	        	<tr>
-					<td colspan="2" id="btn_insert">
-						 <input type="submit" value="등록" onclick="customerInsertCheck()">
+					<td colspan="2" class="btn_insert" style="text-align: center;">
+						 <button onclick="customerInsertCheck()">등 록</button>
+						 <button onclick="customerInsertReset()">취 소</button>
 					</td>
 				</tr>      
 	        </table>
