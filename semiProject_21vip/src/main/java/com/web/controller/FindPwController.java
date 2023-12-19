@@ -24,7 +24,7 @@ public class FindPwController {
 	@Autowired
 	EmailSendService emailSendService;
 	
-	 //Email과 name의 일치여부를 check하는 컨트롤러
+	 //Email과 name가 일치할 때 메일 발송
 	 @PostMapping("/check/findPw")
 	    public String pw_find(Member member){
 	        boolean pwFindCheck = mainService.memberEmailCheck(member.getMemberEmail(), member.getUsername());
@@ -37,12 +37,6 @@ public class FindPwController {
 	        return "main/updatePwFail";
 	    }
 
-	//등록된 이메일로 임시비밀번호를 발송하고 발송된 임시비밀번호로 사용자의 pw를 변경하는 컨트롤러
-//	    @PostMapping("/check/findPw/sendEmail")
-//	    public @ResponseBody void sendEmail(String memberEmail, String username){
-//	        MailDTO dto = emailSendService.createMailAndChangePassword(memberEmail, username);
-//	        emailSendService.mailSend(dto);
-//
-//	    }
+
 }
 
