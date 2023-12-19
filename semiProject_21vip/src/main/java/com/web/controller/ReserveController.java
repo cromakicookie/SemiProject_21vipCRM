@@ -1,5 +1,6 @@
 package com.web.controller;
 
+import java.net.http.HttpHeaders;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,14 +23,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import com.web.domain.Customer;
 import com.web.domain.Luxury;
+import com.web.service.CoolSmsService;
 import com.web.service.CustomerService;
 import com.web.service.LuxuryService;
 
 @Controller
 public class ReserveController {
+	
+	@Autowired
+	private CoolSmsService css;
 	
 	@Autowired
 	private CustomerService customerService;
@@ -38,10 +44,17 @@ public class ReserveController {
 	private LuxuryService luxuryService;
 	
 	
-//	@GetMapping("kakao")
-//	public String kakao() {
-//		return "reserve/kakao";
-//	}
+	@GetMapping("/oauth/kakao")
+	public @ResponseBody String kakaoCallback(String code) {
+		RestTemplate rt = new RestTemplate();
+//		HttpHeaders headers = new HttpHeaders();
+		
+		return "카카오 서버로부터 받은 CODE 정보: " + code;
+	}
+	@GetMapping("kakao")
+	public String kakaoCall(String code) {
+		return "reserve/kakao";
+	}
 	
 	@PostMapping("/Duplicate")
 	@ResponseBody
