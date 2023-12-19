@@ -22,7 +22,7 @@
         <aside>
 			<form name="searchForm" onsubmit="event.preventDefault(); findCustomerNum();">
             <div class="search">
-           <input type="text" name="searchcustomerNum" id="searchcustomerNum" placeholder="  고객번호 검색..."/>
+           <input type="text" name="searchcustomerNum" id="searchcustomerNum" placeholder="  고객번호 검색..." oninput="DuplicateTest()"/>
             <i class='bx bx-search' onclick="findCustomerNum()"></i>
             </div>
             </form>
@@ -31,6 +31,8 @@
 				<table class="customer_info_table">
 					<caption>고객 기본정보</caption>
 					<tbody id="customerTable">
+					<p id="okmsg">등록가능한 고객번호입니다.</p>
+					<p id="nomsg">없는 고객번호 입니다.</p>
 					<tr>
 						<td>- 고객번호</td>
 						<td id="num" name="num"></td>
@@ -69,17 +71,20 @@
 			<p class="sectionHeader">명품관 서비스 예약 등록</p>
 			<hr>
 			<table class="listTable">
-				<form th:action="@{/reservationResult}" name="ReservationForm" method="post">
+
+					
+					
+					<form th:action="@{/reservationResult}" name="ReservationForm" method="post">
 					<tr>
 						<td>
 							<label for="customerNum">고객번호</label>
-							<input type="text" id="customerNum" name="customerNum" readonly><br>
+							<input type="text" id="customerNum" name="customerNum"><br>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="luxuryName">고객명</label>
-							<input type="text" id="luxuryName" name="luxuryName" readonly><br>
+							<label for="customerName">고객명</label>
+							<input type="text" id="customerName" name="customerName" readonly><br>
 						</td>
 					</tr>
 					<tr>

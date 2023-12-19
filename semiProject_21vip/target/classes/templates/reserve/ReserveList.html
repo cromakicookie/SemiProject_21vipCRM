@@ -91,8 +91,8 @@
               <tr>
 				<!--<input type="hidden" name="luxurySeq" id="luxurySeq">-->
                 <td id="getSeq" th:text="${list.luxurySeq}"></td>
-                <td th:text="${list.customerNum}"></td>
-                <td th:text="${list.luxuryName}"></td>
+                <td id="customer" th:text="${list.customer.customerNum}"></td>
+                <td th:text="${list.customer.customerName}"></td>
                 <td th:text="${list.luxuryBrandName}"></td>
                 <td th:text="${list.luxuryDate}"></td>
                 <td th:text="${list.luxuryTime}"></td>
@@ -101,7 +101,7 @@
                 <td th:text="${list.modifyBy}"></td>
                 <td th:text="${list.modifyDate}"></td>
                 <td>
-                  <button class="btn btn-primary btn-sm" type="button"><a th:href="@{/updateForm/{luxurySeq}(luxurySeq=${list.luxurySeq}, customerNum=${list.customerNum})}" style="text-decoration: none; color: aliceblue;">수정</a>
+                  <button class="btn btn-primary btn-sm" type="button"><a th:href="@{/updateForm/{luxurySeq}(luxurySeq=${list.luxurySeq}, customerNum=${list.customer.customerNum})}" style="text-decoration: none; color: aliceblue;">수정</a>
 				  </button>
                   <button class="btn btn-secondary btn-sm" type="button" onclick="confirmLuxuryDelete()">삭제</button>
                 </td>

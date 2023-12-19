@@ -88,6 +88,17 @@ main {
 
 /* aside */
 
+#okmsg {
+  color: aliceblue;
+  font-weight: bold;
+  display: none;
+}
+
+#nomsg {
+  color: aliceblue;
+  font-weight: bold;
+  display: none;
+}
 
 aside {
 	background-color: #5b5b5b;
