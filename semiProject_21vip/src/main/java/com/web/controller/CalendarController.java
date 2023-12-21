@@ -93,7 +93,7 @@ public class CalendarController {
         
         
         // 사용자 role 추가
-        model.addAttribute("userAuthorities", authorityStrings);
+        model.addAttribute("userAuthorities", authorityStrings.get(0));
         
         
         Member member = new Member();
