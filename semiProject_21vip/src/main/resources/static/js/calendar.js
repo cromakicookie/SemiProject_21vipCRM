@@ -154,6 +154,8 @@ function modalSubmit() {
 			console.log("수정 성공");
 			$("#myModal2").modal('hide');
 			calendar.refetchEvents();
+			var str = "지정된 데이터가 없습니다.";
+			$("#card-text").html(str);
 		},
 		error: function(error) {
 			console.error('Error:', error);
@@ -175,6 +177,8 @@ function deleteCal() {
 				console.log("삭제 성공");
 				$("#myModal2").modal('hide');
 				calendar.refetchEvents();
+				var str = "지정된 데이터가 없습니다.";
+				$("#card-text").html(str);
 			},
 			error: function(error) {
 				console.error('Error:', error);
