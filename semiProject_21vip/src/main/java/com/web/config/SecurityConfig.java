@@ -55,7 +55,7 @@ public class SecurityConfig{
 			.antMatchers("/reservation*/**").authenticated()
 			.antMatchers("/calendar*/**").authenticated()
 			.antMatchers("/mypage*/**").authenticated()
-			.antMatchers("/employee*/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
+			.antMatchers("/employee*/**").access("hasRole('ROLE_ADMIN')")
 			.antMatchers("/voucher*/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
 			.anyRequest().permitAll()
 			.and()
