@@ -80,7 +80,8 @@ public class EventController {
 		System.out.println("업데이트 확인");
 
 		try {
-			if (file.isEmpty()) {
+			if (!file.isEmpty()) {
+				System.out.println(file.toString());
 				Long id = fs.uploadFile(file);
 				dataFile files = fs.getFile(id);
 
