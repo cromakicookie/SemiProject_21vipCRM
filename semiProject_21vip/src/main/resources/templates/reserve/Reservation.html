@@ -19,7 +19,7 @@
     <main>
         <aside>
 			<form name="searchForm" method="get" th:action="@{/reservation}">
-			<!--<input type="hidden" name="brand" th:value="${param.brand}">-->
+			<input type="hidden" name="brand" th:value="${param.brand}">
             <div class="search">
            <input type="text" id="searchKeyword" name="searchKeyword" placeholder="  고객번호 검색..."/>
             <i class='bx bx-search' onclick="SearchCustomerNum()"></i>
@@ -44,10 +44,7 @@
 		</div>
           </aside>
         <section class="servicePage">
-			<a th:href="@{kakao}">카카오</a>
           <p class="sectionHeader">명품관 서비스 예약 리스트</p>
-             <!--<input type="button" onClick="sendLinkCustom();" value="카카오 전송"/>-->
-    		  <input type="button" onClick="sendCommerceMessage()" value="카카오 전송2"/>
            <hr>
            <div th:if="${not Pagelist.empty}">예약목록 : <span th:text="${Pagelist.totalElements}"></span></div>
            <div th:if="${Pagelist.empty}">총 예약목록 수 : 없음<span></span></div>
@@ -79,7 +76,7 @@
             <tbody>
               <tr th:each="list, state : ${Pagelist}">
 				
-				<td th:text="${state.count+Pagelist.getNumber()*2}">
+				<td th:text="${state.count+Pagelist.getNumber()*8}">
 				<input type="hidden" th:value="${list.luxurySeq}"/>
                 <!--<td th:text="${list.luxurySeq}"></td>-->
                 <td class="NumColumn" th:text="${list.customer.customerNum}"></td>

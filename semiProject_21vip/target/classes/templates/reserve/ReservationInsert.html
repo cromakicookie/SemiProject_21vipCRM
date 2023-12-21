@@ -12,6 +12,11 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>예약 추가 페이지</title>
+	<script>
+		window.onload = function() {
+        document.getElementById("searchcustomerNum").focus();
+    };
+	</script>
 </head>
 
 <body>
@@ -50,7 +55,7 @@
 						<td id="favoriteStore" name="favoriteStore"></td>
 					</tr>
 					<tr>
-						<td>- 생일</td>
+						<td>- 생년월일</td>
 						<td id="customerBirth" name="customerBirth"></td>
 					</tr>
 				</tbody>
@@ -78,7 +83,7 @@
 					<tr>
 						<td>
 							<label for="customerNum">고객번호</label>
-							<input type="text" id="customerNum" name="customerNum"><br>
+							<input type="text" id="customerNum" name="customerNum" readonly><br>
 						</td>
 					</tr>
 					<tr>
@@ -110,7 +115,7 @@
 					<tr>
 						<td>
 							<label for="luxuryTime">예약시간</label>
-							<input type="time" id="luxuryTime" name="luxuryTime"><br>
+							<input type="time" id="luxuryTime" name="luxuryTime" min="09:00" max="22:00"><br>
 						</td>
 					</tr>
 
