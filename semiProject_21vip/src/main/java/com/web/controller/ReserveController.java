@@ -84,7 +84,7 @@ public class ReserveController {
 								@RequestParam("Name") String name
 														) {
 		Luxury luxury = luxuryService.luxuryView(Seq);
-		
+		System.out.println(name);
 		
 //		text +=  name + "님 안녕하세요\n";
 //		text += "예약내역 안내드립니다.\n";
@@ -93,22 +93,22 @@ public class ReserveController {
 //		text += "이용날짜 : " + luxury.getLuxuryDate() + "\n";
 //		text += "인원 : " + luxury.getLuxuryHeadCount() + "명";	
 		
-		String head = name + "님 안녕하세요\n";
-		String body = "예약내역 안내드립니다.\n" +
-				  	  "고객번호 : " + customerNum + "\n" +
-				      "명품관 : " + luxury.getLuxuryBrandName() + "\n" +
-			          "예약날짜 : " + luxury.getLuxuryDate() + "\n" +
-			          "예약시간 : " + luxury.getLuxuryTime() + "\n" +
-			          "인원 : " + luxury.getLuxuryHeadCount() + "명";
-		
-		String text = head + body;
-//	String text = name + "님 안녕하세요\n" +
-//				  "예약내역 안내드립니다.\n" +
-//				  "고객번호 : " + customerNum + "\n" +
-//			      "명품관 : " + luxury.getLuxuryBrandName() + "\n" +
-//		          "예약날짜 : " + luxury.getLuxuryDate() + "\n" +
-//		          "예약시간 : " + luxury.getLuxuryTime() + "\n" +
-//		          "인원 : " + luxury.getLuxuryHeadCount() + "명";
+//		String head = name + "님 안녕하세요\n";
+//		String body = "예약내역 안내드립니다.\n" +
+//				  	  "고객번호 : " + customerNum + "\n" +
+//				      "명품관 : " + luxury.getLuxuryBrandName() + "\n" +
+//			          "예약날짜 : " + luxury.getLuxuryDate() + "\n" +
+//			          "예약시간 : " + luxury.getLuxuryTime() + "\n" +
+//			          "인원 : " + luxury.getLuxuryHeadCount() + "명";
+//		
+//		String text = head + body;
+	String text = name + "님 안녕하세요\n" +
+				  "예약내역 안내드립니다.\n" +
+				  "고객번호 : " + customerNum + "\n" +
+			      "명품관 : " + luxury.getLuxuryBrandName() + "\n" +
+		          "예약날짜 : " + luxury.getLuxuryDate() + "\n" +
+		          "예약시간 : " + luxury.getLuxuryTime() + "\n" +
+		          "인원 : " + luxury.getLuxuryHeadCount() + "명";
 		String phone = luxury.getLuxuryPhone();
 		css.sendSms("01036882027", phone, text);
 		
