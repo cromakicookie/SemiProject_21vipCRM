@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.web.domain.Member;
 import com.web.domain.Voucher;
 import com.web.domain.VoucherC;
 import com.web.persistence.VoucherCRepository;
@@ -50,6 +53,33 @@ public class VoucherServiceImpl implements VoucherService {
 		voucherCRepo.deleteById(voucherCode);
 	}
 	
+	//바우처생성
+	@Override
+	public Voucher createVoucher(Voucher voucher) {
+		// TODO Auto-generated method stub
+		return voucherRepo.save(voucher);
+	}
+	
+	//발행된 바우처 리스트
+	@Override
+	public List<Voucher> getVoucherList(Voucher Voucher) {
+		// TODO Auto-generated method stub
+		return (List<Voucher>)voucherRepo.findAll();
+	}
+	
+	//페이징
+	@Override
+	public Page<Voucher> PageList(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return voucherRepo.findAll(pageable);
+	}
+	
+	//검색 - 서비스명
+	@Override
+	public Page<Voucher> findByVoucherServiceName(String searchKeyword, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return voucherRepo.findByVoucherServiceNameContaining(searchKeyword, pageable);
+	}
 
 	
 	
