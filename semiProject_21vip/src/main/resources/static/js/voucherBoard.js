@@ -7,6 +7,7 @@ function searchingVoucher(){
 
 function openModal() {
         // 모달 열기 코드
+    
        	$("#vouchermodal").modal('show');
        	
         $('#voucher_type').val();
