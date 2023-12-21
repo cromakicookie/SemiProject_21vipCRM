@@ -64,6 +64,28 @@ function checkPw(){
 	}
 }
 
+
+function checkOk(){
+	var pw = document.joinForm.password.value;
+	var pwCk = document.joinForm.passwordCk.value;
+	
+	function displayNone(){
+		$('.pwCk_error').css("display", "none");
+		$('.pwCk_ok').css("display", "none");
+	}
+	
+	if(pw!=pwCk){
+		displayNone();
+		$('.pwCk_error').css("display", "inline-block");
+		$('.pwCkError').val('error');
+	}else{
+		displayNone();
+		$('.pwCk_ok').css("display", "inline-block");
+		$('.pwCkError').val('ok');
+		
+	}
+}
+
 function joinCheck(){
 	const emailRegex = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
 	var username = document.joinForm.username.value;
@@ -82,6 +104,9 @@ function joinCheck(){
 		document.joinForm.password.focus();
 	}else if(document.joinForm.pwError.value =="error"){
 		alert("비밀번호 조건을 충족하지 못했습니다.")
+		document.joinForm.password.focus();
+	}else if(document.joinForm.pwCkError.value =="error"){
+		alert("비밀번호가 일치하지 않습니다.")
 		document.joinForm.password.focus();
 	}else if(document.joinForm.memberName.value ==""){
 		alert("이름을 입력해주세요.")

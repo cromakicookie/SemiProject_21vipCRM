@@ -11,16 +11,27 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.web.config.MemberExcelExporter;
 import com.web.domain.Member;
+import com.web.domain.OAuthToken;
 import com.web.domain.Role;
 import com.web.service.MemberService;
 
@@ -76,21 +87,24 @@ public class MemberController {
 	
 	//------엑셀 다운로드
 	@GetMapping("/excel/download")
-	public void memberExcelDownLoad(HttpServletResponse response) throws IOException {
+	public void memberExcelDownLoad(HttpServletResponse response, 
+			@RequestParam(name="memberName", defaultValue="") String memberName,
+			@RequestParam(name="memberDept", defaultValue="") String memberDept,
+			@RequestParam(name="memberRole", defaultValue="") Role memberRole
+			) throws IOException {
 		System.out.println("엑셀 다운로드 요청");
 		response.setContentType("application/octet-stream");
 		String headerKey = "Content-Disposition";
-		String headerValue = "attachment; filename=users.xlsx";
+		String headerValue = "attachment; filename=memberList.xlsx";
 		
 		response.setHeader(headerKey, headerValue);
 		
-		List<Member> listMembers = memberService.listAll();
+		List<Member> members = memberService.excelDownloadMember(memberName, memberDept, memberRole);
 		
-		MemberExcelExporter excelExporter = new MemberExcelExporter(listMembers);
+		System.out.println(members);
+		
+		MemberExcelExporter excelExporter = new MemberExcelExporter(members);
 		excelExporter.export(response);
 		
 	}
-	
-	
-	
 }

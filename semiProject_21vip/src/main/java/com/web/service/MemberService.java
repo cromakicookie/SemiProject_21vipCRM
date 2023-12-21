@@ -19,5 +19,6 @@ public interface MemberService {
 //	List<Member> searchMember(String memberName);
 	public Page<Member> findMember(Pageable pageable, String memberDept, Role memberRole, String memberName);
 	public Page<Member> PageList(Pageable pageable);
+	public List<Member> excelDownloadMember(String memberName, String memberDept, Role memberRole);
 
 }
