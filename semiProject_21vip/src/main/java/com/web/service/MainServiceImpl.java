@@ -68,8 +68,8 @@ public class MainServiceImpl implements MainService {
 	
 	@Override
 	public boolean memberEmailCheck(String memberEmail, String username) {
-        Member member = mainRepo.findUsernameByMemberEmail(memberEmail);
-        if(member!=null && member.getUsername().equals(username)) {
+        Member member = mainRepo.findByUsername(username);
+        if(member!=null && member.getMemberEmail().equals(memberEmail)) {
             return true;
         }
         else {

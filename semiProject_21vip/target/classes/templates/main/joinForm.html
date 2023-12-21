@@ -18,6 +18,7 @@
 			<table>
 				<input type="hidden" name="idError" class="idError" value="">
 				<input type="hidden" name="pwError" class="pwError" value="">
+				<input type="hidden" name="pwCkError" class="pwCkError" value="">
 				<tr>
 					<th>아이디</th>
 					<td><input type="text" id="username" name="username" oninput="checkId()"></td>
@@ -31,13 +32,23 @@
 					</td>
 				</tr>
 				<tr>
-					<th>패스워드</th>
+					<th>비밀번호</th>
 					<td><input type="password" name="password" oninput="checkPw()"></td>
 				</tr>
 				<tr class="joinMsg">
 					<td colspan="2">
 						<span class="pw_error">- 비밀번호는 최소 8자리 이상이며, 최소 한 개의 <br>영문과 숫자를 포함해야합니다.</span>
 						<span class="pw_ok">- 사용 가능한 비밀번호입니다.</span>
+					</td>
+				</tr>
+				<tr>
+					<th>비밀번호 확인</th>
+					<td><input type="password" name="passwordCk" oninput="checkOk()"></td>
+				</tr>
+				<tr class="joinMsg">
+					<td colspan="2">
+						<span class="pwCk_error">- 비밀번호가 일치하지 않습니다.</span>
+						<span class="pwCk_ok">- 비밀번호가 일치합니다.</span>
 					</td>
 				</tr>
 				<tr>
