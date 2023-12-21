@@ -67,11 +67,11 @@ public class VoucherController {
 	}
 
 	// 바우처 등록 페이지
-	@GetMapping("voucherForm")
+	@GetMapping("customerVoucherForm")
 	public String VoucherForm(HttpSession session, Model model) {
 		String customerNum = (String) session.getAttribute("sessionCustomerNum");
 		model.addAttribute("customerNum", customerNum);
-		return "customer/voucherForm";
+		return "customer/customerVoucherForm";
 	}
 
 	// 바우처 수정 페이지
