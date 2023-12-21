@@ -122,7 +122,7 @@
 						<li>성명 : <span th:text="${member.memberName}"></span></li>
 						<li>부서 : <span th:text="${member.memberDept}"></span></li>
 						<li>생년월일 : <span th:text="${member.memberBirth}"></span></li>
-						<li>직급 : <span th:text="${userAuthorities[0]}"></span></li>
+						<li>직급 : <span th:text="${T(com.web.domain.Role).valueOf(member.memberRole).getRole()}"></span></li>
 					</ul>
 					<form id="userUpdateForm" th:action="@{/file/upload/user}" method="post">
 						<ul class="img-bottom">
