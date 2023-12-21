@@ -35,17 +35,16 @@ public class EmailSendService{
         dto.setTitle("21VIP SYSTEM 임시비밀번호 발급");
         dto.setMessage("안녕하세요. " + username +"님. 21VIP SYSTEM 임시비밀번호 발급해드립니다. "+ username +"님의 임시 비밀번호는 "
         + str + "입니다.");
-        updatePassword(str,memberEmail);
+        updatePassword(str, username);
         return dto;
     }
 
-    public void updatePassword(String str, String memberEmail){
+    public void updatePassword(String str, String username){
         String password = bCryptPasswordEncoder.encode(str);
-        Member member = mainRepo.findUsernameByMemberEmail(memberEmail);
-        
+        Member member = mainRepo.findByUsername(username);
+        System.out.println(member);
         if (member != null) {
             member.setPassword(password);
-//            member.setPassword(str);
             mainRepo.save(member);
         }
     }

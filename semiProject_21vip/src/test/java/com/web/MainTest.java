@@ -18,45 +18,28 @@ import com.web.domain.Member;
 import com.web.domain.QMember;
 import com.web.domain.Role;
 import com.web.persistence.MainRepository;
+import com.web.service.EmailSendService;
+import com.web.service.MemberService;
 
 @SpringBootTest
 public class MainTest {
 	
 	@Autowired
-	private JPAQueryFactory queryFactory;
+	MemberService memberService;
 	
+	@Autowired
+	MainRepository mainRepo;
 	
-	QMember member = QMember.member;
+	@Autowired
+	EmailSendService emailSendService;
+	
 	
 	@Test
 	public void findBySearchOption() {
-		JPQLQuery<Member> query = queryFactory.selectFrom(member)
-	            .where(eqMemberDept("a"), eqmemberRole(Role.ROLE_ADMIN), containName("te"));
-
-	    System.out.println(query);
+		
+		emailSendService.updatePassword("qwer1234", "test");
 	}
-		
-		
-		private BooleanExpression eqMemberDept(String memberDept) {
-	        if(memberDept == null || memberDept.isEmpty()) {
-	            return null;
-	        }
-	        return member.memberDept.eq(memberDept);
-	    }
-		
-		private BooleanExpression eqmemberRole(Role memberRole) {
-			if(memberRole == null || memberRole.toString().isEmpty()) {
-				return null;
-			}
-			return member.memberRole.eq(memberRole);
-		}
-
-
-	private BooleanExpression containName(String memberName) {
-	    if(memberName == null || memberName.isEmpty()) {
-	        return null;
-	    }
-	    return member.memberName.containsIgnoreCase(memberName);
-	}
+	
+	
 
 }

@@ -106,3 +106,9 @@ select{
 	display: inline-block;
 	float: right;
 }
+
+.excelDownload button{
+	border: none;
+	text-decoration: underline;
+	background-color: #f9f9f9;
+}
