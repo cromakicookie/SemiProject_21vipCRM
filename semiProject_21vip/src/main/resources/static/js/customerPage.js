@@ -54,7 +54,7 @@ function searchCustomerNum() {
 
 //바우처 등록
 function insertVoucher() {
-	window.open("voucherForm", "_blank", "width=800,height=400");
+	window.open("customerVoucherForm", "_blank", "width=800,height=400");
 }
 
 
