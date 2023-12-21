@@ -50,7 +50,6 @@
 			<div class="sidebar" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_MANAGER'')')}">관리자 메뉴
 				<ul class="list-group">
 					<li class="list-group-item"><a th:href="@{/insertCustomer}">고객등록</a></li>
-					<li class="list-group-item"><a th:href="@{/#}">고객정보수정</a></li>
 				</ul>
 			</div>
 
