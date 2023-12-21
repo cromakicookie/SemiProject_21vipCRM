@@ -27,8 +27,10 @@
 		<aside>
 			<nav>
 				<form th:action="@{searchCustomer}" id="searchCustomerNum" method="get">
-					<input type="text" id="customerNum" name="customerNum" placeholder=" 검색..." size="5" />
-					<i class='bx bx-search' onclick="searchCustomerNum()"></i>
+					<div class="search">
+						<input type="text" id="customerNum" name="customerNum" placeholder=" 검색..." size="5" />
+						<i class='bx bx-search' onclick="searchCustomerNum()"></i>
+					</div>
 				</form>
 			</nav>
 
@@ -71,11 +73,15 @@
 				</table>
 			</div>
 
-			<div class="sidebar">고객관리
+			<div class="sidebar"
+				th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_MANAGER'')')}">관리자 메뉴
 				<ul class="list-group">
 					<li class="list-group-item"><a th:href="@{/insertCustomer}">고객등록</a></li>
-					<li class="list-group-item">바우처관리</li>
-					<li class="list-group-item"><a th:href="@{/kakaotalk}">알림톡 관리</a></li>
+					<li class="list-group-item" th:if="${customer!=null}">
+						<a th:href="@{/updateCustomer}">고객정보수정</a>
+					</li>
+					<li class="list-group-item" th:if="${customer==null}">
+					</li>
 				</ul>
 			</div>
 
@@ -85,6 +91,11 @@
 		<section class="customer_service">
 
 			<p class="sectionHeader">서비스</h2>
+				<span class="btn_insert_class">
+					<button onclick="insertVoucher()">
+						<i class='bx bx-edit' style='color:rgba(0,0,0,0.38); font-size: 30px;'></i></button>
+				</span>
+
 				<hr />
 
 			<div th:if="${customer!=null}">
@@ -102,10 +113,7 @@
 						<div th:id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
 							<div class="accordion-body">
 
-								<!-- 등록 버튼 -->
-								<div class="btn_insert_class">
-									<button onclick="insertVoucher()">바우처 등록</button>
-								</div>
+
 
 								<!-- 생일테이블 -->
 								<div class="table_service">
@@ -123,17 +131,17 @@
 											</tr>
 										</thead>
 										<tbody th:each="cv, state : ${VoucherList}" class="cvoucher_tbody">
-											<tr th:if="${cv.voucherTypeC=='G'}">
+											<tr th:if="${cv.voucherType2=='G'}">
 												<!--<td id="vCount" th:text="${state.index + 1}"></td>-->
-												<td th:text="${cv.voucherTypeC}"></td>
-												<td th:text="${cv.voucherServiceC}"></td>
-												<td th:text="${cv.voucherServiceNameC}"></td>
-												<td id="voucherCode_view" th:text="${cv.CheckedVoucherCode}"></td>
-												<td th:text="${cv.voucherIssuedDate}"></td>
-												<td th:text="${cv.voucherExdate}"></td>
+												<td class="vType" th:text="${cv.voucherType2}"></td>
+												<td class="vTheme" th:text="${cv.voucherService2}"></td>
+												<td class="vServiceName" th:text="${cv.voucherServiceName2}"></td>
+												<td class="vCode" th:text="${cv.CheckedVoucherCode}"></td>
+												<td class="vIssuedDate" th:text="${cv.voucherIssuedDate}"></td>
+												<td class="vExdate" th:text="${cv.voucherExdate}"></td>
 												<td id="btn_UD">
-													<button onclick="updateVoucher()">U</button>
-													<button onclick="deleteVoucher()">D</button>
+													<button onclick="sendSMS(this)">SMS</button>
+													<button onclick="deleteVoucher(this)">삭제</button>
 												</td>
 											</tr>
 										</tbody>
@@ -155,10 +163,8 @@
 						</h2>
 						<div th:id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
 							<div class="accordion-body">
-								<!-- 등록 삭제 버튼 -->
-								<div class="btn_insert_class">
-									<button onclick="insertVoucher()">바우처 등록</button>
-								</div>
+								<!-- 등록버튼 -->
+								<!--<div class="btn_insert_class"><button onclick="insertVoucher()">바우처 등록</button></div>-->
 								<!-- 서비스테이블 -->
 								<div class="table_service">
 									<table>
@@ -175,17 +181,17 @@
 											</tr>
 										</thead>
 										<tbody th:each="cv, state : ${VoucherList}" class="cvoucher_tbody">
-											<tr th:if="${cv.voucherTypeC!='G'}">
+											<tr th:if="${cv.voucherType2!='G'}">
 												<!--<td id="vCount" th:text="${state.count}"></td>-->
-												<td th:text="${cv.voucherTypeC}"></td>
-												<td th:text="${cv.voucherServiceC}"></td>
-												<td th:text="${cv.voucherServiceNameC}"></td>
-												<td id="voucherCode_view" th:text="${cv.CheckedVoucherCode}"></td>
-												<td th:text="${cv.voucherIssuedDate}"></td>
-												<td th:text="${cv.voucherExdate}"></td>
+												<td class="vType" th:text="${cv.voucherType2}"></td>
+												<td class="vTheme" th:text="${cv.voucherService2}"></td>
+												<td class="vServiceName" th:text="${cv.voucherServiceName2}"></td>
+												<td class="vCode" th:text="${cv.CheckedVoucherCode}"></td>
+												<td class="vIssuedDate" th:text="${cv.voucherIssuedDate}"></td>
+												<td class="vExdate" th:text="${cv.voucherExdate}"></td>
 												<td id="btn_UD">
-													<button onclick="updateVoucher()">U</button>
-													<button onclick="deleteVoucher()">D</button>
+													<button onclick="sendSMS(this)">SMS</button>
+													<button onclick="deleteVoucher(this)">삭제</button>
 												</td>
 											</tr>
 										</tbody>
@@ -211,13 +217,14 @@
 
 				<!--고객 정보가 검색되어 있을 때-->
 				<div th:if="${check==1}">
-					<!--th:action="@{/memoInsert}"-->
 					<form th:action="@{/memoInsert}" id="memoInsert" th:name="memoInsert" method="post">
 						<!--고객번호 정보-->
 						<input type="hidden" id="mcustomerNum" name="mcustomerNum" th:value="${customer.customerNum}">
 						<textarea id="memo_content" name="memoContent" rows="7" cols="37"></textarea>
 						<br />
-						<div class="btn_memo"><input type="button" id="mSubmit" class="btn_mSubmit" value="저 장"></div>
+						<div class="btn_memo">
+							<input type="button" id="mSubmit" class="btn_mSubmit" value="저 장">
+						</div>
 					</form>
 					<br />
 					<br />
@@ -245,7 +252,8 @@
 								<input type="hidden" id="memoNum" th:value="${cm.memoNum}" />
 
 								<td class="col_delete">
-									<button id="deleteMemo" onclick="deleteMemo()">D</button>
+									<button id="deleteMemo" onclick="deleteMemo()"><i class='bx bx-trash'
+											style='color:rgba(0,0,0,0.38);'></i></button>
 								</td>
 							</tr>
 						</tbody>
@@ -263,7 +271,7 @@
 						<textarea rows="7" cols="37"></textarea>
 						<br />
 						<!--<input type="submit" value="저 장">-->
-						<div class="btn_memo"><input type="button" id="mSubmit" class="btn_mSubmit" value="저 장"></div>
+						<div class="btn_memo"><input type="button" value="저 장"></div>
 						<br /> <br />
 					</form>
 					<table class="table_memo">

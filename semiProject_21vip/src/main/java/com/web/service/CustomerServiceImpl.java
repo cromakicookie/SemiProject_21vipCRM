@@ -27,6 +27,22 @@ public class CustomerServiceImpl implements CustomerService {
 		
 	}
 	
+	//고객 수정
+	@Override
+	public void updateCustomer(Customer customer) {
+		Customer cus1 = customerRepo.findById(customer.getCustomerNum()).get();
+		System.out.println(customer.getCustomerNum());
+		cus1.setCustomerNum(customer.getCustomerNum());
+		cus1.setCustomerName(customer.getCustomerName());
+		cus1.setCustomerGrade(customer.getCustomerGrade());
+		cus1.setCustomerBirth(customer.getCustomerBirth());
+		cus1.setCustomerGender(customer.getCustomerGender());
+		cus1.setCustomerHP(customer.getCustomerHP());
+		cus1.setFavoriteStore(customer.getFavoriteStore());
+		customerRepo.save(cus1);
+		
+	}
+	
 	//고객삭제
 	@Override
 	public void deleteCustomer(String customerNumber) {
