@@ -59,10 +59,8 @@ public class LuxuryServiceImpl implements LuxuryService {
 	public void luxuryupdate(Luxury luxury) {
 		Luxury findluxury = luxuryRepo.findById(luxury.getLuxurySeq()).get();
 		
-//		findluxury.setCustomerNum(luxury.getCustomer().getCustomerNum());
 		findluxury.setLuxuryBrandName(luxury.getLuxuryBrandName());
 		findluxury.setLuxuryDate(luxury.getLuxuryDate());
-//		findluxury.setLuxuryName(luxury.getLuxuryName());
 		findluxury.setLuxuryPhone(luxury.getLuxuryPhone());
 		findluxury.setLuxuryTime(luxury.getLuxuryTime());
 		findluxury.setLuxuryHeadCount(luxury.getLuxuryHeadCount());

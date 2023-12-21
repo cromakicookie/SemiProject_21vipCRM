@@ -41,7 +41,7 @@
 						<td th:text="${customer.favoriteStore}"></td>
 					</tr>
 					<tr>
-						<td>- 생일</td>
+						<td>- 생년월일</td>
 						<td th:text="${customer.customerBirth}"></td>
 					</tr>
 				</tbody>
@@ -82,7 +82,6 @@
 							<input type="text" id="customerName" name="customerName" th:value="${list.customer.customerName}" readonly><br>
 						</td>
 					</tr>
-					
 					<tr>
 						<td>
 							<label for="luxuryBrandName">브랜드명</label>
@@ -108,7 +107,7 @@
 					<tr>
 						<td>
 							<label for="luxuryTime">예약시간</label>
-							<input type="time" id="luxuryTime" name="luxuryTime" th:value="${list.luxuryTime}"><br>
+							<input type="time" id="luxuryTime" name="luxuryTime" th:value="${list.luxuryTime}" min="09:00" max="22:00"><br>
 						</td>
 					</tr>
 
