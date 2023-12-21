@@ -60,6 +60,12 @@ public class MemberServiceImpl implements MemberService {
 	public Page<Member> PageList(Pageable pageable) {
 		return mainRepo.findAll(pageable);
 	}
+
+	//엑셀 다운로드
+	@Override
+	public List<Member> excelDownloadMember(String memberName, String memberDept, Role memberRole) {
+		return mainRepo.excelDownloadMember(memberName, memberDept, memberRole);
+	}
 	
 	
 }

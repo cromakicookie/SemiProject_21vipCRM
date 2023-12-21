@@ -19,7 +19,9 @@ import com.web.domain.Role;
 public interface MainRepository extends CrudRepository<Member, String>, MainRepositoryCustom{
 
 	public Member findByUsername(String username);
-	public Member findUsernameByMemberEmail(String memberEmail);
+	
+//	public Member findByUsernameAndMemberEmail(String username, String memberEmail);
+	
 	public Member findMemberNameByUsername(String username);
 	public List<Member> findUsernameByMemberNameAndMemberBirth(String memberName, String memberBirth);
 

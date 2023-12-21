@@ -21,10 +21,10 @@
 				<td colspan="2"><hr></td>
 			</tr>
 			<tr th:each="id, stat : ${findId}">
-				<td th:text="${stat.index +1}"> </td>
+				<td th:text="${stat.index +1}"></td>
 				<td th:text="${id}"></td>
 			</tr>
-			<tr th:if="${not #strings.isEmpty(findId)}">
+			<tr th:if="${#lists.isEmpty(findId)}">
 				<td colspan="2">해당하는 값이 없습니다.<br>다시 입력해주세요.</td>
 			</tr>
 		</table>
