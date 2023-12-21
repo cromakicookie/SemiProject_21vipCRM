@@ -82,6 +82,7 @@ function customerInsertCheck(){
 	
 }
 
+
 function customerInsertReset(){
 	location.reload();
 }

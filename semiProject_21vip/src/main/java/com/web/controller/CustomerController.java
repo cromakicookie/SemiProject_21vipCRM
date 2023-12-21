@@ -38,13 +38,7 @@ import com.web.service.VoucherService;
 public class CustomerController {
 	
 	@Autowired
-	private CustomerService customerService;
-	
-	//카카오톡
-	@GetMapping("kakaotalk")
-	public String kakaotalk() {
-		return "customer/kakaotalk";
-	}
+	private CustomerService customerService;	
 	
 	//고객관리 메인 
 	@GetMapping("customerMain")
@@ -81,6 +75,8 @@ public class CustomerController {
 		        model.addAttribute("customer", customer);
 		        model.addAttribute("memoList", customer.getCustomerMemoList());
 		        model.addAttribute("VoucherList", customer.getIssuedVoucherList());
+//		        model.addAttribute("VoucherListG", customer.getIssuedVoucherListByTypeG());
+//		        model.addAttribute("VoucherListnotG", customer.getIssuedVoucherListNotTypeG());
 		        
 		           
 		    }	 
@@ -117,7 +113,6 @@ public class CustomerController {
 			return 1;
 		}
 	}
-
 	
 	//랜덤 고객번호 생성
 	@GetMapping("/generateCustomerNum")
@@ -139,7 +134,30 @@ public class CustomerController {
         int randomNumber = random.nextInt(9000) + 1000; // Generate a random number between 1000 and 9999
         return String.valueOf(randomNumber);
     }
+	 
+	 
+	//고객 수정 페이지
+	@GetMapping("updateCustomer")
+	public String updateCustomer(Customer customer, HttpSession session, Model model) {
+		String customerNum = (String)session.getAttribute("sessionCustomerNum");
+		System.out.println(customerNum);
+		customer.setCustomerNum(customerNum);
+		model.addAttribute("customerInfo", customerService.getCustomer(customer));
+		
+		return "customer/updateCustomer";
+	}
 	
+	
+	@PostMapping("customerUpdate")
+	public String customerUpdate(Customer customer,HttpSession session) {
+		System.out.println("-------------------");
+		System.out.println(customer.getCustomerNum());
+		String customerNum = (String)session.getAttribute("sessionCustomerNum");
+		customer.setCustomerNum(customerNum);
+		customerService.updateCustomer(customer);
+		
+		return "redirect:customerMain";
+	}
 	 
 	
 	
