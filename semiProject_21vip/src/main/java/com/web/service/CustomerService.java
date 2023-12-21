@@ -11,11 +11,14 @@ public interface CustomerService {
 	
 	void deleteCustomer(String customerNumber);
 	
+	void updateCustomer(Customer customer);
+	
 	Customer getCustomer(Customer customer);
 	
 	void insertMemo(CustomerMemo memo);
 	
 	void deleteMemo(Long memoNum);
+	
 	
 
 }
