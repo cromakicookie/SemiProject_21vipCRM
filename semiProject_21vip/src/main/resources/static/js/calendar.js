@@ -32,7 +32,7 @@ $(document).ready(function() {
 				$("#myModal").modal('show');
 				calendar.unselect()
 			} else {
-				alert("일정 수정이 불가합니다.");
+				alert("일정 추가가 불가합니다.");
 			}
 		},
 		eventClick: function(arg) {
@@ -166,24 +166,29 @@ function modalSubmit() {
 
 
 function deleteCal() {
-	var confirmDelete = confirm("삭제하시겠습니까?");
 	let number = $("#dataId").text();
-	console.log(number);
-	if (confirmDelete) {
-		$.ajax({
-			url: "/calendar/event/" + number,
-			type: "DELETE",
-			success: function() {
-				console.log("삭제 성공");
-				$("#myModal2").modal('hide');
-				calendar.refetchEvents();
-				var str = "지정된 데이터가 없습니다.";
-				$("#card-text").html(str);
-			},
-			error: function(error) {
-				console.error('Error:', error);
-			}
-		});
+	if (number == "") {
+		alert("선택된 일정이 없습니다.");
+	} else {
+		var confirmDelete = confirm("삭제하시겠습니까?");
+
+		console.log(number);
+		if (confirmDelete) {
+			$.ajax({
+				url: "/calendar/event/" + number,
+				type: "DELETE",
+				success: function() {
+					console.log("삭제 성공");
+					$("#myModal2").modal('hide');
+					calendar.refetchEvents();
+					var str = "지정된 데이터가 없습니다.";
+					$("#card-text").html(str);
+				},
+				error: function(error) {
+					console.error('Error:', error);
+				}
+			});
+		}
 	}
 
 }
