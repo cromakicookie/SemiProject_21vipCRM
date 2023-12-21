@@ -22,7 +22,7 @@
 
 			<div class="sidebar">Voucher
 				<ul>
-					<li><a th:onclick="openModal()" data-bs-toggle="modal" data-bs-target="#staticBackdrop">바우처 생성</a>
+					<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_MANAGER'')')}"><a  th:onclick="openModal()" data-bs-toggle="modal" data-bs-target="#staticBackdrop">바우처 생성</a>
 					</li>
 					<li><a th:href="@{/voucherBoard}">바우처 목록</a></li>
 					<!--<li><a>바우처 현황</a></li>-->
