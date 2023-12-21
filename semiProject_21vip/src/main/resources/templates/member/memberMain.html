@@ -115,10 +115,19 @@
 		</aside>
           
         <section class="servicePage memberList">
-          <p class="sectionHeader">사원 리스트<span class="excelDownload"><a th:href="@{/excel/download/{member} (member=${paging})}">엑셀로 받기</a></span></p>
+			<p class="sectionHeader">사원 리스트
+				<span class="excelDownload">
+			<!--		<button id="excelButton" th:text="${param.memberName}"
+							data-memberName="${param.memberName}"
+							data-memberDept="${param.memberDept}"
+							data-memberRole="${param.memberRole}" onclick="excelDownload()">
+							엑셀로 받기</button>-->
+					<a th:href="@{/excel/download(memberName=${param.memberName}, memberDept=${param.memberDept}, memberRole=${param.memberRole})}">엑셀로 받기</a>
+			  	</span>
+			</p>
            <hr>
           <div class="card">
-			  <div class="card-body" th:each="member : ${paging}">
+			  <div class="card-body" th:each="member : ${paging.content}">
 				  <div class="card-text img">
 					<div class="img" th:if="${member.memberFile} ==null">
 						<img class="memberImg" src="http://placehold.it/100x100" alt="">

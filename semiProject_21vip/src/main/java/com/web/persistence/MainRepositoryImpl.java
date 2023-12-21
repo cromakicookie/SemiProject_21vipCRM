@@ -31,7 +31,8 @@ public class MainRepositoryImpl extends QuerydslRepositorySupport implements Mai
 	@Override
 	public Page<Member> findBySearchOption(Pageable pageable, String memberDept, Role memberRole, String memberName) {
 		JPQLQuery<Member> query = queryFactory.selectFrom(member)
-	            .where(eqMemberDept(memberDept), eqmemberRole(memberRole), containName(memberName));
+	            .where(eqMemberDept(memberDept), eqmemberRole(memberRole), containName(memberName))
+	            .orderBy(member.memberName.asc());
 
 	    JPQLQuery<Member> appliedQuery = this.getQuerydsl().applyPagination(pageable, query);
 
@@ -61,6 +62,14 @@ public class MainRepositoryImpl extends QuerydslRepositorySupport implements Mai
         }
         return member.memberName.containsIgnoreCase(memberName);
     }
+
+	@Override
+	public List<Member> excelDownloadMember(String memberName, String memberDept, Role memberRole) {
+		JPQLQuery<Member> query = queryFactory.selectFrom(member)
+	            .where(eqMemberDept(memberDept), eqmemberRole(memberRole), containName(memberName));
+		System.out.println(query.fetch());
+		return query.fetch();
+	}
 
 	
 	
