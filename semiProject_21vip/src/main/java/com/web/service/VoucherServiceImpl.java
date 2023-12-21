@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.web.domain.Member;
@@ -64,7 +65,7 @@ public class VoucherServiceImpl implements VoucherService {
 	@Override
 	public List<Voucher> getVoucherList(Voucher Voucher) {
 		// TODO Auto-generated method stub
-		return (List<Voucher>)voucherRepo.findAll();
+		return (List<Voucher>)voucherRepo.findAll(Sort.by("voucherSeq").ascending());
 	}
 	
 	//페이징
