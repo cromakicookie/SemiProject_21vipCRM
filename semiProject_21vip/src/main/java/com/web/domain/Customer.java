@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,8 +49,11 @@ public class Customer extends BaseEntity {
     //고객번호로 바우처 리스트 조회
     @OneToMany(mappedBy = "customer", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderBy("createDate ASC") 											//내림차순 시 MemoNum DESC
-    private List<VoucherC> issuedVoucherList = new ArrayList<>();
-   
+    private List<VoucherC> issuedVoucherList = new ArrayList<>();    
+
+    
+    
+
     //고객번호로 명품관 예약 리스트 조회
     @OneToMany(mappedBy = "customer", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderBy("createDate DESC") 											//내림차순 시 MemoNum DESC

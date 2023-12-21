@@ -56,6 +56,7 @@ public class SecurityConfig{
 			.antMatchers("/calendar*/**").authenticated()
 			.antMatchers("/mypage*/**").authenticated()
 			.antMatchers("/employee*/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
+			.antMatchers("/voucher*/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
 			.anyRequest().permitAll()
 			.and()
 			.formLogin()

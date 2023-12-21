@@ -44,11 +44,11 @@ public class QVoucherC extends EntityPathBase<VoucherC> {
 
     public final DatePath<java.util.Date> voucherIssuedDate = createDate("voucherIssuedDate", java.util.Date.class);
 
-    public final StringPath voucherServiceC = createString("voucherServiceC");
+    public final StringPath voucherService2 = createString("voucherService2");
 
-    public final StringPath voucherServiceNameC = createString("voucherServiceNameC");
+    public final StringPath voucherServiceName2 = createString("voucherServiceName2");
 
-    public final StringPath voucherTypeC = createString("voucherTypeC");
+    public final StringPath voucherType2 = createString("voucherType2");
 
     public QVoucherC(String variable) {
         this(VoucherC.class, forVariable(variable), INITS);
