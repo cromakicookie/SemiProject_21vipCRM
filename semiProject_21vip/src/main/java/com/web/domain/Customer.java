@@ -43,7 +43,7 @@ public class Customer extends BaseEntity {
 	
 	//고객번호로 메모 리스트 조회
     @OneToMany(mappedBy = "customer", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @OrderBy("MemoNum ASC") 											//내림차순 시 MemoNum DESC
+    @OrderBy("MemoNum DESC") 											//내림차순 시 MemoNum DESC
     private List<CustomerMemo> customerMemoList = new ArrayList<>();
 	
     //고객번호로 바우처 리스트 조회

@@ -147,6 +147,10 @@
 										</tbody>
 									</table>
 								</div><!-- 생일테이블 끝-->
+								<div th:if="${#lists.isEmpty(VoucherList)}">
+									<br>
+									<p>서비스를 등록해 주세요</p>
+								</div>
 							</div> <!--accordion-body-->
 						</div>
 					</div>
@@ -196,6 +200,10 @@
 											</tr>
 										</tbody>
 									</table>
+								</div><!--연간서비스테이블-->
+								<div th:if="${#lists.isEmpty(VoucherList)}">
+									<br>
+									<p>서비스를 등록해 주세요</p>
 								</div>
 							</div>
 						</div>
