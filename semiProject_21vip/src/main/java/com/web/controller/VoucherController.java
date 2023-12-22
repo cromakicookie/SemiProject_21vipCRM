@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,9 +48,9 @@ public class VoucherController {
 
 	// 바우처 관리 페이지 (바우처 목록)
 	@GetMapping("voucherBoard")
-	public String VoucherBoard(@PageableDefault(size = 10) Pageable pageable, Voucher voucher, Model model,
+	public String VoucherBoard(@PageableDefault(size = 10, sort = "voucherSeq", direction = Direction.DESC) Pageable pageable, Voucher voucher, Model model,
 			String searchKeyword) {
-
+		
 		System.out.println();
 
 		Page<Voucher> Pagelist;
