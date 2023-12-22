@@ -33,6 +33,9 @@ public interface VoucherService {
 	//검색 - 서비스명
 	Page<Voucher> findByVoucherServiceName(String searchKeyword, Pageable pageable);
 
+	//검색 - 일련번호명
+	Page<Voucher> findByVoucherCode(String searchKeyword, Pageable pageable);
+
 
 	
 

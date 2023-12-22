@@ -79,6 +79,12 @@ function customerInsertCheck(){
 	}else if(document.customerForm.customerHP.value ==""){
 		alert("연락처를 입력해주세요.")
 		document.customerForm.customerHP.focus();
+	}else if($(':radio[name="customerGender"]:checked').length < 1){
+		alert("성별을 체크해주세요.")
+		document.customerForm.male.focus();
+	}else if(document.customerForm.customerBirth.value ==""){
+		alert("생년월일을 입력해주세요.")
+		document.customerForm.customerBirth.focus();
 	}else{
 		document.customerForm.submit();
 	}

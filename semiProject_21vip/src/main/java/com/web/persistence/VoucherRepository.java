@@ -17,5 +17,7 @@ public interface VoucherRepository extends JpaRepository<Voucher, Long> {
 	
 	public Page<Voucher> findByVoucherServiceNameContaining(String searchKeyword, Pageable pageable);
 
+	public Page<Voucher> findByVoucherCodeContaining(String searchKeyword, Pageable pageable);
+
 
 }
