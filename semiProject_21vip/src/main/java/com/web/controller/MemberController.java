@@ -43,7 +43,7 @@ public class MemberController {
 
 	//사원리스트 불러오기 & 조건 검색
 	@GetMapping("/memberMain")
-	public String findByOption(@PageableDefault(size=5) Pageable pageable, 
+	public String findByOption(@PageableDefault(size=4) Pageable pageable, 
 			@RequestParam(name="memberDept", defaultValue="") String memberDept, @RequestParam(name="memberRole", defaultValue="") Role memberRole, @RequestParam(name="memberName", defaultValue="") String memberName,
 			Model model) {
 		Page<Member> paging = memberService.findMember(pageable, memberDept, memberRole, memberName);
