@@ -62,6 +62,8 @@ public class CustomerController {
 		customer.setCustomerNum(customerNum);
 		customer = customerService.getCustomer(customer);
 		
+		List<CustomerMemo> memoList = customer.getCustomerMemoList();
+		
 		
 
 		 if (customer == null) {
