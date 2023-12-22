@@ -61,10 +61,7 @@ public class CustomerController {
 		Customer customer = new Customer();
 		customer.setCustomerNum(customerNum);
 		customer = customerService.getCustomer(customer);
-		
-		List<CustomerMemo> memoList = customer.getCustomerMemoList();
-		
-		
+
 
 		 if (customer == null) {
 		        // 고객이 없을 경우
@@ -77,10 +74,7 @@ public class CustomerController {
 		        model.addAttribute("customer", customer);
 		        model.addAttribute("memoList", customer.getCustomerMemoList());
 		        model.addAttribute("VoucherList", customer.getIssuedVoucherList());
-//		        model.addAttribute("VoucherListG", customer.getIssuedVoucherListByTypeG());
-//		        model.addAttribute("VoucherListnotG", customer.getIssuedVoucherListNotTypeG());
-		        
-		           
+		        	           
 		    }	 
 		return "customer/customerPage";
 	}
