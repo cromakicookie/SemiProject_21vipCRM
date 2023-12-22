@@ -49,23 +49,32 @@ public class VoucherController {
 	// 바우처 관리 페이지 (바우처 목록)
 	@GetMapping("voucherBoard")
 	public String VoucherBoard(@PageableDefault(size = 10, sort = "voucherSeq", direction = Direction.DESC) Pageable pageable, Voucher voucher, Model model,
-			String searchKeyword) {
+			String searchKeyword,String searchSelect) {
 		
-		System.out.println();
+		System.out.println(searchKeyword);
+		System.out.println(searchSelect);
 
 		Page<Voucher> Pagelist;
-
-		if (searchKeyword != null) {
-			Pagelist = voucherService.findByVoucherServiceName(searchKeyword, pageable);
-		} else {
+		//Pagelist = voucherService.findByVoucherCode(searchKeyword, pageable);
+		
+		if(searchKeyword != null && !searchKeyword.isEmpty()) {
+			if(searchSelect.equals("S")) {
+				Pagelist = voucherService.findByVoucherServiceName(searchKeyword, pageable);
+			}else{
+				Pagelist = voucherService.findByVoucherCode(searchKeyword, pageable);
+			}	
+		}else {
 			Pagelist = voucherService.PageList(pageable);
-		}
+		}	
 
 		System.out.println(Pagelist);
 		model.addAttribute("voucherListAll", Pagelist);
 		model.addAttribute("paging", Pagelist);
 		return "customer/voucherBoard";
 	}
+
+	
+	
 
 	// 바우처 등록 페이지
 	@GetMapping("customerVoucherForm")

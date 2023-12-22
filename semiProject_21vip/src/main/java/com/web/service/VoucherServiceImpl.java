@@ -81,6 +81,12 @@ public class VoucherServiceImpl implements VoucherService {
 		// TODO Auto-generated method stub
 		return voucherRepo.findByVoucherServiceNameContaining(searchKeyword, pageable);
 	}
+	
+	@Override
+	public Page<Voucher> findByVoucherCode(String searchKeyword, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return voucherRepo.findByVoucherCodeContaining(searchKeyword, pageable);
+	}
 
 	
 	

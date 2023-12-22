@@ -130,9 +130,9 @@
 			<ul class="nav justify-content-end">
 				<form th:action="@{voucherBoard}" id="search_Voucher" name="searchVoucher" method="get">
 					<div class="search" style="width: 500px; margin: auto;">
-						<select name="search_VoucherTheme" style="width: 80px; height: 30px;">
+						<select th:id="searchSelect" th:name="searchSelect" style="width: 80px; height: 30px;">
 							<option value="S">서비스명</option>
-							<option value="A">일련번호</option>
+							<option value="N">일련번호</option>
 						</select>
 
 						<input type="text" id="searchKeyword" name="searchKeyword" placeholder="  바우처 검색..." />
