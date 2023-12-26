@@ -1,0 +1,346 @@
+@charset "UTF-8";
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background-color: #d9d9d9;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+hr {
+  border: 1.5px solid #5b5b5b;
+}
+
+/* aside */
+
+aside {
+	background-color: #5b5b5b;
+	padding: 1em;
+	width: 250px;
+	height: 850px;
+	color: #fff;
+}
+
+main aside input {
+	width: 170px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #eee;
+	margin-bottom: 1em;
+	padding: 0.2em;
+}
+
+/* 돋보기 아이콘 */
+.search {
+	position: relative;
+}
+
+.search i.bx-search {
+	font-size: 25px;
+	position: absolute;
+	right: 3px;
+	top: 5px;
+}
+
+/* 돋보기 아이콘 끝 */
+
+.sidebar {
+	font-weight: bold;
+	font-size: 22px;
+	margin-top: 30px;
+}
+
+.sidebar ul li {
+	list-style: none;
+	margin-top: 10px;
+	padding: 5px 0px;
+	text-align: center;
+	font-size: 18px;
+	padding-right: 40px;
+}
+
+.sidebar ul li:hover {
+	background-color: #b592ff;
+	transition: background-color 0.5s ease-in-out, font-size 0.5s ease-in-out;
+}
+
+.sidebar ul li a {
+	text-decoration: none;
+	color: white;
+}
+
+
+.nav2-item {
+	border-bottom: 2px solid #ccc;
+}
+.list-group {
+	font-size: 22px;
+}
+
+.list-group-item {
+	background-color: #5b5b5b;
+	color: #fff;
+	border: none;
+	margin-left: 30px;
+}
+
+.customer_info_table {
+  width: 200px;
+  padding: 1em;
+  color: white;
+  font-weight: bold;
+  border-collapse: collapse;
+  margin-bottom: 50px;
+  /*border: 1px solid #d9d9d9;*/
+}
+
+.customer_info_table caption {
+  font-size: 22px;
+  caption-side: top;
+  color: white;
+  font-weight: bold;
+}
+
+.customer_info_table tr,
+.customer_info_table td {
+  height: 30px;
+}
+
+.customer_info_table td:first-child {
+  text-align: left;
+  width: 80px;
+  /* border: 1px solid #d9d9d9; */
+}
+
+.customer_info_table td:last-child {
+  text-align: left;
+  padding-left: 20px;
+}
+
+/* ---aside 끝--- */
+
+/* -- 서비스 섹션 -- */
+
+.customer_service {
+  width: 58%;
+  height: 700px;
+  padding: 50px 30px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+section > .sectionHeader {
+  text-align: left;
+  font-size: 23px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+/* 아코디언 버튼 색 바꾸기 */
+
+.accordion-button {
+  background-color: #ffffff !important;
+  /* color: #5b5b5b !important; */
+  font-weight: bold;
+}
+
+.accordion-button:active,
+.accordion-button:focus {
+  background-color: #f9f9f9 !important;
+}
+
+.accordion-button:hover {
+  background-color: #ddd !important;
+}
+
+/* 아코디언 안 테이블 */
+
+.accordion-body {
+  margin: 10px 10px 10px 30px;
+  padding: 0;
+  font-size: 13px;
+  overflow-y: auto;
+  max-height: 170px;
+}
+
+.table_service > table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.table_service table th,
+.table_service table td {
+  padding: 5px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.table_service button{
+  float: right;
+  padding: 1px 5px; /* 패딩 설정 */
+  border: none; /* 테두리 없음 */
+  cursor: pointer;
+  border-radius: 8px; /* 모서리 둥글게 */
+  margin: 2px;
+}
+
+/* .table_service button:first-of-type {
+  background: skyblue;
+}
+
+.table_service button:last-of-type {
+  background-color: red;
+} */
+
+#btn_UD {
+  padding: 0 5px;
+  margin: 0;
+  width: 30px;
+  border: none;
+  font-size: 12px;
+}
+
+/* 일련번호 컬럼의 너비를 200px로 설정 */
+.table_service #num {
+  width: 180px;
+}
+
+/* 메모 섹션 */
+.memoSection > .sectionHeader {
+  font-size: 15px;
+}
+
+.memoSection {
+  width: 27%;
+  height: 700px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+  margin-top: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
+  overflow-y: auto;
+  max-height: 800px;
+}
+
+textarea {
+  width: 98%;
+  font-size: 12px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  border: none; /* 테두리 없앰 */
+  padding: 10px; /* 내부 여백 추가 */
+}
+
+.table_memo {
+  text-align: center;
+  width: 98%;
+  font-size: 14px;
+}
+
+.table_memo thead {
+  background-color: #b592ff;
+  color: #f9f9f9;
+  height: 40px;
+  font-size: 12px;
+}
+
+.table_memo th,
+.table_memo td {
+  border: 1px solid #ddd;
+}
+
+.col_count{
+	width: 25px;
+}
+
+.col_important {
+	width: 25px;
+}
+
+.col_content {
+	text-align: left;
+	padding: 5px;
+}
+
+.col_delete{
+	width: 30px;
+}
+
+/*이벤트*/
+
+.selected-row {
+  background-color: #fae8ff; /* 선택된 행의 배경색 */
+}
+
+
+
+/* 버튼모음 */
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 4px 10px;
+  margin-bottom: 5px;
+  /* display: inline-block; */
+  background-color: #f9f9f9;
+  font-size: 13px;
+}
+
+button:hover {
+  	font-weight: bold;
+  	background-color: #ddd;
+}
+.btn_memo .btn_mSubmit:hover{
+	font-weight: bold;
+	background-color: #5b5b5b;
+	color: #f9f9f9;
+}
+
+.btn_memo{
+	width: 100%;
+	text-align: center;
+}
+
+.btn_memo .btn_mSubmit {
+  border: none;
+  border-radius: 10px;
+  padding: 3px 15px;
+  /* display: inline-block; */
+  background-color: #e4e4e4;
+  font-size: 13px;
+  font-weight: bold;
+  color: #5b5b5b;
+}
+
+.btn_insert_class button{
+	margin: 0;
+	padding: 0;
+	width: 50px;
+	height: 50px;
+	font-size: 18px;
+	float: right;
+	border-radius: 10px;
+	/*border: 1px solid #5b5b5b;*/
+}
+
+/* 버튼모음 끝 */

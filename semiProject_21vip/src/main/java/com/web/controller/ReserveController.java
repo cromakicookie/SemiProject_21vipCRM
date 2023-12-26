@@ -129,9 +129,9 @@ public class ReserveController {
 	}
 	
 		
-	@GetMapping("/ReservationInsert")
+	@GetMapping("reservationInsert")
 	public String ReservationInsert() {
-		return "reserve/ReservationInsert";
+		return "reserve/reservationInsert";
 	}
 	
 	@GetMapping("/findCustomerNum")
@@ -174,7 +174,7 @@ public class ReserveController {
 		luxury.setCustomer(customer);
 		model.addAttribute("customer", luxuryService.getCustomer(customerNum));
 		model.addAttribute("list", luxuryService.luxuryView(luxurySeq));
-		return "reserve/ReserveList";
+		return "reserve/reserveList";
 	}
 	
 	// 수정 폼 이동
@@ -189,7 +189,7 @@ public class ReserveController {
 		
 		model.addAttribute("customer", luxuryService.getCustomer(customerNum));
 		model.addAttribute("list",luxuryService.luxuryView(luxurySeq));
-		return "reserve/ReservationUpdate";
+		return "reserve/reservationUpdate";
 	}
 	
 	
