@@ -52,24 +52,26 @@ public class mainController {
 	}
 	
 	
-	@GetMapping("/loginSuccess")
+	@GetMapping("loginSuccess")
 	public void loginSuccess() {
 		
 	}
 	
-	@GetMapping("/loginError")
+	@GetMapping("loginError")
 	public String loginError() {
 		return "main/loginError";
 	}
 	
-	@GetMapping("/accessDeneind")
+	@GetMapping("accessDeneind")
 	public String accessDenied() {
 		return "main/accessDeneind";
 	}
 	
 
-	@GetMapping("/logout")
-	public void logout() {}
+	@GetMapping("logout")
+	public String logout() {
+		return "redirect:/";
+	}
 	
 	@GetMapping("/logoutSuccess")
 	public String logoutSuccess() {

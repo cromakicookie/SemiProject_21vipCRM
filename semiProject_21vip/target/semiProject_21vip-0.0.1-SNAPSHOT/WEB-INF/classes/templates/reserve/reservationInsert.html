@@ -1,0 +1,154 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/Reservestyle.css}" type="text/css" />
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script src="../js/Reservation.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>예약 추가 페이지</title>
+	<script>
+		window.onload = function() {
+        document.getElementById("searchcustomerNum").focus();
+    };
+	</script>
+</head>
+
+<body>
+
+	<div th:include="main/header :: head1"></div>
+
+	<main>
+        <aside>
+			<form name="searchForm" onsubmit="event.preventDefault(); findCustomerNum();">
+            <div class="search">
+           <input type="text" name="searchcustomerNum" id="searchcustomerNum" placeholder="  고객번호 검색..." oninput="DuplicateTest()"/>
+            <i class='bx bx-search' onclick="findCustomerNum()"></i>
+            </div>
+            </form>
+            
+			<div class="customer_info">
+				<table class="customer_info_table">
+					<caption>고객 기본정보</caption>
+					<tbody id="customerTable">
+					<p id="okmsg">등록가능한 고객번호입니다.</p>
+					<p id="nomsg">없는 고객번호 입니다.</p>
+					<tr>
+						<td>- 고객번호</td>
+						<td id="num" name="num"></td>
+					</tr>
+					<tr>
+						<td>- 성명</td>
+						<td id="name" name="name"></td>
+					</tr>
+					<tr>
+						<td>- 등급</td>
+						<td id="grade" name="grade"></td>
+					</tr>
+					<tr>
+						<td>- 주 이용점</td>
+						<td id="favoriteStore" name="favoriteStore"></td>
+					</tr>
+					<tr>
+						<td>- 생년월일</td>
+						<td id="customerBirth" name="customerBirth"></td>
+					</tr>
+				</tbody>
+				<tbody id="messageRow" style="display: none;">
+					<tr>
+						<td colspan="2">
+							<p style="font-size: 15px;">조회된 고객번호가 없습니다.</p>
+						</td>
+					</tr>
+				</tbody>
+				</table>
+			</div>
+       	 <button type="button" class="push">예약 등록</button>
+
+          </aside>
+
+		<section class="servicePage">
+			<p class="sectionHeader">명품관 서비스 예약 등록</p>
+			<hr>
+			<table class="listTable">
+
+					
+					
+					<form th:action="@{/reservationResult}" name="ReservationForm" method="post">
+					<tr>
+						<td>
+							<label for="customerNum">고객번호</label>
+							<input type="text" id="customerNum" name="customerNum" readonly><br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="customerName">고객명</label>
+							<input type="text" id="customerName" name="customerName" readonly><br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="luxuryBrandName">브랜드명</label>
+							<select id="luxuryBrandName" name="luxuryBrandName">
+								<option value="none">브랜드를 선택해주세요</option>
+								<option value="Hermes">Hermes</option>
+								<option value="Prada">Prada</option>
+								<option value="Gucci">Gucci</option>
+								<option value="Burberry">Burberry</option>
+								<option value="Louis Vuitton">Louis Vuitton</option>
+							</select>
+						</td>
+					</tr>
+					<br>
+					<tr>
+						<td>
+							<label for="luxuryDate">예약일자</label>
+							<input type="date" id="luxuryDate" name="luxuryDate" min="minDate"><br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="luxuryTime">예약시간</label>
+							<input type="time" id="luxuryTime" name="luxuryTime" min="09:00" max="22:00"><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<label for="luxuryHeadCount">참여인원</label>
+							<input type="number" id="luxuryHeadCount" name="luxuryHeadCount" min=1><br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="luxuryPhone">휴대폰번호<i class='bx bxs-phone'></i></label>
+							<input type="text" id="luxuryPhone" name="luxuryPhone" oninput="oninputPhone(this)"
+								maxlength="13" placeholder="전화번호를 입력해주세요"><br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="button" value="등록 완료" onclick="insertMessage()">
+							<input type="button" value="등록 취소" onclick="InsertCancel()">
+						</td>
+					</tr>
+				</form>
+
+			</table>
+		</section>
+	</main>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
