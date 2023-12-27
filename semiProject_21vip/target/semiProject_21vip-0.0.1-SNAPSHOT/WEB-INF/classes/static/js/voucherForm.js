@@ -16,9 +16,12 @@ function updateServiceOptions() {
 	let themeSelect = $('#voucher_theme');
 	let serviceSelect = $('#voucher_serviceName');
 	
-	let dining = "170b916ebc4";
+	let dining10 = "dbee6bc64e8";
+	let dining7 = "0258685ad09";
 	let cosmetic = "e9827b74700";
 	let exhibition = "f99377de092";
+	let spa = "cc91e646ffe";
+	let culture = "3f7039a836c";
 	let yacht = "423fa120a21";
 	let golf = "c6cf642b8f1";
 	let hotel = "e919c49d5f0";
@@ -40,11 +43,11 @@ function updateServiceOptions() {
 			serviceSelect.on('change', function() {
  			// 실행 로직
 				if (serviceSelect.val() === '프라이빗요트투어'){
-					$('#voucherCode2').val('423fa120a21') 
+					$('#voucherCode2').val(yacht) 
 				}else if (serviceSelect.val() === '프라이빗골프레슨'){
-					$('#voucherCode2').val('c6cf642b8f1') 
+					$('#voucherCode2').val(golf) 
 				}else if (serviceSelect.val() === '호텔패키지'){
-					$('#voucherCode2').val('e919c49d5f0') 
+					$('#voucherCode2').val(hotel) 
 				}
 					
 			});	
@@ -55,18 +58,18 @@ function updateServiceOptions() {
 			$('#voucherCode1').val('A');
 			
 			addOption(serviceSelect, '', '-서비스선택-');
-		    addOption(serviceSelect, '다이닝이용권', '다이닝이용권');
+		    addOption(serviceSelect, '다이닝이용권 : 10만원', '다이닝이용권 : 10만원');
 			addOption(serviceSelect, '문화센터이용권', '문화센터이용권');
 			addOption(serviceSelect, '스파이용권', '스파이용권');
 			
 			serviceSelect.on('change', function() {
  			// 실행 로직
-				if (serviceSelect.val() === '다이닝이용권'){
-					$('#voucherCode2').val('170b916ebc4') 
+				if (serviceSelect.val() === '다이닝이용권 : 10만원'){
+					$('#voucherCode2').val(dining10) 
 				}else if (serviceSelect.val() === '문화센터이용권'){
-					$('#voucherCode2').val('f99377de092') 
+					$('#voucherCode2').val(culture) 
 				}else if (serviceSelect.val() === '스파이용권'){
-					$('#voucherCode2').val('f99377de092') 
+					$('#voucherCode2').val(spa) 
 				}
 			});	
 			
@@ -81,12 +84,12 @@ function updateServiceOptions() {
 			
 			serviceSelect.on('change', function() {
  			// 실행 로직
-				if (serviceSelect.val() === '다이닝이용권'){
-					$('#voucherCode2').val('170b916ebc4') 
+				if (serviceSelect.val() === '다이닝이용권 : 7만원'){
+					$('#voucherCode2').val(dining7) 
 				}else if (serviceSelect.val() === '코스메틱상품권'){
-					$('#voucherCode2').val('e9827b74700') 
+					$('#voucherCode2').val(cosmetic) 
 				}else if (serviceSelect.val() === '전시회관람권'){
-					$('#voucherCode2').val('f99377de092') 
+					$('#voucherCode2').val(exhibition) 
 				}
 			});	
 			
@@ -98,18 +101,18 @@ function updateServiceOptions() {
 			$('#voucherCode1').val('G');
 			
 			addOption(serviceSelect, '', '-서비스선택-');
-		    addOption(serviceSelect, '다이닝이용권', '다이닝이용권');
+		    addOption(serviceSelect, '다이닝이용권 : 10만원', '다이닝이용권 : 10만원');
 			addOption(serviceSelect, '코스메틱상품권', '코스메틱상품권');
 			addOption(serviceSelect, '전시회관람권', '전시회관람권');
 			
 			serviceSelect.on('change', function() {
  			// 실행 로직
-				if (serviceSelect.val() === '다이닝이용권'){
-					$('#voucherCode2').val('170b916ebc4') 
+				if (serviceSelect.val() === '다이닝이용권 : 10만원'){
+					$('#voucherCode2').val(dining10) 
 				}else if (serviceSelect.val() === '코스메틱상품권'){
-					$('#voucherCode2').val('e9827b74700') 
+					$('#voucherCode2').val(cosmetic) 
 				}else if (serviceSelect.val() === '전시회관람권'){
-					$('#voucherCode2').val('f99377de092') 
+					$('#voucherCode2').val(culture) 
 				}
 			});	
 			

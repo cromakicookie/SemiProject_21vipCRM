@@ -170,6 +170,10 @@ public class VoucherController {
 	public void deleteVoucher(@PathVariable("num") String voucherCode) {
 		System.out.println(voucherCode + "삭제 확인");
 		voucherService.deleteVoucher(voucherCode);
+		
+		Voucher voucher = voucherService.getVoucher(voucherCode);
+		voucher.setStatus(0);
+		
 	}
 
 	// 바우처 문자 전송
