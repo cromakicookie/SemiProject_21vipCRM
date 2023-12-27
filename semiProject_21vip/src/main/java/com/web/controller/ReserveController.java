@@ -189,7 +189,7 @@ public class ReserveController {
 		
 		model.addAttribute("customer", luxuryService.getCustomer(customerNum));
 		model.addAttribute("list",luxuryService.luxuryView(luxurySeq));
-		return "reserve/reservationUpdate";
+		return "reserve/reservationupdate";
 	}
 	
 	

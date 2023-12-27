@@ -74,7 +74,7 @@ function deleteVoucher(button) {
 		alert("Delete voucherCode: " + checkedVoucherCode)
 
 		$.ajax({
-			url: "/deleteVoucher/" + checkedVoucherCode,
+			url: 'deleteVoucher/' + checkedVoucherCode,
 			type: "GET",
 			success: function() {
 				console.log("삭제 성공");
@@ -104,7 +104,7 @@ function deleteMemo() {
 		//alert("Delete memo with ID: " + memoRN)
 
 		$.ajax({
-			url: "/deleteMemo/" + memoRN,
+			url: "deleteMemo/" + memoRN,
 			type: "GET",
 			success: function() {
 				console.log("삭제 성공");

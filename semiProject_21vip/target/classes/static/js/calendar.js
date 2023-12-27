@@ -1,8 +1,11 @@
-/**
- * 
+/*
+ * 캘린더.js
  */
+
 // 유저 권한 객체
-var userRole = document.currentScript.getAttribute('data-custom');
+var userRole = document.currentScript.getAttribute('data-custom1');
+// 절대경로 확인
+var serverPath = document.currentScript.getAttribute('data-custom2');
 // 컬러 선택 객체 
 var beforeColor;
 /* # fullcalendar api */
@@ -20,7 +23,7 @@ $(document).ready(function() {
 		navLinks: true,
 		editable: true,
 		dayMaxEvents: true,
-		events: '/calendar/event/all',
+		events: 'calendar/event/all',
 		selectable: true,
 		selectMirror: true,
 		eventStartEditable: true,
@@ -39,12 +42,12 @@ $(document).ready(function() {
 			console.log(arg.event.id);
 			$.ajax({
 				type: "GET",
-				url: "/calendar/event/" + arg.event.id,
+				url: "calendar/event/" + arg.event.id,
 				success: function(data) {
 					console.log(data);
 					let str = "";
 					if (data.file != null) {
-						str += "<img src='" + data.file.fileRoot + data.file.fileName + "' >";
+						str += "<img src='"+serverPath + data.file.fileRoot + data.file.fileName + "' >";
 					}
 					str += "<ul>";
 					str += "<li>제목 : " + data.title + "</li>";
@@ -100,7 +103,7 @@ function showModal() {
 	} else {
 		console.log(number);
 		$("#modal-title").html("일정 수정");
-		$.get('/calendar/event/' + number, function(data) {
+		$.get('calendar/event/' + number, function(data) {
 			let str = "";
 			str += "<form id='modalForm2' enctype='multipart/form-data'>"
 			str += "<ul>";
@@ -145,7 +148,7 @@ function modalSubmit() {
 	console.log(formData);
 
 	$.ajax({
-		url: "/calendar/event",
+		url: "calendar/event",
 		type: "PUT",
 		data: formData,
 		contentType: false,
@@ -175,7 +178,7 @@ function deleteCal() {
 		console.log(number);
 		if (confirmDelete) {
 			$.ajax({
-				url: "/calendar/event/" + number,
+				url: "calendar/event/" + number,
 				type: "DELETE",
 				success: function() {
 					console.log("삭제 성공");
