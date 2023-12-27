@@ -4,7 +4,7 @@
 
 function findId(){
 	 $.ajax({
-	    url: "/findId",
+	    url: "findId",
 	    method: "POST",
 	    success: function(response) {
 	        location.href="/findIdResult";
@@ -49,7 +49,7 @@ $("#checkEmail").click(function () {
 
     $.ajax({
         type: "GET",
-        url: "/check/findPw",
+        url: "check/findPw",
         data: {
             "memberEmail": memberEmail,
             "username": username

@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
   
   <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-  <script src="../js/Reservation.js"></script>
+  <script th:src="@{js/reservation.js}"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <title>예약 관리 페이지</title>
 </head>
@@ -50,7 +50,7 @@
            <div th:if="${Pagelist.empty}">총 예약목록 수 : 없음<span></span></div>
           <ul class="nav justify-content-end">
             <li class="nav2-item">
-              <a class="nav-link reslist" aria-current="page" th:href="@{/ReservationInsert}">예약 추가</a>
+              <a class="nav-link reslist" aria-current="page" th:href="@{/reservationInsert}">예약 추가</a>
             </li>
             <li class="nav2-item">
               <a class="nav-link reslist" th:href="@{/reservation}">새로고침</a>

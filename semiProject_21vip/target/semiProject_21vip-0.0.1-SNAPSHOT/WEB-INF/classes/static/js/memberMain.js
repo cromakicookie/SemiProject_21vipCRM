@@ -48,7 +48,7 @@ function updateMember(){
 function deleteMember(username){
 	 if (confirm('정말로 삭제하시겠습니까?')) {
         alert('삭제 완료되었습니다.');
-        location.href = '/deleteMember?username=' + username;
+        location.href = 'deleteMember?username=' + username;
     }
 }
 
@@ -82,7 +82,7 @@ function excelDownload(){
 	// AJAX 요청
 	$.ajax({
  		type: 'GET',
-		url: '/excel/download',
+		url: 'excel/download',
 		data: {
 			memberName: memberName,
 			memberDept: memberDept,

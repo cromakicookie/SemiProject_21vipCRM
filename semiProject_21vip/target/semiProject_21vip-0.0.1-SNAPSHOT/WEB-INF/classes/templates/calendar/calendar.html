@@ -22,10 +22,9 @@
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6Lc6QppPFVTt+Oz6L39L/6ek5u8qvu5cJyMs"
 		crossorigin="anonymous"></script>
 
-	<script src='/js/fullcalendar-6.1.10/dist/index.global.js'></script>
-	<script src='/js/fullcalendar-6.1.10/packages/moment/index.global.js'></script>
-	<script src='/js/calendar.js' th:src="@{/js/calendar.js}" th:attr="data-custom=${userAuthorities[0]}"></script>
-
+	<script th:src='@{/js/fullcalendar-6.1.10/dist/index.global.js}'></script>
+	<script th:src='@{/js/fullcalendar-6.1.10/packages/moment/index.global.js}'></script>
+	<script th:src='@{/js/calendar.js}' th:attr="data-custom1=${userAuthorities[0]}, data-custom2=${absolutePath}"></script>
 	<style>
 		#calendar {
 			max-height: 700px;
