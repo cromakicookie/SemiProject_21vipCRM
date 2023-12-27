@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -36,6 +38,8 @@ public class CalendarController {
 	FileService fs;
 	@Autowired
 	MainService ms;
+	@Autowired
+	private HttpServletRequest request;
 	
 	@GetMapping("calendar")
 	public String calendarPage(Model model) {
@@ -46,13 +50,22 @@ public class CalendarController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
+        // 현재 실행 중인 서버의 절대 경로 얻기
+        String serverAbsolutePath = request.getRequestURL().toString();
+        String contextPath = request.getContextPath();
+        
+        // 서버의 루트 경로로 설정
+        String absolutePath = serverAbsolutePath.substring(0, serverAbsolutePath.indexOf(contextPath) + contextPath.length());
+
+        // 모델에 추가
+        model.addAttribute("absolutePath", absolutePath);
         // 사용자 role 추가
         model.addAttribute("userAuthorities", authorityStrings);
 		return "calendar/calendar";
 	}
 	
 	// [일정관리] admin, manager만 입력가능
-	@PostMapping("inputCalendar")
+	@PostMapping("/inputCalendar")
 	public String inputCalendar(Calendar cal, @RequestParam("uploadFiles")MultipartFile uploadFiles) throws IOException{
 		System.out.println("input");
 		try {
@@ -72,7 +85,7 @@ public class CalendarController {
 	}
 	
 	// [마이페이지] 개인 일정 자유롭게 입력 가능
-	@PostMapping("inputCalendarU")
+	@PostMapping("/inputCalendarU")
 	public String inputCalendarU(Calendar cal) {
 		cs.insertCalendar(cal);
 		return "redirect:mypage";
@@ -90,8 +103,15 @@ public class CalendarController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
+     // 현재 실행 중인 서버의 절대 경로 얻기
+        String serverAbsolutePath = request.getRequestURL().toString();
+        String contextPath = request.getContextPath();
         
-        
+        // 서버의 루트 경로로 설정
+        String absolutePath = serverAbsolutePath.substring(0, serverAbsolutePath.indexOf(contextPath) + contextPath.length());
+
+        // 모델에 추가
+        model.addAttribute("absolutePath", absolutePath);
         // 사용자 role 추가
         model.addAttribute("userAuthorities", authorityStrings.get(0));
         

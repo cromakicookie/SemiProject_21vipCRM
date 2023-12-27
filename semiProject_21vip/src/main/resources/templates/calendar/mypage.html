@@ -25,7 +25,7 @@
 </head>
 <script th:src='@{/js/fullcalendar-6.1.10/dist/index.global.js}'></script>
 <script th:src='@{/js/fullcalendar-6.1.10/packages/moment/index.global.js}'></script>
-<script th:src="@{/js/mypage.js}"></script>
+<script th:src="@{/js/mypage.js}" th:attr="data-custom=${absolutePath}"></script>
 <style>
 	#calendar {
 		max-height: 700px;
@@ -124,7 +124,7 @@
 						<li>생년월일 : <span th:text="${member.memberBirth}"></span></li>
 						<li>직급 : <span th:text="${T(com.web.domain.Role).valueOf(member.memberRole).getRole()}"></span></li>
 					</ul>
-					<form id="userUpdateForm" th:action="@{/file/upload/user}" method="post">
+					<form id="userUpdateForm" th:action="@{file/upload/user}" method="post">
 						<ul class="img-bottom">
 							<li>이메일 : &nbsp;&nbsp;&nbsp;&nbsp;<span><input type="text" th:value="${member.memberEmail}"
 										name="memberEmail" id="memberEmail"></span></li>
