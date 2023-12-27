@@ -351,7 +351,7 @@ public class VoucherTest {
 //	public void deleteVoucher() {
 //		try {
 //			//vRepo.deleteAll();
-//			vcRepo.deleteAll();
+//			vRepo.deleteAll();
 //		} catch (Exception e) {
 //			//e.printStackTrace();
 //			System.out.println("삭제할 값이 없습니다.");

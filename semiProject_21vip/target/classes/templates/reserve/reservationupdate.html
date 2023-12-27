@@ -7,11 +7,74 @@
 	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 
-	<script th:src="@{js/reservation.js}"></script>
+	<!--<script th:src="@{js/reservation.js}"></script>-->
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>예약 수정 페이지</title>
+	<script>
+	// 수정폼 유효성 검사
+	function UpdateMessage() {
+	
+    var selectedTime = document.getElementById("luxuryTime").value;
+    var minTime = "09:00";
+    var maxTime = "22:00";
+    
+	var minDate = new Date().toISOString().split('T')[0];
+
+	document.getElementById("luxuryDate").min = minDate;
+
+	var luxuryPhoneValue = document.getElementById('luxuryPhone').value.replace(/[^0-9]/g, '')
+		.replace(/([0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3"); // 숫자 이외의 문자 제거
+	var minLength = 11;
+
+	if (document.ReservationUpdateForm.customerNum.value == "") {
+		alert("고객번호를 입력해주세요.");
+		document.ReservationUpdateForm.customerNum.focus();
+	} else if (document.ReservationUpdateForm.customerName.value == "") {
+		alert("고객명을 입력해주세요.");
+		document.ReservationUpdateForm.customerName.focus();
+	} else if (document.ReservationUpdateForm.luxuryBrandName.value == "") {
+		alert("브랜드를 선택해주세요.");
+		document.ReservationUpdateForm.luxuryBrandName.focus();
+	} else if (document.ReservationUpdateForm.luxuryDate.value == "") {
+		alert("예약일자를 입력해주세요.");
+		document.ReservationUpdateForm.luxuryDate.focus();
+	} else if (document.ReservationUpdateForm.luxuryDate.value < minDate) {
+		alert("금일 이전의 날짜를 선택할 수 없습니다.")
+		document.ReservationUpdateForm.luxuryDate.focus();
+	} else if (document.ReservationUpdateForm.luxuryTime.value == "") {
+		alert("예약시간을 입력해주세요.");
+		document.ReservationUpdateForm.luxuryTime.focus();
+	} else if(selectedTime < minTime || selectedTime > maxTime) {
+		alert("예약 가능한 시간은 09:00부터 22:00까지입니다.");
+		document.ReservationUpdateForm.luxuryTime.focus();
+	} else if (document.ReservationUpdateForm.luxuryHeadCount.value == "" || document.ReservationUpdateForm.luxuryHeadCount.value == 0) {
+		alert("참여인원을 입력해주세요.");
+		document.ReservationUpdateForm.luxuryHeadCount.focus();
+	} else if(document.ReservationUpdateForm.luxuryHeadCount.value > 8) {
+		alert("최대인원은 8명입니다.")
+		document.ReservationUpdateForm.luxuryHeadCount.focus();
+	}else if (document.ReservationUpdateForm.luxuryPhone.value == "") {
+		alert("전화번호를 입력해주세요.");
+		document.ReservationUpdateForm.luxuryPhone.focus();
+	} else if (luxuryPhoneValue.length < minLength) {
+		alert("최소 11자리를 입력해주세요.");
+		document.ReservationForm.luxuryPhone.focus();
+	} else {
+		alert("예약수정이 완료되었습니다.")
+		document.ReservationUpdateForm.submit();
+		
+	} 
+		
+}
+
+	// 수정취소 함수
+	function UpdateCancel() {
+		history.back();
+	}
+			
+	</script>
 </head>
 
 <body>
