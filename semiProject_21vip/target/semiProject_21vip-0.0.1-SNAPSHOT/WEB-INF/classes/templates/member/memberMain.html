@@ -1,0 +1,191 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/css/Reservestyle.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/css/member.css}">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script th:src="@{/js/memberMain.js}" type="text/javascript"></script>
+	
+    <title>21VIP SERVICE</title>
+</head>
+<body>
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--	<div class="modal fade" th:attr="id='exampleModal'+${member}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+-->		  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">사원 정보 수정</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+			<table>
+				<tr>
+					<th>아이디</th>
+					<td><input type="text" id="username" name="username" disabled></td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td><input type="text" name="memberName" id="memberName" disabled></td>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td><input type="text" name="memberEmail" id="memberEmail"></td>
+				</tr>
+				<tr>
+					<th>생년월일</th>
+					<td>
+						<input type="date" name="memberBirth" id="memberBirth">
+         			</td>
+				</tr>
+				<tr>
+					<th>부서</th>
+					<td>
+						<select name="memberDept" id="memberDept">
+						    <option value="">------- 선택 -------</option>
+						    <option value="a">a부서</option>
+						    <option value="b">b부서</option>
+						    <option value="c">c부서</option>
+							<option value="d">d부서</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>직급</th>
+					<td>
+						<select name="memberRole" id="memberRole">
+							<option value="">------- 선택 -------</option>
+						    <option value="ROLE_MEMBER">평사원</option>
+						    <option value="ROLE_MANAGER">매니저</option>
+						    <option value="ROLE_ADMIN">관리자</option>
+						    
+						</select>
+					</td>
+				</tr>
+<!--				<tr>
+					<td colspan="2"><input class="submit" type="button" value="등록" onclick="joinCheck()"></td>
+				</tr>-->
+			</table>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="modal_but" data-bs-dismiss="modal">닫기</button>
+	        <button type="button" class="modal_but" onclick="updateMember()">변경 사항 저장</button>
+	      </div>
+	    </div>
+	  </div>
+	</div> 
+
+
+	<div th:include="main/header :: head1"></div>
+    <main>
+        <aside>
+			<form name="searchForm" method="get" th:action="@{/memberMain}">
+		<!--	            <div class="search">
+					<div class="sidebar">이름 검색</div>
+					<input type="text" name="memberName" placeholder="  사원이름 검색..."/>
+				<i class='bx bx-search' onclick="document.searchForm.submit()"></i>
+	            </div>-->
+           		
+				<div class="sidebar">이름 검색
+					<input type="text" name="memberName" class="memberName" th:value="${memberName}" placeholder="  사원이름 검색..."/>
+				<div style="margin-top: 10px;">직급별</div>
+				<select name="memberRole" th:value="${memberRole}">
+					<option value="">------- 선택 -------</option>
+					<option value="ROLE_MEMBER">평사원</option>
+					<option value="ROLE_MANAGER">매니저</option>
+					<option value="ROLE_ADMIN">관리자</option>
+				</select>
+		
+					<div style="margin-top: 10px;">부서별</div>
+					<select name="memberDept" th:value="${memberDept}">
+						<option value="">------- 선택 -------</option>
+						<option value="a">a</option>
+						<option value="b">b</option>
+						<option value="c">c</option>
+						<option value="d">d</option>
+					</select>
+				</div>
+				<input type="submit" class="searchSubmit" value="검색">
+			</form>
+		</aside>
+          
+        <section class="servicePage memberList">
+			<p class="sectionHeader">사원 리스트
+				<span class="excelDownload">
+			<!--		<button id="excelButton" th:text="${param.memberName}"
+							data-memberName="${param.memberName}"
+							data-memberDept="${param.memberDept}"
+							data-memberRole="${param.memberRole}" onclick="excelDownload()">
+							엑셀로 받기</button>-->
+					<a th:href="@{/excel/download(memberName=${param.memberName}, memberDept=${param.memberDept}, memberRole=${param.memberRole})}">엑셀로 받기</a>
+			  	</span>
+			</p>
+           <hr>
+          <div class="card">
+			  <div class="card-body" th:each="member : ${paging.content}">
+				  <div class="card-text img">
+					<div class="img" th:if="${member.memberFile} ==null">
+						<img class="memberImg" src="http://placehold.it/100x100" alt="">
+					</div>
+					<div class="img" th:if="${member.memberFile !=null}">
+						<img th:src="${member.memberFile.fileRoot+member.memberFile.fileName}" alt="">
+					</div>
+					<p class="img-right">
+						<div class="memberInfo">
+							<span>성명: <span th:text="${member.memberName}"></span></span>
+							<span>부서: <span th:text="${member.memberDept}+부서"></span></span>
+							<span>직급: <span th:text="${T(com.web.domain.Role).valueOf(member.memberRole).getRole()}"></span></span>
+						</div>
+						<div class="memberChange">
+							<span><button th:username="${member.username}"
+										  th:memberName="${member.memberName}"
+										  th:memberEmail="${member.memberEmail}"
+										  th:memberBirth="${member.memberBirth}"
+										  th:memberDept="${member.memberDept}"
+										  th:memberRole="${member.memberRole}"
+										  type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+										  th:onclick="openModal(this.getAttribute('username'),
+										  this.getAttribute('memberName'),
+										  this.getAttribute('memberEmail'),
+										  this.getAttribute('memberBirth'),
+										  this.getAttribute('memberDept'),
+										  this.getAttribute('memberRole'))">
+										  수정</button></span>
+							  			<span class="spacing">|</span>
+					<!--		<span><a th:href="@{'/deleteMember/' + ${member.username}}">삭제</a></span>
+					-->		<span><button th:attr="data-username=${member.username}" th:onclick="deleteMember(this.getAttribute('data-username'))">삭제</button></span>
+						</div>
+					</p>
+			  </div>
+		</div>
+		<!-- 페이징 처리-->
+			<nav th:if="${!paging.isEmpty()}" th:with="memberNameBase = '?memberName='+${param.memberName!=null ? param.memberName : ''},
+													memberDeptBase = 'memberDept='+${param.memberDept!=null ? param.memberDept : ''},
+													memberRoleBase = 'memberRole='+${param.memberRole!=null ? param.memberRole : ''}"
+													aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+			      <a class="page-link" th:href="@{|${memberNameBase}&${memberDeptBase}&${memberRoleBase}&page=${paging.number-1}|}">이전</a>
+			    </li>
+			    <li class="page-item" th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+		th:if="${page >= paging.number-2 and page <= paging.number+2}"
+                th:classappend="${page == paging.number} ? 'active'">
+                <a th:text="${page+1}" class="page-link" th:href="@{|${memberNameBase}&${memberDeptBase}&${memberRoleBase}&page=${page}|}"></a>
+                </li>
+			    <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+			      <a class="page-link" th:href="@{|${memberNameBase}&${memberDeptBase}&${memberRoleBase}&page=${paging.number+1}|}">다음</a>
+			    </li>
+			  </ul>
+			</nav>
+	
+    </main>
+  
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

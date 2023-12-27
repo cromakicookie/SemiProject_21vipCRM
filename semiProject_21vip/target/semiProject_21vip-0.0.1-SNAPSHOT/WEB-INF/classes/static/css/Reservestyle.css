@@ -1,0 +1,331 @@
+@charset "UTF-8";
+
+* {
+	padding: 0;
+	margin: 0;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+	display: flex;
+	align-items: stretch;
+	flex-direction: column;
+	height: 100vh;
+	margin: 0;
+	background-color: #d9d9d9;
+}
+
+
+.header {
+	width: 100%;
+	height: 80px;
+	background-color: #5b5b5b;
+	overflow: hidden;
+}
+
+.head_bottom {
+	width: 100%;
+	height: 13px;
+	background-color: #b592ff;
+}
+
+.header img {
+	width: 30px;
+}
+
+
+.header_icon {
+	color: aliceblue;
+	text-decoration: none;
+	font-weight: 900;
+}
+
+.header_icon:hover {
+	text-decoration: none;
+	color: aliceblue;
+	font-weight: bold;
+}
+
+.header_icon h1 {
+	margin: 13px;
+}
+
+.nav-item {
+	text-align: right;
+	padding: 19px;
+	font-size: 20px;
+}
+
+.nav-item a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.nav-item:hover {
+	background-color: #b592ff;
+}
+
+.mypageIcon {
+	margin: 20px 30px;
+}
+
+.nav-link {
+	color: #d9d9d9;
+}
+
+.nav-link:hover,
+.nav-link:active {
+	color: #d9d9d9;
+}
+
+main {
+	flex: 1;
+	background-color: #d9d9d9;
+	display: flex;
+}
+
+
+
+/* aside */
+
+#okmsg {
+  color: aliceblue;
+  font-weight: bold;
+  display: none;
+}
+
+#nomsg {
+  color: aliceblue;
+  font-weight: bold;
+  display: none;
+}
+
+aside {
+	background-color: #5b5b5b;
+	padding: 1em;
+	width: 250px;
+	height: 850px;
+	color: #fff;
+}
+
+/* 돋보기 아이콘 */
+.search {
+	position: relative;
+}
+
+.search i.bx-search {
+	font-size: 25px;
+	position: absolute;
+	right: 3px;
+	top: 5px;
+}
+
+/* 돋보기 아이콘 끝 */
+
+main aside input {
+	width: 170px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #eee;
+	margin-bottom: 1em;
+	padding: 0.2em;
+}
+
+.sidebar {
+	font-weight: bold;
+	font-size: 22px;
+	margin-top: 30px;
+}
+
+.sidebar ul li {
+	list-style: none;
+	margin-top: 10px;
+	padding: 5px 0px;
+	text-align: center;
+	font-size: 18px;
+	padding-right: 40px;
+}
+
+.sidebar ul li:hover {
+	background-color: #b592ff;
+	transition: background-color 0.5s ease-in-out, font-size 0.5s ease-in-out;
+}
+
+.sidebar ul li a {
+	text-decoration: none;
+	color: white;
+}
+
+.nav2-item {
+	border-bottom: 2px solid #ccc;
+}
+.list-group {
+	font-size: 22px;
+}
+
+.list-group-item {
+	background-color: #5b5b5b;
+	color: #fff;
+	border: none;
+	margin-left: 30px;
+}
+
+.customer_info_table {
+  width: 200px;
+  margin-left: 10px;
+  color: aliceblue;
+  font-weight: bold;
+  border-collapse: collapse;
+  /* border: 1px solid #d9d9d9; */
+}
+
+.customer_info_table caption {
+  font-size: 20px;
+  caption-side: top;
+  color: aliceblue;
+  font-weight: bold;
+}
+
+.customer_info_table tr,
+.customer_info_table td {
+  height: 30px;
+}
+
+.customer_info_table td:first-child {
+  text-align: left;
+  width: 80px;
+  /* border: 1px solid #d9d9d9; */
+}
+
+.customer_info_table td:last-child {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.push {
+	padding: 0px 7px;
+	margin-top: 10px;
+    color: aliceblue;
+  	font-weight: bold;
+  	background-color: #5b5b5b;
+  	border: 2px solid aliceblue;
+  	border-radius: 5px;
+}
+/* aside 끝 */
+
+
+/* section */
+
+.reslist {
+	color: black;
+	font-weight: bold;
+}
+
+.servicePage ul li {
+	font-size: 16px;
+	transition: background-color 0.5s ease-in-out;
+}
+
+.servicePage ul li:hover {
+	background-color: #b592ff;
+}
+
+
+.nav-link:hover {
+	color: white;
+	font-weight: bold;
+}
+
+
+/* 예약 추가, 수정 */
+
+hr {
+	border: 1.5px solid #5b5b5b;
+}
+
+/* section */
+.servicePage {
+	width: 80%;
+	height: 700px;
+	padding: 50px 30px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+	text-align: center;
+	margin: 50px;
+}
+
+section .sectionHeader {
+	text-align: left;
+	font-size: 23px;
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+/* select */
+#luxuryBrandName {
+	width: 300px;
+	padding: 8px;
+	/* 선택창 내부 여백 */
+	font-size: 14px;
+	/* 글꼴 크기 */
+	border: 1px solid #ccc;
+	/* 테두리 스타일 */
+	border-radius: 10px;
+	/* 테두리 둥글게 만들기 */
+	background-color: #fff;
+	/* 배경색 */
+	margin-bottom: 10px;
+}
+
+#luxuryBrandName option {
+	font-size: 14px;
+}
+
+/* select 끝 */
+
+
+.listTable {
+	margin-left: 250PX;
+	width: 700PX;
+}
+
+
+label {
+	float: left;
+	margin-bottom: 4px;
+	margin-left: 10px;
+	font-weight: bold;
+	width: 200px;
+	height: 50px;
+	text-align: left;
+
+}
+
+
+input {
+	width: 300px;
+	padding: 5px;
+	margin-bottom: 16px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+}
+
+
+/*  버튼 */
+
+input[type="button"] {
+	background-color: #d9d9d9;
+	font-weight: bold;
+	cursor: pointer;
+	margin-top: 30px;
+	margin-left: 200px;
+}
+
+input[type="button"]:hover {
+	background-color: #5b5b5b;
+	color: aliceblue;
+}
+
+/* 예약 추가, 수정 끝 */
