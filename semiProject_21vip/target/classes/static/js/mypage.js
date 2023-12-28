@@ -219,7 +219,7 @@ function getFile() {
 		url: "file/" + dataNumber,
 		success: function(data) {
 			console.log(data);
-			$("#uploadImage").attr("src", serverPath+data.fileRoot + data.fileName);
+			$("#uploadImage").attr("src", serverPath + data.fileRoot + data.fileName);
 		},
 		error: function(error) {
 			console.error('Error:', error);
@@ -256,13 +256,16 @@ function mySubmit() {
 		alert("이메일을 입력해주세요");
 		$("#memberEmail").focus();
 	} else {
-		var formData = new FormData($('#userUpdateForm')[0]);
+		var form = {};
+		$("#userUpdateForm").serializeArray().forEach(function(item) {
+			form[item.name] = item.value;
+		});
+		console.log(form);
 		$.ajax({
 			type: "POST",
 			url: "file/upload/user",
-			data: formData,
-			processData: false,
-			contentType: false,
+			contentType: 'application/json; charset=utf-8',
+			data: JSON.stringify(form),
 			success: function(data) {
 				alert("수정되었습니다.");
 				$("#memberEmail").attr("value", data.memberEmail);

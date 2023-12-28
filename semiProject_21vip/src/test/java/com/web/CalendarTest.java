@@ -40,8 +40,8 @@ public class CalendarTest {
 //		cal.setTitle("테스트");
 //		ec.updateEvent(cal);
 //	}
-	@Test
-	public void CaldeleteTest() {
-		ec.deleteEvent(4L);
-	}
+//	@Test
+//	public void CaldeleteTest() {
+//		ec.deleteEvent(4L);
+//	}
 }

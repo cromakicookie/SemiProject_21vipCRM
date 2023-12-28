@@ -110,7 +110,7 @@
 					<div class="img">
 						<form id="uploadForm" th:action="@{/file/upload}" method="post" enctype="multipart/form-data">
 							<div class="send">
-								<img th:attr="src=${not #strings.isEmpty(member.memberFile)} ? ${member.memberFile.fileRoot+member.memberFile.fileName} : 'http://placehold.it/150x150'"
+								<img th:attr="src=${not #strings.isEmpty(member.memberFile)} ? ${absolutePath+member.memberFile.fileRoot+member.memberFile.fileName} : 'http://placehold.it/150x150'"
 									id="uploadImage" th:onclick="document.getElementById('fileInput').click();">
 							</div>
 							<input type="text" th:value="${userId}" name="username" readonly style="display: none;">

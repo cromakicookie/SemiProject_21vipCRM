@@ -25,7 +25,7 @@
 </head>
 <script th:src='@{/js/fullcalendar-6.1.10/dist/index.global.js}'></script>
 <script th:src='@{/js/fullcalendar-6.1.10/packages/moment/index.global.js}'></script>
-<script th:src="@{/js/mypage.js}"></script>
+<script th:src="@{/js/mypage.js}" th:attr="data-custom=${absolutePath}"></script>
 <style>
 	#calendar {
 		max-height: 700px;
@@ -110,7 +110,7 @@
 					<div class="img">
 						<form id="uploadForm" th:action="@{/file/upload}" method="post" enctype="multipart/form-data">
 							<div class="send">
-								<img th:attr="src=${not #strings.isEmpty(member.memberFile)} ? ${member.memberFile.fileRoot+member.memberFile.fileName} : 'http://placehold.it/150x150'"
+								<img th:attr="src=${not #strings.isEmpty(member.memberFile)} ? ${absolutePath+member.memberFile.fileRoot+member.memberFile.fileName} : 'http://placehold.it/150x150'"
 									id="uploadImage" th:onclick="document.getElementById('fileInput').click();">
 							</div>
 							<input type="text" th:value="${userId}" name="username" readonly style="display: none;">
