@@ -3,7 +3,6 @@ com\web\controller\VoucherController.class
 com\web\domain\dataFile.class
 com\web\domain\OAuthToken.class
 com\web\domain\VoucherC.class
-com\web\controller\CustomErrorController.class
 com\web\domain\Role.class
 com\web\persistence\MainRepositoryImpl.class
 com\web\service\FileService.class

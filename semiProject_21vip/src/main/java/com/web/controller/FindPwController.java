@@ -25,7 +25,7 @@ public class FindPwController {
 	EmailSendService emailSendService;
 	
 	 //Email과 name가 일치할 때 메일 발송
-	 @PostMapping("/check/findPw")
+	 @PostMapping("/findPw")
 	    public String pw_find(Member member){
 	        boolean pwFindCheck = mainService.memberEmailCheck(member.getMemberEmail(), member.getUsername());
 	        if(pwFindCheck) {
