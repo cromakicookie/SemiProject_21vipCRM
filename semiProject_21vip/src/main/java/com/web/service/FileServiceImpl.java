@@ -30,23 +30,23 @@ public class FileServiceImpl implements FileService {
 	FileRepository fr;
 	
 	@Value("${upload.dir}")
-	private String uploadDir;
+    private String uploadDir;
 
 	@Override
 	public Long uploadFile(MultipartFile file) throws IOException {
 
 		// 파일을 업로드하고 DB에 저장
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        System.out.println(fileName);
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		System.out.println(fileName);
 
-        // 프로젝트 내부 파일 지정
+		// 프로젝트 내부 파일 지정
         Path uploadPath = Path.of(uploadDir);
 
         // 디렉토리가 존재하지 않으면 생성
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
-
+        
         // ID 바로 돌려주기...
         dataFile fileInfo = new dataFile();
         fileInfo.setFileName(fileName);
@@ -57,7 +57,7 @@ public class FileServiceImpl implements FileService {
 
         // 파일 복사 (try-with-resources 사용)
         try (InputStream inputStream = file.getInputStream()) {
-            Files.copy(inputStream, uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+        	Files.copy(inputStream, uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace(); // 복사 중에 오류가 발생하면 예외 처리
         }

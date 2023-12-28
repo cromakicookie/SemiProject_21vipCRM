@@ -3,6 +3,7 @@ package com.web.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -40,6 +41,9 @@ public class MemberController {
 	
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	private HttpServletRequest request;
 
 	//사원리스트 불러오기 & 조건 검색
 	@GetMapping("/memberMain")
@@ -48,6 +52,17 @@ public class MemberController {
 			Model model) {
 		Page<Member> paging = memberService.findMember(pageable, memberDept, memberRole, memberName);
 		model.addAttribute("paging", paging);
+		
+		// 현재 실행 중인 서버의 절대 경로 얻기
+        String serverAbsolutePath = request.getRequestURL().toString();
+        String contextPath = request.getContextPath();
+        
+        // 서버의 루트 경로로 설정
+        String absolutePath = serverAbsolutePath.substring(0, serverAbsolutePath.indexOf(contextPath) + contextPath.length());
+
+        // 모델에 추가
+        model.addAttribute("absolutePath", absolutePath);
+        
 		
 		return "member/memberMain";
 	}
