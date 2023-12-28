@@ -173,6 +173,9 @@ public class VoucherController {
 		
 		Voucher voucher = voucherService.getVoucher(voucherCode);
 		voucher.setStatus(0);
+		voucherService.createVoucher(voucher);
+		
+		System.out.println(voucher.getVoucherCode() + "바우처의 상태 : "+voucher.getStatus());
 		
 	}
 
@@ -182,12 +185,15 @@ public class VoucherController {
 	public Boolean sendVoucherSMS(@RequestParam("voucherService2") String voucherService2,
 			@RequestParam("voucherServiceName2") String voucherServiceName2,
 			@RequestParam("checkedVoucherCode") String checkedVoucherCode,
-			@RequestParam("voucherExdate") String voucherExdate) {
+			@RequestParam("voucherExdate") String voucherExdate,
+			@RequestParam("phoneNumber") String phoneNumber
+			) {
 
-		System.out.println(voucherService2);
-		System.out.println(voucherServiceName2);
-		System.out.println(checkedVoucherCode);
-		System.out.println(voucherExdate);
+		System.out.println("테마명 : " + voucherService2);
+		System.out.println("서비스명 : " + voucherServiceName2);
+		System.out.println("바우처코드 : " + checkedVoucherCode);
+		System.out.println("사용기한 : " + voucherExdate);
+		System.out.println("휴대폰번호 : " + phoneNumber);
 
 		try {
 			String smstext = "";
@@ -236,13 +242,6 @@ public class VoucherController {
 		
 		//바우처 15자리 일련번호 생성기
 		public String generateVoucherCode(Long voucherSeq, String name) {
-			//특정문자열을 코드로 변환
-			//생일-다이닝 : "dining"
-			//생일-코스메틱 : "cosmetic"
-			//생일-전시회 : "exhibition"
-			//블랙S-요트 : "yacht"
-			//블랙S-골프 : "golf"
-			//블랙S-호텔 : "hotel"
 			
 		     UUID nameUUID = UUID.nameUUIDFromBytes(name.getBytes());
 	         System.out.println("Name-based UUID: " + nameUUID);
