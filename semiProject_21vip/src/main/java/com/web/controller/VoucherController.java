@@ -203,7 +203,7 @@ public class VoucherController {
 			smstext += "\n일련번호 : " + checkedVoucherCode;
 			smstext += "\n사용기한 : " + voucherExdate;
 
-			smsService.sendSms("01036882027", "01036882027", smstext);
+			smsService.sendSms("01036882027", phoneNumber, smstext);
 
 			return true;
 		} catch (Exception e) {
@@ -277,19 +277,26 @@ public class VoucherController {
 		public void createVoucher(@RequestParam("voucherType") String VoucherType, 
 								@RequestParam("voucherCount") int VoucherAmount,
 								@RequestParam("voucherService") String voucherTheme,
+								@RequestParam("vs_userInput") String vs_userInput,
 								@RequestParam("voucherServiceCode") String voucherServiceCode,
+								@RequestParam("vsn_userInput") String vsn_userInput,
 								@RequestParam("voucherServiceName") String voucherServiceName) {
 			
 			//startDate:연간VIP서비스시작기간 endDate:연간서비스종료일자
 			Date startDate = dateTryCatch("2023-02-01");
 			Date endDate = dateTryCatch("2024-01-31");
+			
+			// 테마명이 비어 있을 경우 vs_userInput을 사용
+		    String finalVoucherTheme = (voucherTheme.equals("") && !vs_userInput.equals("")) ? vs_userInput : voucherTheme;
+		    String finalVoucherServiceName = (voucherServiceName.equals("") && !vsn_userInput.equals("")) ? vsn_userInput : voucherServiceName;
 
+			
 			// 다이닝 5장 
 			for (int i = 0; i < VoucherAmount; i++) { 
 				Voucher voucher = new Voucher();
 				voucher.setVoucherType(VoucherType);
-				voucher.setVoucherService(voucherTheme);
-				voucher.setVoucherServiceName(voucherServiceName);
+				voucher.setVoucherService(finalVoucherTheme);
+				voucher.setVoucherServiceName(finalVoucherServiceName);
 				voucher.setVoucherStartDate(startDate);
 				voucher.setVoucherEndDate(endDate);
 

@@ -219,7 +219,7 @@ function getFile() {
 		url: "file/" + dataNumber,
 		success: function(data) {
 			console.log(data);
-			$("#uploadImage").attr("src", serverPath + data.fileRoot + data.fileName);
+			$("#uploadImage").attr("src", data.fileRoot + data.fileName);
 		},
 		error: function(error) {
 			console.error('Error:', error);

@@ -50,14 +50,13 @@ public class Customer extends BaseEntity {
     @OneToMany(mappedBy = "customer", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderBy("createDate ASC") 											//내림차순 시 MemoNum DESC
     private List<VoucherC> issuedVoucherList = new ArrayList<>();    
-
-    
     
 
     //고객번호로 명품관 예약 리스트 조회
     @OneToMany(mappedBy = "customer", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderBy("createDate DESC") 											//내림차순 시 MemoNum DESC
     private List<Luxury> luxuryList = new ArrayList<>();
+    
     
 	
 }
