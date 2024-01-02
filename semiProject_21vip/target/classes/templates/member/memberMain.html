@@ -133,7 +133,7 @@
 						<img class="memberImg" src="http://placehold.it/100x100" alt="">
 					</div>
 					<div class="img" th:if="${member.memberFile !=null}">
-						<img th:src="${absolutePath+member.memberFile.fileRoot+member.memberFile.fileName}" alt="">
+						<img th:src="${member.memberFile.fileRoot+member.memberFile.fileName}" alt="">
 					</div>
 					<p class="img-right">
 						<div class="memberInfo">

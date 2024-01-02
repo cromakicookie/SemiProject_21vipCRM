@@ -47,7 +47,7 @@ $(document).ready(function() {
 					console.log(data);
 					let str = "";
 					if (data.file != null) {
-						str += "<img src='"+serverPath + data.file.fileRoot + data.file.fileName + "' >";
+						str += "<img src='"+data.file.fileRoot + data.file.fileName + "' >";
 					}
 					str += "<ul>";
 					str += "<li>제목 : " + data.title + "</li>";
