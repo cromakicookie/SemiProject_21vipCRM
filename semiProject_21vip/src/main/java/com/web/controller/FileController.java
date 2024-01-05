@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,13 +48,12 @@ public class FileController {
 	}
 
 	@PostMapping("/upload/user")
-	public ResponseEntity<Member> uploadUser(@RequestParam("memberEmail") String memberEmail,
-			@RequestParam("password") String password, @RequestParam("username") String username) {
+	public ResponseEntity<Member> uploadUser(@RequestBody Member mem) {
 		System.out.println("유저 수정");
 		Member member = new Member();
-		member.setMemberEmail(memberEmail);
-		member.setUsername(username);
-		member.setPassword(password);
+		member.setMemberEmail(mem.getMemberEmail());
+		member.setUsername(mem.getUsername());
+		member.setPassword(mem.getPassword());
 		ms.updateMember(member);
 		member = ms.getMember(member);
 		return new ResponseEntity<>(member, HttpStatus.CREATED);

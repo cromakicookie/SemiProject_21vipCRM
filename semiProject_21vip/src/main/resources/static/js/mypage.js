@@ -1,5 +1,7 @@
 // 파일 넘버 
 var dataNumber;
+// 절대경로 확인
+var serverPath = document.currentScript.getAttribute('data-custom');
 /* # fullcalendar api */
 var calendar; // 전역변수 선언.
 $(document).ready(function() {
@@ -15,7 +17,7 @@ $(document).ready(function() {
 		navLinks: true,
 		editable: true,
 		dayMaxEvents: true,
-		events: '/calendar/event/user',
+		events: 'calendar/event/user',
 		selectable: true,
 		selectMirror: true,
 		eventStartEditable: true,
@@ -30,7 +32,7 @@ $(document).ready(function() {
 			console.log(arg.event.id);
 			$.ajax({
 				type: "GET",
-				url: "/calendar/event/" + arg.event.id,
+				url: "calendar/event/" + arg.event.id,
 				success: function(data) {
 					console.log(data);
 					let str = "";
@@ -96,7 +98,7 @@ function changeModal() {
 	let number = $("#dataId").text();
 	console.log(number);
 	$("#modal-title").html("일정 수정");
-	$.get('/calendar/event/' + number, function(data) {
+	$.get('calendar/event/' + number, function(data) {
 		let str = "";
 		str += "<form id='modalForm2'>"
 		str += "<ul>";
@@ -144,7 +146,7 @@ function modalSubmit() {
 	console.log(form);
 
 	$.ajax({
-		url: "/calendar/event/update",
+		url: "calendar/event/update",
 		type: "PUT",
 		contentType: 'application/json; charset=utf-8',
 		data: JSON.stringify(form),
@@ -164,7 +166,7 @@ function deleteCal() {
 	let number = $("#dataId").text();
 	console.log(number);
 	$.ajax({
-		url: "/calendar/event/" + number,
+		url: "calendar/event/" + number,
 		type: "DELETE",
 		success: function() {
 			console.log("삭제 성공");
@@ -214,7 +216,7 @@ function getFile() {
 	console.log("파일 가져오기");
 	$.ajax({
 		type: "GET",
-		url: "/file/" + dataNumber,
+		url: "file/" + dataNumber,
 		success: function(data) {
 			console.log(data);
 			$("#uploadImage").attr("src", data.fileRoot + data.fileName);
@@ -254,13 +256,16 @@ function mySubmit() {
 		alert("이메일을 입력해주세요");
 		$("#memberEmail").focus();
 	} else {
-		var formData = new FormData($('#userUpdateForm')[0]);
+		var form = {};
+		$("#userUpdateForm").serializeArray().forEach(function(item) {
+			form[item.name] = item.value;
+		});
+		console.log(form);
 		$.ajax({
 			type: "POST",
 			url: "file/upload/user",
-			data: formData,
-			processData: false,
-			contentType: false,
+			contentType: 'application/json; charset=utf-8',
+			data: JSON.stringify(form),
 			success: function(data) {
 				alert("수정되었습니다.");
 				$("#memberEmail").attr("value", data.memberEmail);

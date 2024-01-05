@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Kakao 알림톡 관리</title>
+
+
+	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"
+		integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/z8"
+		crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+
+		document.addEventListener('DOMContentLoaded', function () {
+			Kakao.init('c9da5efbd64dd67716fe0230e8d20d5d');
+			console.log(Kakao.isInitialized());
+		});
+
+
+		function loginWithKakao() {
+			Kakao.Auth.authorize({
+				redirectUri: 'http://localhost:8080/customer/kakaotalk.html'
+			});
+		}
+
+		// Kakao.Auth.createLoginButton 함수를 사용하여 로그인 버튼을 생성하고 클릭 이벤트에 콜백 함수를 등록합니다.
+		Kakao.Auth.createLoginButton({
+			container: '#kakao-login-btn',
+			success: function (authObj) {
+				// 로그인 성공 시 호출되는 콜백 함수
+				Kakao.API.request();
+				console.log(authObj);
+				document.getElementById('token-result').innerText = '로그인 성공, 토큰: ' + Kakao.Auth.getAccessToken();
+			},
+			fail: function (err) {
+				// 로그인 실패 시 호출되는 콜백 함수
+				console.error(err);
+			}
+		});
+
+
+		try {
+			function sendLinkDefault() {
+				Kakao.init('c9da5efbd64dd67716fe0230e8d20d5d');
+				Kakao.Link.sendDefault({
+					objectType: 'feed',
+					content: {
+						title: '딸기 치즈 케익',
+						description: '#케익 #딸기 #삼평동 #카페 #분위기 #소개팅',
+						imageUrl:
+							'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+						link: {
+							mobileWebUrl: 'https://developers.kakao.com',
+							webUrl: 'https://developers.kakao.com',
+						},
+					},
+					social: {
+						likeCount: 286,
+						commentCount: 45,
+						sharedCount: 845,
+					},
+					buttons: [
+						{
+							title: '웹으로 보기',
+							link: {
+								mobileWebUrl: 'https://developers.kakao.com',
+								webUrl: 'https://developers.kakao.com',
+							},
+						},
+						{
+							title: '앱으로 보기',
+							link: {
+								mobileWebUrl: 'https://developers.kakao.com',
+								webUrl: 'https://developers.kakao.com',
+							},
+						},
+					],
+				})
+			}
+			; window.kakaoDemoCallback && window.kakaoDemoCallback()
+		}
+		catch (e) {window.kakaoDemoException && window.kakaoDemoException(e)}
+
+
+	</script>
+
+</head>
+
+<body>
+ 
+
+	<a id="kakao-login-btn" href="javascript:loginWithKakao()">
+		<img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222" alt="카카오 로그인 버튼" />
+	</a>
+	<p id="token-result"></p>
+	<input type="button" onClick="sendLinkDefault();" value="Default"/>
+
+
+
+</body>
+
+</html>

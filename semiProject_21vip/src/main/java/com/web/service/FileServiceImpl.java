@@ -13,6 +13,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +28,9 @@ public class FileServiceImpl implements FileService {
 
 	@Autowired
 	FileRepository fr;
+	
+	@Value("${upload.dir}")
+    private String uploadDir;
 
 	@Override
 	public Long uploadFile(MultipartFile file) throws IOException {
@@ -34,27 +40,27 @@ public class FileServiceImpl implements FileService {
 		System.out.println(fileName);
 
 		// 프로젝트 내부 파일 지정
-		Path uploadPath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", "static", "uploadFile");
-		// 디렉토리가 존재하지 않으면 생성
-		if (!Files.exists(uploadPath)) {
-			Files.createDirectories(uploadPath);
-		}
-		System.out.println(uploadPath);
+        Path uploadPath = Path.of(uploadDir);
 
-		// ID 바로 돌려주기...
-		dataFile fileInfo = new dataFile();
-		fileInfo.setFileName(fileName);
-		fileInfo.setFileRoot("/uploadFile/");
-		fileInfo = fr.save(fileInfo);
-		
-		Long fileNumber = fileInfo.getFileNumber();
-		
-		// 파일 복사 (try-with-resources 사용)
-		try (InputStream inputStream = file.getInputStream()) {
-			Files.copy(inputStream, uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			e.printStackTrace(); // 복사 중에 오류가 발생하면 예외 처리
-		}
+        // 디렉토리가 존재하지 않으면 생성
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+        
+        // ID 바로 돌려주기...
+        dataFile fileInfo = new dataFile();
+        fileInfo.setFileName(fileName);
+        fileInfo.setFileRoot("/uploadFile/");
+        fileInfo = fr.save(fileInfo);
+
+        Long fileNumber = fileInfo.getFileNumber();
+
+        // 파일 복사 (try-with-resources 사용)
+        try (InputStream inputStream = file.getInputStream()) {
+        	Files.copy(inputStream, uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace(); // 복사 중에 오류가 발생하면 예외 처리
+        }
 
 		return fileNumber;
 	}

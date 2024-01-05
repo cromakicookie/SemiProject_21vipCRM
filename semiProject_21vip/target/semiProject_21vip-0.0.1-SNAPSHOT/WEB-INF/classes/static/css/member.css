@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+aside{
+	height: 950px;
+}
+
+.memberList{
+	height: auto;
+}
+.card{
+	background-color: white;
+	margin: 10px;
+}
+
+.memberInfo{
+	display: inline-flex;
+	font-size: 20px;
+}
+
+.memberInfo span{
+	margin: 0 30px;
+}
+
+.memberChange{
+	display: inline-flex;
+	font-size: 20px;
+	margin-left: auto;
+	margin-right: 30px;
+}
+
+.memberChange button{
+	border: none;
+	background-color: white;
+}
+
+.spacing{
+	margin: 0 20px;
+}
+
+.img {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.memberList img{
+	border-radius: 70%;
+	width: 100px;
+	height: 100px;
+}
+
+.img-right{
+	list-style: none;
+	line-height: 2.5rem;
+	margin-top: 5px;
+	padding-left: 0;
+	margin-left: 1rem;
+}
+
+.modal_but{
+	padding: 10px;
+	margin: 5px;
+	border-radius: 10px;
+	border: none;
+}
+
+th, td{
+	margin: 5px;
+	padding: 5px;
+	vertical-align:text-top;
+}
+
+a{
+	text-decoration: none;
+	color: black;
+}
+
+
+.page-link{
+	color: black;
+}
+
+select{
+	font-size: 18px;
+	margin-top: 5px;
+}
+
+.searchSubmit{
+	margin: 30px auto;
+}
+
+.memberName{
+	margin-top: 10px;
+	font-size: 16px;
+}
+
+.active>.page-link, .page-link.active{
+	background-color: #b592ff;
+	border-color : #b592ff;
+}
+
+.excelDownload{
+	font-size: 14px;
+	font-weight: 100;
+	text-decoration: underline;
+	display: inline-block;
+	float: right;
+}
+
+.excelDownload button{
+	border: none;
+	text-decoration: underline;
+	background-color: #f9f9f9;
+}

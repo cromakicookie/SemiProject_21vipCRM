@@ -170,6 +170,13 @@ public class VoucherController {
 	public void deleteVoucher(@PathVariable("num") String voucherCode) {
 		System.out.println(voucherCode + "삭제 확인");
 		voucherService.deleteVoucher(voucherCode);
+		
+		Voucher voucher = voucherService.getVoucher(voucherCode);
+		voucher.setStatus(0);
+		voucherService.createVoucher(voucher);
+		
+		System.out.println(voucher.getVoucherCode() + "바우처의 상태 : "+voucher.getStatus());
+		
 	}
 
 	// 바우처 문자 전송
@@ -178,12 +185,15 @@ public class VoucherController {
 	public Boolean sendVoucherSMS(@RequestParam("voucherService2") String voucherService2,
 			@RequestParam("voucherServiceName2") String voucherServiceName2,
 			@RequestParam("checkedVoucherCode") String checkedVoucherCode,
-			@RequestParam("voucherExdate") String voucherExdate) {
+			@RequestParam("voucherExdate") String voucherExdate,
+			@RequestParam("phoneNumber") String phoneNumber
+			) {
 
-		System.out.println(voucherService2);
-		System.out.println(voucherServiceName2);
-		System.out.println(checkedVoucherCode);
-		System.out.println(voucherExdate);
+		System.out.println("테마명 : " + voucherService2);
+		System.out.println("서비스명 : " + voucherServiceName2);
+		System.out.println("바우처코드 : " + checkedVoucherCode);
+		System.out.println("사용기한 : " + voucherExdate);
+		System.out.println("휴대폰번호 : " + phoneNumber);
 
 		try {
 			String smstext = "";
@@ -193,7 +203,7 @@ public class VoucherController {
 			smstext += "\n일련번호 : " + checkedVoucherCode;
 			smstext += "\n사용기한 : " + voucherExdate;
 
-			smsService.sendSms("01036882027", "01036882027", smstext);
+			smsService.sendSms("01036882027", phoneNumber, smstext);
 
 			return true;
 		} catch (Exception e) {
@@ -232,13 +242,6 @@ public class VoucherController {
 		
 		//바우처 15자리 일련번호 생성기
 		public String generateVoucherCode(Long voucherSeq, String name) {
-			//특정문자열을 코드로 변환
-			//생일-다이닝 : "dining"
-			//생일-코스메틱 : "cosmetic"
-			//생일-전시회 : "exhibition"
-			//블랙S-요트 : "yacht"
-			//블랙S-골프 : "golf"
-			//블랙S-호텔 : "hotel"
 			
 		     UUID nameUUID = UUID.nameUUIDFromBytes(name.getBytes());
 	         System.out.println("Name-based UUID: " + nameUUID);
@@ -274,19 +277,26 @@ public class VoucherController {
 		public void createVoucher(@RequestParam("voucherType") String VoucherType, 
 								@RequestParam("voucherCount") int VoucherAmount,
 								@RequestParam("voucherService") String voucherTheme,
+								@RequestParam("vs_userInput") String vs_userInput,
 								@RequestParam("voucherServiceCode") String voucherServiceCode,
+								@RequestParam("vsn_userInput") String vsn_userInput,
 								@RequestParam("voucherServiceName") String voucherServiceName) {
 			
 			//startDate:연간VIP서비스시작기간 endDate:연간서비스종료일자
 			Date startDate = dateTryCatch("2023-02-01");
 			Date endDate = dateTryCatch("2024-01-31");
+			
+			// 테마명이 비어 있을 경우 vs_userInput을 사용
+		    String finalVoucherTheme = (voucherTheme.equals("") && !vs_userInput.equals("")) ? vs_userInput : voucherTheme;
+		    String finalVoucherServiceName = (voucherServiceName.equals("") && !vsn_userInput.equals("")) ? vsn_userInput : voucherServiceName;
 
+			
 			// 다이닝 5장 
 			for (int i = 0; i < VoucherAmount; i++) { 
 				Voucher voucher = new Voucher();
 				voucher.setVoucherType(VoucherType);
-				voucher.setVoucherService(voucherTheme);
-				voucher.setVoucherServiceName(voucherServiceName);
+				voucher.setVoucherService(finalVoucherTheme);
+				voucher.setVoucherServiceName(finalVoucherServiceName);
 				voucher.setVoucherStartDate(startDate);
 				voucher.setVoucherEndDate(endDate);
 
