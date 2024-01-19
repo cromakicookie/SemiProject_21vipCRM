@@ -32,3 +32,4 @@ CRM(Customer Relationship Management) 시스템. <br/>
     <td>12/26~12/28</td><td>서버 배포 테스트</td><td>AWS 사용하여 서버 배포 및 최적화.</td>
   </tr>
 </table>
+- 이 프로젝트에서의 나의 작업
