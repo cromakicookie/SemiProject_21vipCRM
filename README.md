@@ -45,4 +45,4 @@ CRM(Customer Relationship Management) 시스템. <br/>
   - 파일 업로드 및 DB 저장, 이미지 연결.
   - 배포 서버에 맞춰 수정
 - FullCalendar API 이용한 일정
-  - CRUD 작업.
+  - CRUD 작업 및 개인/공식 일정 DB 저장
