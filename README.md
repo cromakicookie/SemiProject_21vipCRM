@@ -78,4 +78,5 @@ Apache Tomcat<br/>
 ![20231221_154833_17](https://github.com/cromakicookie/SemiProject_21vipCRM/assets/98381613/a74055f4-52e4-44ad-9043-03af8b02c90e)
 ![20231221_163743_23](https://github.com/cromakicookie/SemiProject_21vipCRM/assets/98381613/a143ae9b-6b0f-4e6e-8816-af051a86639d)
 ![2](https://github.com/cromakicookie/SemiProject_21vipCRM/assets/98381613/587a5712-01cc-4c97-9fe2-ce4fff6b3513)
-![3-3  고객메모 전송성공 ](https://github.com/cromakicookie/SemiProject_21vipCRM/assets/98381613/9b7882aa-5cf7-49f0-bfb6-2ad3d5ba812a)
+![1 고객관리 페이지 전면 -고객조회 전](https://github.com/cromakicookie/SemiProject_21vipCRM/assets/98381613/5848dd43-f113-41ff-88aa-2b4694b3624a)
+
